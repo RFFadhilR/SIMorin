@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.skariga.simorin">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/NoActionBar">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key" />
+        <activity android:name=".sekolah.EvaluasiKunjunganPemSekolahActivity" />
+        <activity android:name=".sekolah.RekapJurnalPemSekolahActivity" />
+        <activity android:name=".sekolah.RekapAbsenPemSekolahActivity" />
+        <activity android:name=".ortu.LihatKunjunganOrangTuaActivity" />
+        <activity android:name=".ortu.LihatJurnalOrangTuaActivity" />
+        <activity android:name=".ortu.LihatAbsenOrangTuaActivity" />
+        <activity android:name=".sekolah.DashboardPemSekolahActivity" />
+        <activity android:name=".ortu.DashboardOrangTuaActivity" />
+        <activity android:name=".perusahaan.AccJurnalPemPerusahaanActivity" />
+        <activity android:name=".perusahaan.AccAbsenPemPerusahaanActivity" />
+        <activity android:name=".perusahaan.DashboardPemPerusahaanActivity" />
+        <activity android:name=".siswa.JurnalKegiatanSiswaActivity" />
+        <activity android:name=".siswa.AbsenSiswaActivity" />
+        <activity android:name=".siswa.DashboardSiswaActivity" />
+        <activity android:name=".auth.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
