@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.LoginActivity;
+import com.skariga.simorin.auth.SessionManager;
 import com.skariga.simorin.ortu.DashboardOrangTuaActivity;
 import com.skariga.simorin.siswa.DashboardSiswaActivity;
 
@@ -25,6 +26,7 @@ public class DashboardPemSekolahActivity extends AppCompatActivity {
 
     RelativeLayout absen, jurnal, kunjungan;
     ImageView logout;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,9 @@ public class DashboardPemSekolahActivity extends AppCompatActivity {
         jurnal = findViewById(R.id.rekap_jurnal);
         kunjungan = findViewById(R.id.evaluasi);
         logout = findViewById(R.id.iv_logout);
+
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin("Pembimbing Sekolah");
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

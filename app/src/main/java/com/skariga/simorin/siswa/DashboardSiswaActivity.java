@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.LoginActivity;
+import com.skariga.simorin.auth.SessionManager;
 
 import java.util.List;
 import java.util.Locale;
@@ -38,6 +39,7 @@ public class DashboardSiswaActivity extends AppCompatActivity {
     RelativeLayout btn_absen, btn_jurnal;
     FusedLocationProviderClient fusedLocationProviderClient;
     ImageView logout;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,9 @@ public class DashboardSiswaActivity extends AppCompatActivity {
         btn_absen = findViewById(R.id.absen);
         btn_jurnal = findViewById(R.id.jurnal);
         logout = findViewById(R.id.iv_logout);
+
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin("Siswa");
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardSiswaActivity.this);
 

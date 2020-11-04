@@ -29,8 +29,8 @@
         <activity android:name=".perusahaan.DashboardPemPerusahaanActivity" />
         <activity android:name=".siswa.JurnalKegiatanSiswaActivity" />
         <activity android:name=".siswa.AbsenSiswaActivity" />
-        <activity android:name=".siswa.DashboardSiswaActivity" />
-        <activity android:name=".auth.LoginActivity">
+        <activity android:name=".auth.LoginActivity" />
+        <activity android:name=".siswa.DashboardSiswaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

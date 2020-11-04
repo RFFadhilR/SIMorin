@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.LoginActivity;
+import com.skariga.simorin.auth.SessionManager;
 import com.skariga.simorin.perusahaan.DashboardPemPerusahaanActivity;
 import com.skariga.simorin.siswa.DashboardSiswaActivity;
 
@@ -25,6 +26,7 @@ public class DashboardOrangTuaActivity extends AppCompatActivity {
 
     RelativeLayout absen, kunjungan, jurnal;
     ImageView logout;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,9 @@ public class DashboardOrangTuaActivity extends AppCompatActivity {
         kunjungan = findViewById(R.id.lihat_kunjungan);
         logout = findViewById(R.id.iv_logout);
         jurnal = findViewById(R.id.lihat_jurnal);
+
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin("Orang Tua");
 
         jurnal.setOnClickListener(new View.OnClickListener() {
             @Override
