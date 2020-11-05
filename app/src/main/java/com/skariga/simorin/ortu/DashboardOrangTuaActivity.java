@@ -40,16 +40,7 @@ public class DashboardOrangTuaActivity extends AppCompatActivity {
         jurnal = findViewById(R.id.lihat_jurnal);
 
         sessionManager = new SessionManager(this);
-        sessionManager.checkLogin("Orang Tua");
-
-        jurnal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DashboardOrangTuaActivity.this, LihatJurnalOrangTuaActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+        sessionManager.checkLogin();
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +57,15 @@ public class DashboardOrangTuaActivity extends AppCompatActivity {
                             }
                         })
                         .show();
+            }
+        });
+
+        jurnal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DashboardOrangTuaActivity.this, LihatJurnalOrangTuaActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 

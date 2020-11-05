@@ -1,6 +1,7 @@
 package com.skariga.simorin.perusahaan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -15,15 +16,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.skariga.simorin.R;
+import com.skariga.simorin.siswa.AbsenSiswaActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class AccAbsenPemPerusahaanActivity extends AppCompatActivity {
+public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements OnMapReadyCallback {
 
     Button semua, dipilih;
     TextView lihat_lokasi;
     ImageView kembali;
+    GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +44,9 @@ public class AccAbsenPemPerusahaanActivity extends AppCompatActivity {
         dipilih = findViewById(R.id.setujui_dipilih);
         lihat_lokasi = findViewById(R.id.lihat_lokasi);
         kembali = findViewById(R.id.back);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
+        mapFragment.getMapAsync(AccAbsenPemPerusahaanActivity.this);
 
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,5 +99,16 @@ public class AccAbsenPemPerusahaanActivity extends AppCompatActivity {
             window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
             window.setBackgroundDrawable(background);
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        double latitude = Double.parseDouble(getIntent().getStringExtra("latitude"));
+        double longitude = Double.parseDouble(getIntent().getStringExtra("longitude"));
+        LatLng lokasi = new LatLng(latitude, longitude);
+        map.addMarker(new MarkerOptions().position(lokasi).title("Lokasi Saat ini"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(lokasi));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi,18.0f));
     }
 }

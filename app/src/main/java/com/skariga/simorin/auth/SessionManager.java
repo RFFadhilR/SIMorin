@@ -43,28 +43,11 @@ public class SessionManager {
         return sharedPreferences.getBoolean(LOGIN, false);
     }
 
-    public void checkLogin(String role) {
+    public void checkLogin() {
         if (!this.isLogin()) {
-            if (role.equals("Siswa")) {
-                Intent i = new Intent(context, LoginActivity.class);
-                context.startActivity(i);
-                ((DashboardSiswaActivity) context).finish();
-            } else if (role.equals("Pembimbing Sekolah")) {
-                Intent i = new Intent(context, LoginActivity.class);
-                context.startActivity(i);
-                ((DashboardPemSekolahActivity) context).finish();
-                ((DashboardSiswaActivity) context).finish();
-            } else if (role.equals("Pembimbing Perusahaan")) {
-                Intent i = new Intent(context, LoginActivity.class);
-                context.startActivity(i);
-                ((DashboardPemPerusahaanActivity) context).finish();
-                ((DashboardSiswaActivity) context).finish();
-            } else if (role.equals("Orang Tua")) {
-                Intent i = new Intent(context, LoginActivity.class);
-                context.startActivity(i);
-                ((DashboardOrangTuaActivity) context).finish();
-                ((DashboardSiswaActivity) context).finish();
-            }
+            Intent i = new Intent(context, LoginActivity.class);
+            context.startActivity(i);
+            ((DashboardActivity) context).finish();
         }
     }
 
@@ -77,29 +60,12 @@ public class SessionManager {
         return user;
     }
 
-    public void logout(String role) {
+    public void logout() {
         editor.clear();
         editor.commit();
-        if (role.equals("Siswa")) {
-            Intent i = new Intent(context, LoginActivity.class);
-            context.startActivity(i);
-            ((DashboardSiswaActivity) context).finish();
-        } else if (role.equals("Pembimbing Sekolah")) {
-            Intent i = new Intent(context, LoginActivity.class);
-            context.startActivity(i);
-            ((DashboardPemSekolahActivity) context).finish();
-            ((DashboardSiswaActivity) context).finish();
-        } else if (role.equals("Pembimbing Perusahaan")) {
-            Intent i = new Intent(context, LoginActivity.class);
-            context.startActivity(i);
-            ((DashboardPemPerusahaanActivity) context).finish();
-            ((DashboardSiswaActivity) context).finish();
-        } else if (role.equals("Orang Tua")) {
-            Intent i = new Intent(context, LoginActivity.class);
-            context.startActivity(i);
-            ((DashboardOrangTuaActivity) context).finish();
-            ((DashboardSiswaActivity) context).finish();
-        }
+        Intent i = new Intent(context, LoginActivity.class);
+        context.startActivity(i);
+        ((DashboardActivity) context).finish();
     }
 
 }

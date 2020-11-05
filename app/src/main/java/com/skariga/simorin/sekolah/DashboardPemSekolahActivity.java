@@ -40,7 +40,7 @@ public class DashboardPemSekolahActivity extends AppCompatActivity {
         logout = findViewById(R.id.iv_logout);
 
         sessionManager = new SessionManager(this);
-        sessionManager.checkLogin("Pembimbing Sekolah");
+        sessionManager.checkLogin();
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

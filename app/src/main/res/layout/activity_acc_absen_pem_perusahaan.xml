@@ -161,4 +161,13 @@
 
     </ScrollView>
 
+    <fragment
+        android:layout_alignParentBottom="true"
+        android:id="@+id/maps"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp" />
+
 </RelativeLayout>

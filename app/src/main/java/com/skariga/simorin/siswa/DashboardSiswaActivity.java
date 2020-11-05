@@ -52,7 +52,7 @@ public class DashboardSiswaActivity extends AppCompatActivity {
         logout = findViewById(R.id.iv_logout);
 
         sessionManager = new SessionManager(this);
-        sessionManager.checkLogin("Siswa");
+        sessionManager.checkLogin();
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardSiswaActivity.this);
 

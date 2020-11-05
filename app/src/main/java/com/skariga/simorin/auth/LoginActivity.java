@@ -69,12 +69,14 @@ public class LoginActivity extends AppCompatActivity {
                             .setContentText("Username dan Password tidak boleh kosong!")
                             .show();
                 } else {
+                    SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                    sweetAlertDialog.setTitleText("Loading...");
+                    sweetAlertDialog.show();
                     Login(username, password);
                 }
             }
 
             private void Login(final String user, final String pass) {
-
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
                         new Response.Listener<String>() {
                             @Override
@@ -85,12 +87,10 @@ public class LoginActivity extends AppCompatActivity {
                                     JSONObject object = jsonObject.getJSONObject("USER");
 
                                     if (success.equals("OK")) {
-                                        String id = object.getString("ID").trim();
-                                        String nama = object.getString("NAMA").trim();
-                                        String psb = object.getString("NAMA_PERUSAHAAN").trim();
-                                        String role = object.getString("ROLE").trim();
-
-                                        sessionManager.createSession(id, nama, psb, role);
+                                        final String id = object.getString("ID").trim();
+                                        final String nama = object.getString("NAMA").trim();
+                                        final String psb = object.getString("NAMA_PERUSAHAAN").trim();
+                                        final String role = object.getString("ROLE").trim();
 
                                         if (role.equals("Siswa")) {
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
@@ -99,8 +99,9 @@ public class LoginActivity extends AppCompatActivity {
                                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-
-                                                            Intent i = new Intent(LoginActivity.this, DashboardSiswaActivity.class);
+                                                            sweetAlertDialog.dismiss();
+                                                            sessionManager.createSession(id, nama, psb, role);
+                                                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                             startActivity(i);
                                                             finish();
                                                         }
@@ -113,7 +114,9 @@ public class LoginActivity extends AppCompatActivity {
                                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                            Intent i = new Intent(LoginActivity.this, DashboardPemSekolahActivity.class);
+                                                            sweetAlertDialog.dismiss();
+                                                            sessionManager.createSession(id, nama, psb, role);
+                                                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                             startActivity(i);
                                                             finish();
                                                         }
@@ -126,7 +129,9 @@ public class LoginActivity extends AppCompatActivity {
                                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                            Intent i = new Intent(LoginActivity.this, DashboardPemPerusahaanActivity.class);
+                                                            sweetAlertDialog.dismiss();
+                                                            sessionManager.createSession(id, nama, psb, role);
+                                                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                             startActivity(i);
                                                             finish();
                                                         }
@@ -139,7 +144,9 @@ public class LoginActivity extends AppCompatActivity {
                                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                            Intent i = new Intent(LoginActivity.this, DashboardOrangTuaActivity.class);
+                                                            sweetAlertDialog.dismiss();
+                                                            sessionManager.createSession(id, nama, psb, role);
+                                                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                             startActivity(i);
                                                             finish();
                                                         }
