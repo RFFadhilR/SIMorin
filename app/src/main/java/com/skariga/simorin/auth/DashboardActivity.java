@@ -58,220 +58,226 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-        setStatusBarGradiant(DashboardActivity.this);
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_dashboard);
+            setStatusBarGradiant(DashboardActivity.this);
 
-        nama = findViewById(R.id.tv_nama);
-        psb = findViewById(R.id.tv_psb);
-        tv1 = findViewById(R.id.tv_1);
-        tv2 = findViewById(R.id.tv_2);
-        tv3 = findViewById(R.id.tv_3);
-        iv1 = findViewById(R.id.iv_1);
-        iv2 = findViewById(R.id.iv_2);
-        iv3 = findViewById(R.id.iv_3);
-        rl1 = findViewById(R.id.btn_1);
-        rl2 = findViewById(R.id.btn_2);
-        rl3 = findViewById(R.id.btn_3);
-        logout = findViewById(R.id.iv_logout);
+            nama = findViewById(R.id.tv_nama);
+            psb = findViewById(R.id.tv_psb);
+            tv1 = findViewById(R.id.tv_1);
+            tv2 = findViewById(R.id.tv_2);
+            tv3 = findViewById(R.id.tv_3);
+            iv1 = findViewById(R.id.iv_1);
+            iv2 = findViewById(R.id.iv_2);
+            iv3 = findViewById(R.id.iv_3);
+            rl1 = findViewById(R.id.btn_1);
+            rl2 = findViewById(R.id.btn_2);
+            rl3 = findViewById(R.id.btn_3);
+            logout = findViewById(R.id.iv_logout);
 
-        sessionManager = new SessionManager(this);
-        sessionManager.checkLogin();
+            sessionManager = new SessionManager(this);
+            sessionManager.checkLogin();
 
-        HashMap<String, String> user = sessionManager.getUserDetail();
-        String mPer = user.get(sessionManager.PSB);
-        String mRole = user.get(sessionManager.ROLE);
-        String mNama = user.get(sessionManager.NAMA);
-        String mId = user.get(sessionManager.ID);
+            HashMap<String, String> user = sessionManager.getUserDetail();
+            String mPer = user.get(SessionManager.PSB);
+            String mRole = user.get(SessionManager.ROLE);
+            String mNama = user.get(SessionManager.NAMA);
+            String mId = user.get(SessionManager.ID);
 
-        nama.setText(mNama);
-        psb.setText(mPer);
+            nama.setText(mNama);
+            psb.setText(mPer);
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                        .setTitleText("Yeay...")
-                        .setContentText("Anda berhasil Logout!")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                sessionManager.logout();
-                            }
-                        })
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Yeay...")
+                            .setContentText("Anda berhasil Logout!")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sessionManager.logout();
+                                }
+                            })
+                            .show();
+                }
+            });
+
+            if (mRole.equals("Siswa")) {
+                rl3.setVisibility(View.GONE);
+                tv1.setText("Absensi Siswa");
+                tv2.setText("Jurnal Harian");
+                iv1.setImageResource(R.drawable.absen);
+                iv2.setImageResource(R.drawable.jurnal);
+                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
+
+                rl1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(DashboardActivity.this, JurnalKegiatanSiswaActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+
+                rl2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Location> task) {
+                                    Location location = task.getResult();
+                                    if (location != null) {
+                                        try {
+                                            Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
+                                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                            Intent i = new Intent(DashboardActivity.this, AbsenSiswaActivity.class);
+                                            i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
+                                            i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
+                                            startActivity(i);
+                                            finish();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            });
+                        } else {
+                            ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                        }
+                    }
+                });
+            } else if (mRole.equals("Pembimbing Sekolah")) {
+                tv1.setText("Rekap Absensi");
+                tv2.setText("Rekap Jurnal");
+                tv3.setText("Evaluasi Kunjungan");
+
+                iv1.setImageResource(R.drawable.rekapabsen);
+                iv2.setImageResource(R.drawable.rekapjurnal);
+                iv3.setImageResource(R.drawable.evaluasikunjungan);
+
+                rl1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(DashboardActivity.this, RekapAbsenPemSekolahActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+
+                rl2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(DashboardActivity.this, RekapJurnalPemSekolahActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+
+                rl3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(DashboardActivity.this, EvaluasiKunjunganPemSekolahActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+            } else if (mRole.equals("Pembimbing Perusahaan")) {
+                rl3.setVisibility(View.GONE);
+
+                tv1.setText("Acc Absensi");
+                tv2.setText("Acc Jurnal");
+
+                iv1.setImageResource(R.drawable.accabsen);
+                iv2.setImageResource(R.drawable.accjurnal);
+
+                rl1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Location> task) {
+                                    Location location = task.getResult();
+                                    if (location != null) {
+                                        try {
+                                            Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
+                                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                            Intent i = new Intent(DashboardActivity.this, AccAbsenPemPerusahaanActivity.class);
+                                            i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
+                                            i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
+                                            startActivity(i);
+                                            finish();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            });
+                        } else {
+                            ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                        }
+                    }
+                });
+
+                rl2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(DashboardActivity.this, AccJurnalPemPerusahaanActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+
+            } else if (mRole.equals("Orang Tua")) {
+                tv1.setText("Lihat Absensi");
+                tv2.setText("Lihat Jurnal");
+                tv3.setText("Lihat Kunjungan");
+
+                iv1.setImageResource(R.drawable.lihatabsen);
+                iv2.setImageResource(R.drawable.lihatjurnal);
+                iv3.setImageResource(R.drawable.lihatkunjungan);
+
+                rl2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(DashboardActivity.this, LihatJurnalOrangTuaActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+
+                rl1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(DashboardActivity.this, LihatAbsenOrangTuaActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+
+                rl3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(DashboardActivity.this, LihatKunjunganOrangTuaActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+            } else {
+                new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Maaf...")
+                        .setContentText("Akses ditolak!")
                         .show();
             }
-        });
-
-        if (mRole.equals("Siswa")) {
-            rl3.setVisibility(View.GONE);
-            tv1.setText("Absensi Siswa");
-            tv2.setText("Jurnal Harian");
-            iv1.setImageResource(R.drawable.absen);
-            iv2.setImageResource(R.drawable.jurnal);
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
-
-            rl1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(DashboardActivity.this, JurnalKegiatanSiswaActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            });
-
-            rl2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location != null) {
-                                    try {
-                                        Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
-                                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                        Intent i = new Intent(DashboardActivity.this, AbsenSiswaActivity.class);
-                                        i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
-                                        i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
-                                        startActivity(i);
-                                        finish();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        });
-                    } else {
-                        ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                    }
-                }
-            });
-        } else if (mRole.equals("Pembimbing Sekolah")) {
-            tv1.setText("Rekap Absensi");
-            tv2.setText("Rekap Jurnal");
-            tv3.setText("Evaluasi Kunjungan");
-
-            iv1.setImageResource(R.drawable.rekapabsen);
-            iv2.setImageResource(R.drawable.rekapjurnal);
-            iv3.setImageResource(R.drawable.evaluasikunjungan);
-
-            rl1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(DashboardActivity.this, RekapAbsenPemSekolahActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            });
-
-            rl2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(DashboardActivity.this, RekapJurnalPemSekolahActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            });
-
-            rl3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(DashboardActivity.this, EvaluasiKunjunganPemSekolahActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            });
-        } else if (mRole.equals("Pembimbing Perusahaan")) {
-            rl3.setVisibility(View.GONE);
-
-            tv1.setText("Acc Absensi");
-            tv2.setText("Acc Jurnal");
-
-            iv1.setImageResource(R.drawable.accabsen);
-            iv2.setImageResource(R.drawable.accjurnal);
-
-            rl1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location != null) {
-                                    try {
-                                        Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
-                                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                        Intent i = new Intent(DashboardActivity.this, AccAbsenPemPerusahaanActivity.class);
-                                        i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
-                                        i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
-                                        startActivity(i);
-                                        finish();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        });
-                    } else {
-                        ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                    }
-                }
-            });
-
-            rl2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(DashboardActivity.this, AccJurnalPemPerusahaanActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            });
-
-        } else if (mRole.equals("Orang Tua")) {
-            tv1.setText("Lihat Absensi");
-            tv2.setText("Lihat Jurnal");
-            tv3.setText("Lihat Kunjungan");
-
-            iv1.setImageResource(R.drawable.lihatabsen);
-            iv2.setImageResource(R.drawable.lihatjurnal);
-            iv3.setImageResource(R.drawable.lihatkunjungan);
-
-            rl2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(DashboardActivity.this, LihatJurnalOrangTuaActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            });
-
-            rl1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(DashboardActivity.this, LihatAbsenOrangTuaActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            });
-
-            rl3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(DashboardActivity.this, LihatKunjunganOrangTuaActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            });
-        } else {
-            new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.WARNING_TYPE)
-                    .setTitleText("Maaf...")
-                    .setContentText("Akses ditolak!")
+        } catch (Exception ex) {
+            new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Error...")
+                    .setContentText(ex.getMessage())
                     .show();
         }
-
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

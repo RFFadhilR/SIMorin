@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     String username, password;
     SessionManager sessionManager;
     public static String URL_LOGIN = "https://simorin.malangcreativeteam.biz.id/api/login";
+    SweetAlertDialog sweetAlertDialogGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +70,9 @@ public class LoginActivity extends AppCompatActivity {
                             .setContentText("Username dan Password tidak boleh kosong!")
                             .show();
                 } else {
-                    SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-                    sweetAlertDialog.setTitleText("Loading...");
-                    sweetAlertDialog.show();
+                    sweetAlertDialogGlobal = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                    sweetAlertDialogGlobal.setTitleText("Loading...");
+                    sweetAlertDialogGlobal.show();
                     Login(username, password);
                 }
             }
@@ -82,17 +83,22 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
                                 try {
+                                    System.out.println(response);
+
                                     JSONObject jsonObject = new JSONObject(response);
                                     String success = jsonObject.getString("RESULT");
-                                    JSONObject object = jsonObject.getJSONObject("USER");
 
                                     if (success.equals("OK")) {
+                                        JSONObject object = jsonObject.getJSONObject("USER");
+
                                         final String id = object.getString("ID").trim();
                                         final String nama = object.getString("NAMA").trim();
-                                        final String psb = object.getString("NAMA_PERUSAHAAN").trim();
                                         final String role = object.getString("ROLE").trim();
 
                                         if (role.equals("Siswa")) {
+                                            final String psb = object.getString("TEMPAT_PRAKERIN").trim();
+
+                                            sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
                                                     .setContentText("Anda Berhasil Login!")
@@ -108,6 +114,9 @@ public class LoginActivity extends AppCompatActivity {
                                                     })
                                                     .show();
                                         } else if (role.equals("Pembimbing Sekolah")) {
+                                            final String psb = object.getString("BAGIAN").trim();
+
+                                            sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
                                                     .setContentText("Anda Berhasil Login!")
@@ -123,6 +132,9 @@ public class LoginActivity extends AppCompatActivity {
                                                     })
                                                     .show();
                                         } else if (role.equals("Pembimbing Perusahaan")) {
+                                            final String psb = object.getString("NAMA_PERUSAHAAN").trim();
+
+                                            sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
                                                     .setContentText("Anda Berhasil Login!")
@@ -137,7 +149,8 @@ public class LoginActivity extends AppCompatActivity {
                                                         }
                                                     })
                                                     .show();
-                                        } else if (role.equals("Orang Tau")) {
+                                        } else if (role.equals("Orang Tua")) {
+                                            sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
                                                     .setContentText("Anda Berhasil Login!")
@@ -145,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                             sweetAlertDialog.dismiss();
-                                                            sessionManager.createSession(id, nama, psb, role);
+                                                            sessionManager.createSession(id, nama, null, role);
                                                             Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                             startActivity(i);
                                                             finish();
@@ -153,14 +166,23 @@ public class LoginActivity extends AppCompatActivity {
                                                     })
                                                     .show();
                                         } else {
+                                            sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE)
                                                     .setTitleText("Maaf...")
                                                     .setContentText("Akses ditolak!")
                                                     .show();
                                         }
+                                    } else {
+                                        String message = jsonObject.getString("MESSAGE");
 
+                                        sweetAlertDialogGlobal.dismiss();
+                                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                                .setTitleText("Gagal...")
+                                                .setContentText(message)
+                                                .show();
                                     }
                                 } catch (Exception e) {
+                                    sweetAlertDialogGlobal.dismiss();
                                     e.printStackTrace();
                                     new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
                                             .setTitleText("Error...")
@@ -172,6 +194,7 @@ public class LoginActivity extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+                                sweetAlertDialogGlobal.dismiss();
                                 new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
                                         .setTitleText("Error...")
                                         .setContentText(error.toString())
