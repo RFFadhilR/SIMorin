@@ -83,6 +83,8 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
                                 try {
+                                    System.out.println(response);
+
                                     JSONObject jsonObject = new JSONObject(response);
                                     String success = jsonObject.getString("RESULT");
 
@@ -91,10 +93,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                         final String id = object.getString("ID").trim();
                                         final String nama = object.getString("NAMA").trim();
-                                        final String psb = object.getString("NAMA_PERUSAHAAN").trim();
                                         final String role = object.getString("ROLE").trim();
 
                                         if (role.equals("Siswa")) {
+                                            final String psb = object.getString("TEMPAT_PRAKERIN").trim();
+
                                             sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
@@ -111,6 +114,8 @@ public class LoginActivity extends AppCompatActivity {
                                                     })
                                                     .show();
                                         } else if (role.equals("Pembimbing Sekolah")) {
+                                            final String psb = object.getString("BAGIAN").trim();
+
                                             sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
@@ -127,6 +132,8 @@ public class LoginActivity extends AppCompatActivity {
                                                     })
                                                     .show();
                                         } else if (role.equals("Pembimbing Perusahaan")) {
+                                            final String psb = object.getString("NAMA_PERUSAHAAN").trim();
+
                                             sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
@@ -142,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         }
                                                     })
                                                     .show();
-                                        } else if (role.equals("Orang Tau")) {
+                                        } else if (role.equals("Orang Tua")) {
                                             sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
@@ -151,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                             sweetAlertDialog.dismiss();
-                                                            sessionManager.createSession(id, nama, psb, role);
+                                                            sessionManager.createSession(id, nama, null, role);
                                                             Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                             startActivity(i);
                                                             finish();
