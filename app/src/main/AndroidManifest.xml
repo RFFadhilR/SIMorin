@@ -13,6 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
+        <activity android:name=".siswa.ListJurnalSiswaActivity"></activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
