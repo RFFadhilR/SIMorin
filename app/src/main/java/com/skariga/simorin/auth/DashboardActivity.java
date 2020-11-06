@@ -41,6 +41,7 @@ import com.skariga.simorin.sekolah.RekapJurnalPemSekolahActivity;
 import com.skariga.simorin.siswa.AbsenSiswaActivity;
 import com.skariga.simorin.siswa.DashboardSiswaActivity;
 import com.skariga.simorin.siswa.JurnalKegiatanSiswaActivity;
+import com.skariga.simorin.siswa.ListJurnalSiswaActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -118,7 +119,7 @@ public class DashboardActivity extends AppCompatActivity {
                 rl2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(DashboardActivity.this, JurnalKegiatanSiswaActivity.class);
+                        Intent i = new Intent(DashboardActivity.this, ListJurnalSiswaActivity.class);
                         startActivity(i);
                         finish();
                     }

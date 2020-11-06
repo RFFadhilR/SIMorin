@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="150dp"
         android:background="@drawable/gradient">
 
         <ImageView
@@ -34,164 +34,6 @@
             android:textSize="30dp"
             android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ly_hari"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title_app"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="25dp"
-            android:textColorHint="@color/white"
-            app:hintTextColor="@color/white">
-
-            <EditText
-                android:id="@+id/et_hari"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:cursorVisible="false"
-                android:enabled="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:hint="Hari, tgl - bln - th"
-                android:inputType="text"
-                android:textColor="@color/white" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ly_hari"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="10dp"
-            android:text="Waktu Kerja"
-            android:textColor="@color/white" />
-
-        <RelativeLayout
-            android:id="@+id/waktu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/ly_mulai"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColorHint="@color/white"
-                                app:hintTextColor="@color/white">
-
-                                <EditText
-                                    android:id="@+id/et_mulai"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:backgroundTint="@color/white"
-                                    android:cursorVisible="false"
-                                    android:enabled="false"
-                                    android:focusable="false"
-                                    android:focusableInTouchMode="false"
-                                    android:hint="Mulai Jam"
-                                    android:inputType="text"
-                                    android:textColor="@color/white"
-                                    android:textColorHint="@color/white" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </RelativeLayout>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/absen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:text="s/d"
-                                android:textColor="@color/white" />
-
-                        </RelativeLayout>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/ly_sampai"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColorHint="@color/white"
-                                app:hintTextColor="@color/white">
-
-                                <EditText
-                                    android:id="@+id/et_sampai"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:backgroundTint="@color/white"
-                                    android:cursorVisible="false"
-                                    android:enabled="false"
-                                    android:focusable="false"
-                                    android:focusableInTouchMode="false"
-                                    android:hint="Sampai Jam"
-                                    android:inputType="text"
-                                    android:textColor="@color/white"
-                                    android:textColorHint="@color/white" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </RelativeLayout>
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
     </RelativeLayout>
 
     <ScrollView
@@ -199,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/appbar"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="-60dp"
+        android:layout_marginTop="-80dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/capsule_putih">
 
