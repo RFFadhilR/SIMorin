@@ -94,10 +94,9 @@ public class LoginActivity extends AppCompatActivity {
                                         final String id = object.getString("ID").trim();
                                         final String nama = object.getString("NAMA").trim();
                                         final String role = object.getString("ROLE").trim();
+                                        final String psb = object.getString("PSB").trim();
 
                                         if (role.equals("Siswa")) {
-                                            final String psb = object.getString("TEMPAT_PRAKERIN").trim();
-
                                             sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
@@ -113,8 +112,6 @@ public class LoginActivity extends AppCompatActivity {
                                                     })
                                                     .show();
                                         } else if (role.equals("Pembimbing Sekolah")) {
-                                            final String psb = object.getString("BAGIAN").trim();
-
                                             sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
@@ -130,8 +127,6 @@ public class LoginActivity extends AppCompatActivity {
                                                     })
                                                     .show();
                                         } else if (role.equals("Pembimbing Perusahaan")) {
-                                            final String psb = object.getString("NAMA_PERUSAHAAN").trim();
-
                                             sweetAlertDialogGlobal.dismiss();
                                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                                     .setTitleText("Yaey...")
