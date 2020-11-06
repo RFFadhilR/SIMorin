@@ -20,6 +20,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.skariga.simorin.R;
@@ -109,6 +111,17 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
         LatLng lokasi = new LatLng(latitude, longitude);
         map.addMarker(new MarkerOptions().position(lokasi).title("Lokasi Saat ini"));
         map.moveCamera(CameraUpdateFactory.newLatLng(lokasi));
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi,18.0f));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi,12.0f));
+        drawCircle(new LatLng(latitude, longitude));
+    }
+
+    private void drawCircle(LatLng point) {
+        CircleOptions circleOptions = new CircleOptions();
+        circleOptions.center(point);
+        circleOptions.radius(1000);
+        circleOptions.fillColor(R.color.light_blue);
+        circleOptions.strokeColor(R.color.blue);
+        circleOptions.strokeWidth(2);
+        map.addCircle(circleOptions);
     }
 }

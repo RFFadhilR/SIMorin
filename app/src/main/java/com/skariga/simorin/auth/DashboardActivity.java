@@ -106,13 +106,16 @@ public class DashboardActivity extends AppCompatActivity {
 
             if (mRole.equals("Siswa")) {
                 rl3.setVisibility(View.GONE);
+
                 tv1.setText("Absensi Siswa");
                 tv2.setText("Jurnal Harian");
+
                 iv1.setImageResource(R.drawable.absen);
                 iv2.setImageResource(R.drawable.jurnal);
+
                 fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
 
-                rl1.setOnClickListener(new View.OnClickListener() {
+                rl2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(DashboardActivity.this, JurnalKegiatanSiswaActivity.class);
@@ -121,7 +124,7 @@ public class DashboardActivity extends AppCompatActivity {
                     }
                 });
 
-                rl2.setOnClickListener(new View.OnClickListener() {
+                rl1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -140,7 +143,19 @@ public class DashboardActivity extends AppCompatActivity {
                                             finish();
                                         } catch (Exception e) {
                                             e.printStackTrace();
+                                            new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                                    .setTitleText("Error...")
+                                                    .setContentText(e.toString())
+                                                    .show();
                                         }
+                                    } else {
+                                        new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                                .setTitleText("Maaf...")
+                                                .setContentText("Mohon periksa kembali KONEKSI INTERNET serta LOKASI anda, " +
+                                                        "pastikan kedua fitur tersebut menyala, " +
+                                                        "dan setelah itu silahkan ada buka GOOGLE MAPS pastikan LOKASI anda terditeksi / terbaca, " +
+                                                        "lalu silahkan anda buka kembali aplikasi ini.")
+                                                .show();
                                     }
                                 }
                             });
@@ -192,6 +207,8 @@ public class DashboardActivity extends AppCompatActivity {
 
                 iv1.setImageResource(R.drawable.accabsen);
                 iv2.setImageResource(R.drawable.accjurnal);
+
+                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
 
                 rl1.setOnClickListener(new View.OnClickListener() {
                     @Override
