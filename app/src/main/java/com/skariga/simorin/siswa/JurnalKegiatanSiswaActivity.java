@@ -18,8 +18,6 @@ import java.util.Date;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
-
-    EditText et_hari, et_mulai, et_sampai;
     ImageView back;
     Date date;
     Button btn_submit;
@@ -30,18 +28,11 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jurnal_kegiatan_siswa);
 
-        et_hari = findViewById(R.id.et_hari);
-        et_mulai = findViewById(R.id.et_mulai);
-        et_sampai = findViewById(R.id.et_sampai);
         back = findViewById(R.id.back);
         btn_submit = findViewById(R.id.submit);
 
         date = new Date();
         format = new SimpleDateFormat("E, dd MMMM yyyy");
-
-        et_hari.setText(format.format(date));
-        et_sampai.setText("16:00");
-        et_mulai.setText("08.00");
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
