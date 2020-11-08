@@ -27,25 +27,22 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.skariga.simorin.R;
-import com.skariga.simorin.ortu.DashboardOrangTuaActivity;
 import com.skariga.simorin.ortu.LihatAbsenOrangTuaActivity;
 import com.skariga.simorin.ortu.LihatJurnalOrangTuaActivity;
 import com.skariga.simorin.ortu.LihatKunjunganOrangTuaActivity;
 import com.skariga.simorin.perusahaan.AccAbsenPemPerusahaanActivity;
 import com.skariga.simorin.perusahaan.AccJurnalPemPerusahaanActivity;
-import com.skariga.simorin.perusahaan.DashboardPemPerusahaanActivity;
-import com.skariga.simorin.sekolah.DashboardPemSekolahActivity;
 import com.skariga.simorin.sekolah.EvaluasiKunjunganPemSekolahActivity;
 import com.skariga.simorin.sekolah.RekapAbsenPemSekolahActivity;
 import com.skariga.simorin.sekolah.RekapJurnalPemSekolahActivity;
 import com.skariga.simorin.siswa.AbsenSiswaActivity;
-import com.skariga.simorin.siswa.DashboardSiswaActivity;
-import com.skariga.simorin.siswa.JurnalKegiatanSiswaActivity;
 import com.skariga.simorin.siswa.ListJurnalSiswaActivity;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -114,8 +111,6 @@ public class DashboardActivity extends AppCompatActivity {
                 iv1.setImageResource(R.drawable.absen);
                 iv2.setImageResource(R.drawable.jurnal);
 
-                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
-
                 rl2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -129,6 +124,8 @@ public class DashboardActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
+
                             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Location> task) {

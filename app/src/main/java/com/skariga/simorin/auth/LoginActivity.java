@@ -19,17 +19,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.skariga.simorin.ortu.DashboardOrangTuaActivity;
-import com.skariga.simorin.perusahaan.DashboardPemPerusahaanActivity;
-import com.skariga.simorin.sekolah.DashboardPemSekolahActivity;
-import com.skariga.simorin.siswa.DashboardSiswaActivity;
 import com.skariga.simorin.R;
-import com.skyhope.showmoretextview.ShowMoreTextView;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -104,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            sweetAlertDialog.dismiss();
                                                             sessionManager.createSession(id, nama, psb, role);
                                                             Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                             startActivity(i);
@@ -119,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            sweetAlertDialog.dismiss();
                                                             sessionManager.createSession(id, nama, psb, role);
                                                             Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                             startActivity(i);
@@ -134,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            sweetAlertDialog.dismiss();
                                                             sessionManager.createSession(id, nama, psb, role);
                                                             Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                             startActivity(i);
@@ -149,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            sweetAlertDialog.dismiss();
                                                             sessionManager.createSession(id, nama, null, role);
                                                             Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                             startActivity(i);
