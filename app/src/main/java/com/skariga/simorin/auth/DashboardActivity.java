@@ -92,14 +92,13 @@ public class DashboardActivity extends AppCompatActivity {
                     new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                             .setTitleText("Yeay...")
                             .setContentText("Anda berhasil Logout!")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sessionManager.logout();
+                                }
+                            })
                             .show();
-
-                    new Timer().scheduleAtFixedRate(new TimerTask() {
-                        @Override
-                        public void run() {
-                            sessionManager.logout();
-                        }
-                    }, 0, 2000);
                 }
             });
 
@@ -111,8 +110,6 @@ public class DashboardActivity extends AppCompatActivity {
 
                 iv1.setImageResource(R.drawable.absen);
                 iv2.setImageResource(R.drawable.jurnal);
-
-                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
 
                 rl2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -127,6 +124,8 @@ public class DashboardActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
+
                             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Location> task) {

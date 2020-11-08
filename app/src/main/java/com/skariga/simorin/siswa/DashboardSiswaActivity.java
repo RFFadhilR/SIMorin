@@ -20,6 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -29,13 +30,14 @@ import com.skariga.simorin.R;
 import com.skariga.simorin.auth.LoginActivity;
 import com.skariga.simorin.auth.SessionManager;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DashboardSiswaActivity extends AppCompatActivity {
-
+    TextView nama, psb;
     RelativeLayout btn_absen, btn_jurnal;
     FusedLocationProviderClient fusedLocationProviderClient;
     ImageView logout;
@@ -50,11 +52,20 @@ public class DashboardSiswaActivity extends AppCompatActivity {
         btn_absen = findViewById(R.id.absen);
         btn_jurnal = findViewById(R.id.jurnal);
         logout = findViewById(R.id.iv_logout);
+        nama = findViewById(R.id.tv_nama);
+        psb = findViewById(R.id.tv_psb);
 
         sessionManager = new SessionManager(this);
         sessionManager.checkLogin();
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardSiswaActivity.this);
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        String mPer = user.get(SessionManager.PSB);
+        String mRole = user.get(SessionManager.ROLE);
+        String mNama = user.get(SessionManager.NAMA);
+        String mId = user.get(SessionManager.ID);
+
+        nama.setText(mNama);
+        psb.setText(mPer);
 
         btn_jurnal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +80,8 @@ public class DashboardSiswaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (ActivityCompat.checkSelfPermission(DashboardSiswaActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardSiswaActivity.this);
+
                     fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                         @Override
                         public void onComplete(@NonNull Task<Location> task) {
