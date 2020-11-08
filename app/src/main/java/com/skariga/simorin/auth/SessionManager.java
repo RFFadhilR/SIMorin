@@ -4,11 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.skariga.simorin.ortu.DashboardOrangTuaActivity;
-import com.skariga.simorin.perusahaan.DashboardPemPerusahaanActivity;
-import com.skariga.simorin.sekolah.DashboardPemSekolahActivity;
-import com.skariga.simorin.siswa.DashboardSiswaActivity;
-
 import java.util.HashMap;
 
 public class SessionManager {
