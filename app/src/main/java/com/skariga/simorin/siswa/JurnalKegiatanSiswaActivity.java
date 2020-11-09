@@ -8,11 +8,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
+import com.skariga.simorin.auth.SessionManager;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -21,6 +33,10 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
     Date date;
     Button btn_submit;
     SimpleDateFormat format;
+    SessionManager sessionManager;
+    EditText kegiatan_kerja, prosedur_pengerjaan, spesifikasi_bahan;
+    String URL_INPUTJURNAL = "https://simorin.malangcreativeteam.biz.id/api/input_jurnal";
+    SweetAlertDialog sweetAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +45,117 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
 
         back = findViewById(R.id.back);
         btn_submit = findViewById(R.id.submit);
+        kegiatan_kerja = findViewById(R.id.et_kerja);
+        prosedur_pengerjaan = findViewById(R.id.et_prosedur);
+        spesifikasi_bahan = findViewById(R.id.et_bahan);
 
         date = new Date();
         format = new SimpleDateFormat("E, dd MMMM yyyy");
 
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin();
+
+        sweetAlertDialog = new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading...");
+
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        final String mId = user.get(SessionManager.ID);
+
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
+                sweetAlertDialog.show();
+
+                String keg_kerja = kegiatan_kerja.getText().toString().trim();
+                String pro_peng = prosedur_pengerjaan.getText().toString().trim();
+                String spek_bahan = spesifikasi_bahan.getText().toString().trim();
+
+                if (keg_kerja.isEmpty()) {
+                    sweetAlertDialog.dismiss();
+
+                    new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Gagal...")
+                            .setContentText("Kegiatan kerja harus diisi")
+                            .show();
+                }
+
+                if (pro_peng.isEmpty()) {
+                    sweetAlertDialog.dismiss();
+
+                    new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Gagal...")
+                            .setContentText("Prosedur pengerjaan harus diisi")
+                            .show();
+                }
+
+                if (spek_bahan.isEmpty()) {
+                    sweetAlertDialog.dismiss();
+
+                    new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Gagal...")
+                            .setContentText("Spesifikasi bahan harus diisi")
+                            .show();
+                }
+
+                InputJurnal(mId, keg_kerja, pro_peng, spek_bahan);
+            }
+
+            private void InputJurnal(final String id, final String kegiatan_kerja, final String prosedur_pengerjaan, final String spesifikasi_bahan) {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_INPUTJURNAL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    sweetAlertDialog.dismiss();
+
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    String result = jsonObject.getString("RESULT");
+                                    String message = jsonObject.getString("MESSAGE");
+
+                                    if (result.equals("OK")) {
+                                        new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                                .setTitleText("Yaey...")
+                                                .setContentText(message)
+                                                .show();
+                                    } else {
+                                        new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                                .setTitleText("Gagal...")
+                                                .setContentText(message)
+                                                .show();
+                                    }
+                                } catch (Exception ex) {
+                                    sweetAlertDialog.dismiss();
+
+                                    new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                            .setTitleText("Error")
+                                            .setContentText(ex.getMessage().toString())
+                                            .show();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                sweetAlertDialog.dismiss();
+
+                                new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("Error...")
+                                        .setContentText(error.toString())
+                                        .show();
+                            }
+                        }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("user_id", id);
+                        params.put("kegiatan_kerja", kegiatan_kerja);
+                        params.put("prosedur_pengerjaan", prosedur_pengerjaan);
+                        params.put("spesifikasi_bahan", spesifikasi_bahan);
+                        return params;
+                    }
+                };
+
+                RequestQueue requestQueue = Volley.newRequestQueue(JurnalKegiatanSiswaActivity.this);
+                requestQueue.add(stringRequest);
             }
         });
 
