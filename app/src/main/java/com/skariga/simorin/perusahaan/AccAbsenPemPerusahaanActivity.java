@@ -2,6 +2,9 @@ package com.skariga.simorin.perusahaan;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -15,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,16 +30,27 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
+import com.skariga.simorin.helper.Absen;
 import com.skariga.simorin.siswa.AbsenSiswaActivity;
+
+import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements OnMapReadyCallback {
+public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements OnMapReadyCallback, AccAbsenPemPerusahaanView {
 
     Button semua, dipilih;
     TextView lihat_lokasi;
     ImageView kembali;
     GoogleMap map;
+    SwipeRefreshLayout refresh;
+    RecyclerView data;
+
+    AccAbsenPemPerusahaanPresenter presenter;
+    AccAbsenPemPerusahaanAdapter adapter;
+    AccAbsenPemPerusahaanAdapter.ItemClickListener itemClickListener;
+
+    List<Absen> absen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +62,8 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
         dipilih = findViewById(R.id.setujui_dipilih);
         lihat_lokasi = findViewById(R.id.lihat_lokasi);
         kembali = findViewById(R.id.back);
+        data = findViewById(R.id.recycler_view);
+        refresh = findViewById(R.id.swipe_refresh);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
         mapFragment.getMapAsync(AccAbsenPemPerusahaanActivity.this);
@@ -90,6 +107,30 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
             }
         });
 
+        data.setLayoutManager(new LinearLayoutManager(this));
+
+        presenter = new AccAbsenPemPerusahaanPresenter(this);
+        presenter.getData();
+
+        refresh.setOnRefreshListener(
+                () -> presenter.getData()
+        );
+
+        itemClickListener = ((view, position) -> {
+            String status = absen.get(position).getStatus();
+            String nama = absen.get(position).getNama_siswa();
+            String tanggal = absen.get(position).getTanggal();
+            String waktu_masuk = absen.get(position).getWaktu_masuk();
+            String waktu_pulang = absen.get(position).getWaktu_pulang();
+
+            if (status.equals("MASUK")) {
+                Toast.makeText(this, nama + "\n" + tanggal + " / " + waktu_masuk + "\n" + status, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, nama + "\n" + tanggal + " / " + waktu_pulang + "\n" + status, Toast.LENGTH_LONG).show();
+            }
+
+        });
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -124,5 +165,32 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
         circleOptions.strokeColor(R.color.blue);
         circleOptions.strokeWidth(2);
         map.addCircle(circleOptions);
+    }
+
+    @Override
+    public void ShowLoading() {
+        refresh.setRefreshing(true);
+    }
+
+    @Override
+    public void HideLoading() {
+        refresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onGetResult(List<Absen> absens) {
+        adapter = new AccAbsenPemPerusahaanAdapter(this, absens, itemClickListener);
+        adapter.notifyDataSetChanged();
+        data.setAdapter(adapter);
+
+        absen = absens;
+    }
+
+    @Override
+    public void onErrorLoading(String message) {
+        new SweetAlertDialog(AccAbsenPemPerusahaanActivity.this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Error...")
+                .setContentText(message)
+                .show();
     }
 }

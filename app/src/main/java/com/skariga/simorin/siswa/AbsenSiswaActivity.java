@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -87,21 +88,13 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
 
         Absen(mId, date.toString(), lat, longs);
 
-        btn_kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AbsenSiswaActivity.this, DashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
+        btn_kembali.setOnClickListener(v -> {
+            Intent i = new Intent(AbsenSiswaActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
         });
 
-        btn_absen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Absen(mId, date.toString(), lat, longs);
-            }
-        });
+        btn_absen.setOnClickListener(v -> Absen(mId, date.toString(), lat, longs));
 
     }
 
@@ -130,60 +123,59 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
 
     private void Absen(final String id, final String tanggal, final String lat, final String longs) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ABSEN,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String result = jsonObject.getString("RESULT");
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String result = jsonObject.getString("RESULT");
 
-                            if (result.equals("OK")) {
-                                String message = jsonObject.getString("MESSAGE");
+                        if (result.equals("OK")) {
+                            String message = jsonObject.getString("MESSAGE");
 
-                                sweetAlertDialog.dismiss();
-                                new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                        .setTitleText("Yaey...")
-                                        .setContentText(message)
-                                        .show();
-                            } else if (result.equals("DONE")) {
-                                sweetAlertDialog.dismiss();
+                            sweetAlertDialog.dismiss();
+                            new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("Yaey...")
+                                    .setContentText(message)
+                                    .show();
+                        } else if (result.equals("DONE")) {
+                            sweetAlertDialog.dismiss();
 
-                                JSONObject data = jsonObject.getJSONObject("DATA");
+                            JSONObject data = jsonObject.getJSONObject("DATA");
 
-                                if (data.getString("status").equals("0")) {
-                                    tv_status.setText("Pending");
-                                } else if (data.getString("status").equals("1")) {
-                                    tv_status.setText("Diterima");
-                                } else {
-                                    tv_status.setText("Ditolak");
-                                    btn_absen.setVisibility(View.VISIBLE);
-                                }
-
-                                tv_tanggal.setText(data.getString("waktu_masuk"));
+                            if (data.getString("status").equals("0")) {
+                                tv_status.setText("Pending");
+                            } else if (data.getString("status").equals("1")) {
+                                tv_status.setText("Diterima");
+                                tv_status.setTextColor(Color.GREEN);
                             } else {
-                                String message = jsonObject.getString("MESSAGE");
-
-                                sweetAlertDialog.dismiss();
-                                new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                        .setTitleText("Gagal...")
-                                        .setContentText(message)
-                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                Intent i = new Intent(AbsenSiswaActivity.this, DashboardActivity.class);
-                                                startActivity(i);
-                                                finish();
-                                            }
-                                        })
-                                        .show();
+                                tv_status.setText("Ditolak");
+                                tv_status.setTextColor(Color.RED);
+                                btn_absen.setVisibility(View.VISIBLE);
                             }
-                        } catch (Exception ex) {
+
+                            tv_tanggal.setText(data.getString("waktu_masuk"));
+                        } else {
+                            String message = jsonObject.getString("MESSAGE");
+
                             sweetAlertDialog.dismiss();
                             new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                    .setTitleText("Error...")
-                                    .setContentText(ex.toString())
+                                    .setTitleText("Gagal...")
+                                    .setContentText(message)
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            Intent i = new Intent(AbsenSiswaActivity.this, DashboardActivity.class);
+                                            startActivity(i);
+                                            finish();
+                                        }
+                                    })
                                     .show();
                         }
+                    } catch (Exception ex) {
+                        sweetAlertDialog.dismiss();
+                        new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Error...")
+                                .setContentText(ex.toString())
+                                .show();
                     }
                 },
                 new Response.ErrorListener() {
