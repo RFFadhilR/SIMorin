@@ -65,10 +65,23 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_tanggal"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/capsule_gradient"
         android:text="Kembali"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btn_absen_ulang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_kembali"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/capsule_gradient"
+        android:text="Absensi Ulang"
+        android:visibility="gone"
         android:textColor="@color/white" />
 
 </RelativeLayout>

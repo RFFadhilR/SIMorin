@@ -43,7 +43,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCallback {
     private static String URL_ABSEN = "https://simorin.malangcreativeteam.biz.id/api/absen_siswa";
-    Button btn_kembali;
+    Button btn_kembali, btn_absen;
     TextView tv_status, tv_tanggal;
     GoogleMap map;
     Date date;
@@ -70,19 +70,20 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                 .show();
 
         HashMap<String, String> user = sessionManager.getUserDetail();
-        String mId = user.get(SessionManager.ID);
+        final String mId = user.get(SessionManager.ID);
 
         tv_tanggal = findViewById(R.id.tv_tanggal);
         btn_kembali = findViewById(R.id.btn_kembali);
         tv_status = findViewById(R.id.tv_status);
+        btn_absen = findViewById(R.id.btn_absen_ulang);
 
         tv_tanggal.setText(formatter.format(date));
 
         double latitude = Double.parseDouble(getIntent().getStringExtra("latitude"));
         double longitude = Double.parseDouble(getIntent().getStringExtra("longitude"));
 
-        String lat = Double.toString(latitude).trim();
-        String longs = Double.toString(longitude).trim();
+        final String lat = Double.toString(latitude).trim();
+        final String longs = Double.toString(longitude).trim();
 
         Absen(mId, date.toString(), lat, longs);
 
@@ -94,6 +95,14 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                 finish();
             }
         });
+
+        btn_absen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Absen(mId, date.toString(), lat, longs);
+            }
+        });
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -147,6 +156,7 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                                     tv_status.setText("Diterima");
                                 } else {
                                     tv_status.setText("Ditolak");
+                                    btn_absen.setVisibility(View.VISIBLE);
                                 }
 
                                 tv_tanggal.setText(data.getString("waktu_masuk"));
@@ -160,7 +170,7 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                             @Override
                                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                Intent i = new Intent(AbsenSiswaActivity.this, DashboardSiswaActivity.class);
+                                                Intent i = new Intent(AbsenSiswaActivity.this, DashboardActivity.class);
                                                 startActivity(i);
                                                 finish();
                                             }

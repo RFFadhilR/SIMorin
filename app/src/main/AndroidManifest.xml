@@ -25,14 +25,10 @@
         <activity android:name=".ortu.LihatKunjunganOrangTuaActivity" />
         <activity android:name=".ortu.LihatJurnalOrangTuaActivity" />
         <activity android:name=".ortu.LihatAbsenOrangTuaActivity" />
-        <activity android:name=".sekolah.DashboardPemSekolahActivity" />
-        <activity android:name=".ortu.DashboardOrangTuaActivity" />
         <activity android:name=".perusahaan.AccJurnalPemPerusahaanActivity" />
         <activity android:name=".perusahaan.AccAbsenPemPerusahaanActivity" />
-        <activity android:name=".perusahaan.DashboardPemPerusahaanActivity" />
         <activity android:name=".siswa.JurnalKegiatanSiswaActivity" />
         <activity android:name=".siswa.AbsenSiswaActivity" />
-        <activity android:name=".siswa.DashboardSiswaActivity" />
         <activity android:name=".auth.LoginActivity" />
         <activity android:name=".auth.DashboardActivity">
             <intent-filter>

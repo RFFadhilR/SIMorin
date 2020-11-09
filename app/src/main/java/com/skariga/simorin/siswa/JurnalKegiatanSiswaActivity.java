@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.skariga.simorin.R;
-import com.skariga.simorin.perusahaan.DashboardPemPerusahaanActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
