@@ -28,6 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.skariga.simorin.R;
+import com.skariga.simorin.auth.DashboardActivity;
 import com.skariga.simorin.auth.SessionManager;
 
 import org.json.JSONObject;
@@ -69,9 +70,6 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                 .show();
 
         HashMap<String, String> user = sessionManager.getUserDetail();
-        String mPer = user.get(SessionManager.PSB);
-        String mRole = user.get(SessionManager.ROLE);
-        String mNama = user.get(SessionManager.NAMA);
         String mId = user.get(SessionManager.ID);
 
         tv_tanggal = findViewById(R.id.tv_tanggal);
@@ -80,12 +78,18 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
 
         tv_tanggal.setText(formatter.format(date));
 
-        Absen(mId, date.toString());
+        double latitude = Double.parseDouble(getIntent().getStringExtra("latitude"));
+        double longitude = Double.parseDouble(getIntent().getStringExtra("longitude"));
+
+        String lat = Double.toString(latitude).trim();
+        String longs = Double.toString(longitude).trim();
+
+        Absen(mId, date.toString(), lat, longs);
 
         btn_kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AbsenSiswaActivity.this, DashboardSiswaActivity.class);
+                Intent i = new Intent(AbsenSiswaActivity.this, DashboardActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -115,7 +119,7 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 18.0f));
     }
 
-    private void Absen(final String id, final String tanggal) {
+    private void Absen(final String id, final String tanggal, final String lat, final String longs) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ABSEN,
                 new Response.Listener<String>() {
                     @Override
@@ -188,6 +192,8 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                 Map<String, String> params = new HashMap<>();
                 params.put("user_id", id);
                 params.put("date", tanggal);
+                params.put("latitude", lat);
+                params.put("longitude", longs);
                 return params;
             }
         };
