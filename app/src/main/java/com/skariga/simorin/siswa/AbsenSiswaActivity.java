@@ -43,7 +43,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCallback {
     private static String URL_ABSEN = "https://simorin.malangcreativeteam.biz.id/api/absen_siswa";
-    Button btn_kembali;
+    Button btn_kembali, btn_absen;
     TextView tv_status, tv_tanggal;
     GoogleMap map;
     Date date;
@@ -70,18 +70,22 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                 .show();
 
         HashMap<String, String> user = sessionManager.getUserDetail();
-        String mPer = user.get(SessionManager.PSB);
-        String mRole = user.get(SessionManager.ROLE);
-        String mNama = user.get(SessionManager.NAMA);
-        String mId = user.get(SessionManager.ID);
+        final String mId = user.get(SessionManager.ID);
 
         tv_tanggal = findViewById(R.id.tv_tanggal);
         btn_kembali = findViewById(R.id.btn_kembali);
         tv_status = findViewById(R.id.tv_status);
+        btn_absen = findViewById(R.id.btn_absen_ulang);
 
         tv_tanggal.setText(formatter.format(date));
 
-        Absen(mId, date.toString());
+        double latitude = Double.parseDouble(getIntent().getStringExtra("latitude"));
+        double longitude = Double.parseDouble(getIntent().getStringExtra("longitude"));
+
+        final String lat = Double.toString(latitude).trim();
+        final String longs = Double.toString(longitude).trim();
+
+        Absen(mId, date.toString(), lat, longs);
 
         btn_kembali.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +95,14 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                 finish();
             }
         });
+
+        btn_absen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Absen(mId, date.toString(), lat, longs);
+            }
+        });
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -116,7 +128,7 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 18.0f));
     }
 
-    private void Absen(final String id, final String tanggal) {
+    private void Absen(final String id, final String tanggal, final String lat, final String longs) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ABSEN,
                 new Response.Listener<String>() {
                     @Override
@@ -144,6 +156,7 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                                     tv_status.setText("Diterima");
                                 } else {
                                     tv_status.setText("Ditolak");
+                                    btn_absen.setVisibility(View.VISIBLE);
                                 }
 
                                 tv_tanggal.setText(data.getString("waktu_masuk"));
@@ -189,6 +202,8 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                 Map<String, String> params = new HashMap<>();
                 params.put("user_id", id);
                 params.put("date", tanggal);
+                params.put("latitude", lat);
+                params.put("longitude", longs);
                 return params;
             }
         };
