@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.skariga.simorin.R;
+import com.skariga.simorin.auth.DashboardActivity;
 import com.skariga.simorin.perusahaan.AccAbsenPemPerusahaanActivity;
 import com.skyhope.showmoretextview.ShowMoreTextView;
 
@@ -39,7 +40,7 @@ public class LihatJurnalOrangTuaActivity extends AppCompatActivity {
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LihatJurnalOrangTuaActivity.this, DashboardOrangTuaActivity.class);
+                Intent i = new Intent(LihatJurnalOrangTuaActivity.this, DashboardActivity.class);
                 startActivity(i);
                 finish();
             }

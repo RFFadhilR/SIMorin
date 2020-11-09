@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.skariga.simorin.R;
+import com.skariga.simorin.auth.DashboardActivity;
 import com.skariga.simorin.siswa.AbsenSiswaActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -53,7 +54,7 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AccAbsenPemPerusahaanActivity.this, DashboardPemPerusahaanActivity.class);
+                Intent i = new Intent(AccAbsenPemPerusahaanActivity.this, DashboardActivity.class);
                 startActivity(i);
                 finish();
             }

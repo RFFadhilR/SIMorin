@@ -28,6 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.skariga.simorin.R;
+import com.skariga.simorin.auth.DashboardActivity;
 import com.skariga.simorin.auth.SessionManager;
 
 import org.json.JSONObject;
@@ -85,7 +86,7 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
         btn_kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AbsenSiswaActivity.this, DashboardSiswaActivity.class);
+                Intent i = new Intent(AbsenSiswaActivity.this, DashboardActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -156,7 +157,7 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                             @Override
                                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                Intent i = new Intent(AbsenSiswaActivity.this, DashboardSiswaActivity.class);
+                                                Intent i = new Intent(AbsenSiswaActivity.this, DashboardActivity.class);
                                                 startActivity(i);
                                                 finish();
                                             }
