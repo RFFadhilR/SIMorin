@@ -1,6 +1,5 @@
 package com.skariga.simorin.perusahaan;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,20 +23,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
 import com.skariga.simorin.helper.Absen;
-import com.skariga.simorin.siswa.AbsenSiswaActivity;
 
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements OnMapReadyCallback, AccAbsenPemPerusahaanView {
+public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements OnMapReadyCallback, ListAbsenPemPerusahaanView {
 
     Button semua, dipilih;
     TextView lihat_lokasi;
@@ -46,17 +43,17 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
     SwipeRefreshLayout refresh;
     RecyclerView data;
 
-    AccAbsenPemPerusahaanPresenter presenter;
-    AccAbsenPemPerusahaanAdapter adapter;
-    AccAbsenPemPerusahaanAdapter.ItemClickListener itemClickListener;
+    ListAbsenPemPerusahaanPresenter presenter;
+    ListAbsenPemPerusahaanAdapter adapter;
+    ListAbsenPemPerusahaanAdapter.ItemClickListener itemClickListener;
 
     List<Absen> absen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusBarGradiant(AccAbsenPemPerusahaanActivity.this);
-        setContentView(R.layout.activity_acc_absen_pem_perusahaan);
+        setStatusBarGradiant(ListAbsenPemPerusahaanActivity.this);
+        setContentView(R.layout.activity_list_absen_pem_perusahaan);
 
         semua = findViewById(R.id.setujui_semua);
         dipilih = findViewById(R.id.setujui_dipilih);
@@ -66,12 +63,12 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
         refresh = findViewById(R.id.swipe_refresh);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
-        mapFragment.getMapAsync(AccAbsenPemPerusahaanActivity.this);
+        mapFragment.getMapAsync(ListAbsenPemPerusahaanActivity.this);
 
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AccAbsenPemPerusahaanActivity.this, DashboardActivity.class);
+                Intent i = new Intent(ListAbsenPemPerusahaanActivity.this, DashboardActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -80,7 +77,7 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
         lihat_lokasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SweetAlertDialog(AccAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Maaf...")
                         .setContentText("Fitur ini masih dalam pengembangan :)")
                         .show();
@@ -90,7 +87,7 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
         semua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SweetAlertDialog(AccAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Maaf...")
                         .setContentText("Fitur ini masih dalam pengembangan :)")
                         .show();
@@ -100,7 +97,7 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
         dipilih.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SweetAlertDialog(AccAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Maaf...")
                         .setContentText("Fitur ini masih dalam pengembangan :)")
                         .show();
@@ -109,7 +106,7 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
 
         data.setLayoutManager(new LinearLayoutManager(this));
 
-        presenter = new AccAbsenPemPerusahaanPresenter(this);
+        presenter = new ListAbsenPemPerusahaanPresenter(this);
         presenter.getData();
 
         refresh.setOnRefreshListener(
@@ -179,7 +176,7 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
 
     @Override
     public void onGetResult(List<Absen> absens) {
-        adapter = new AccAbsenPemPerusahaanAdapter(this, absens, itemClickListener);
+        adapter = new ListAbsenPemPerusahaanAdapter(this, absens, itemClickListener);
         adapter.notifyDataSetChanged();
         data.setAdapter(adapter);
 
@@ -188,7 +185,7 @@ public class AccAbsenPemPerusahaanActivity extends FragmentActivity implements O
 
     @Override
     public void onErrorLoading(String message) {
-        new SweetAlertDialog(AccAbsenPemPerusahaanActivity.this, SweetAlertDialog.ERROR_TYPE)
+        new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText("Error...")
                 .setContentText(message)
                 .show();

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,7 +21,7 @@ import com.skyhope.showmoretextview.ShowMoreTextView;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class AccJurnalPemPerusahaanActivity extends AppCompatActivity {
+public class ListJurnalPemPerusahaanActivity extends AppCompatActivity {
 
     ShowMoreTextView kegiatan;
     ImageView kembali;
@@ -32,8 +31,8 @@ public class AccJurnalPemPerusahaanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusBarGradiant(AccJurnalPemPerusahaanActivity.this);
-        setContentView(R.layout.activity_acc_jurnal_pem_perusahaan);
+        setStatusBarGradiant(ListJurnalPemPerusahaanActivity.this);
+        setContentView(R.layout.activity_list_jurnal_pem_perusahaan);
 
         kegiatan = findViewById(R.id.kegiatan);
         kembali = findViewById(R.id.back);
@@ -44,7 +43,7 @@ public class AccJurnalPemPerusahaanActivity extends AppCompatActivity {
         semua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SweetAlertDialog(AccJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Maaf...")
                         .setContentText("Fitur ini masih dalam pengembangan :)")
                         .show();
@@ -54,7 +53,7 @@ public class AccJurnalPemPerusahaanActivity extends AppCompatActivity {
         dipilih.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SweetAlertDialog(AccJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Maaf...")
                         .setContentText("Fitur ini masih dalam pengembangan :)")
                         .show();
@@ -64,7 +63,7 @@ public class AccJurnalPemPerusahaanActivity extends AppCompatActivity {
         lihat_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SweetAlertDialog(AccJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Maaf...")
                         .setContentText("Fitur ini masih dalam pengembangan :)")
                         .show();
@@ -74,7 +73,7 @@ public class AccJurnalPemPerusahaanActivity extends AppCompatActivity {
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AccJurnalPemPerusahaanActivity.this, DashboardActivity.class);
+                Intent i = new Intent(ListJurnalPemPerusahaanActivity.this, DashboardActivity.class);
                 startActivity(i);
                 finish();
             }

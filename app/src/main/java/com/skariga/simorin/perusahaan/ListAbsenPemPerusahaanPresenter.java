@@ -12,11 +12,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AccAbsenPemPerusahaanPresenter {
+public class ListAbsenPemPerusahaanPresenter {
 
-    private AccAbsenPemPerusahaanView view;
+    private ListAbsenPemPerusahaanView view;
 
-    public AccAbsenPemPerusahaanPresenter(AccAbsenPemPerusahaanView view) {
+    public ListAbsenPemPerusahaanPresenter(ListAbsenPemPerusahaanView view) {
         this.view = view;
     }
 

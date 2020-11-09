@@ -25,8 +25,8 @@
         <activity android:name=".ortu.LihatKunjunganOrangTuaActivity" />
         <activity android:name=".ortu.LihatJurnalOrangTuaActivity" />
         <activity android:name=".ortu.LihatAbsenOrangTuaActivity" />
-        <activity android:name=".perusahaan.AccJurnalPemPerusahaanActivity" />
-        <activity android:name=".perusahaan.AccAbsenPemPerusahaanActivity" />
+        <activity android:name=".perusahaan.ListJurnalPemPerusahaanActivity" />
+        <activity android:name=".perusahaan.ListAbsenPemPerusahaanActivity" />
         <activity android:name=".siswa.JurnalKegiatanSiswaActivity" />
         <activity android:name=".siswa.AbsenSiswaActivity" />
         <activity android:name=".auth.LoginActivity" />

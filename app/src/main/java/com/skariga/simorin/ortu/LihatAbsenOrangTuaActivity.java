@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
-import com.skariga.simorin.perusahaan.AccAbsenPemPerusahaanActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 

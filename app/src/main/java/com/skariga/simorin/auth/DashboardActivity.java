@@ -30,8 +30,8 @@ import com.skariga.simorin.R;
 import com.skariga.simorin.ortu.LihatAbsenOrangTuaActivity;
 import com.skariga.simorin.ortu.LihatJurnalOrangTuaActivity;
 import com.skariga.simorin.ortu.LihatKunjunganOrangTuaActivity;
-import com.skariga.simorin.perusahaan.AccAbsenPemPerusahaanActivity;
-import com.skariga.simorin.perusahaan.AccJurnalPemPerusahaanActivity;
+import com.skariga.simorin.perusahaan.ListAbsenPemPerusahaanActivity;
+import com.skariga.simorin.perusahaan.ListJurnalPemPerusahaanActivity;
 import com.skariga.simorin.sekolah.EvaluasiKunjunganPemSekolahActivity;
 import com.skariga.simorin.sekolah.RekapAbsenPemSekolahActivity;
 import com.skariga.simorin.sekolah.RekapJurnalPemSekolahActivity;
@@ -41,8 +41,6 @@ import com.skariga.simorin.siswa.ListJurnalSiswaActivity;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -220,7 +218,7 @@ public class DashboardActivity extends AppCompatActivity {
                                         try {
                                             Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
                                             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                            Intent i = new Intent(DashboardActivity.this, AccAbsenPemPerusahaanActivity.class);
+                                            Intent i = new Intent(DashboardActivity.this, ListAbsenPemPerusahaanActivity.class);
                                             i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
                                             i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
                                             startActivity(i);
@@ -240,7 +238,7 @@ public class DashboardActivity extends AppCompatActivity {
                 rl2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(DashboardActivity.this, AccJurnalPemPerusahaanActivity.class);
+                        Intent i = new Intent(DashboardActivity.this, ListJurnalPemPerusahaanActivity.class);
                         startActivity(i);
                         finish();
                     }

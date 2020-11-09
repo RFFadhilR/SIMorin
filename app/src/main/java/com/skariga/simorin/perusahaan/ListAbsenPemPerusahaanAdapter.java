@@ -18,13 +18,13 @@ import com.skariga.simorin.helper.Absen;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class AccAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<AccAbsenPemPerusahaanAdapter.RecyclerViewAdapter> {
+public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbsenPemPerusahaanAdapter.RecyclerViewAdapter> {
 
     private Context context;
     private List<Absen> absens;
     private ItemClickListener itemClickListener;
 
-    public AccAbsenPemPerusahaanAdapter(Context context, List<Absen> absens, ItemClickListener itemClickListener) {
+    public ListAbsenPemPerusahaanAdapter(Context context, List<Absen> absens, ItemClickListener itemClickListener) {
         this.context = context;
         this.absens = absens;
         this.itemClickListener = itemClickListener;
