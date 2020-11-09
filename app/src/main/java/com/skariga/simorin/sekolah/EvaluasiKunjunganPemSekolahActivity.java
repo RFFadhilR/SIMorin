@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.skariga.simorin.R;
+import com.skariga.simorin.auth.DashboardActivity;
 import com.skariga.simorin.siswa.JurnalKegiatanSiswaActivity;
 
 import java.text.SimpleDateFormat;
@@ -78,7 +79,7 @@ public class EvaluasiKunjunganPemSekolahActivity extends AppCompatActivity {
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EvaluasiKunjunganPemSekolahActivity.this, DashboardPemSekolahActivity.class);
+                Intent i = new Intent(EvaluasiKunjunganPemSekolahActivity.this, DashboardActivity.class);
                 startActivity(i);
                 finish();
             }

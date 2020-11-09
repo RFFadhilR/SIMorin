@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.skariga.simorin.R;
+import com.skariga.simorin.auth.DashboardActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -59,7 +60,7 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity {
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(RekapAbsenPemSekolahActivity.this, DashboardPemSekolahActivity.class);
+                Intent i = new Intent(RekapAbsenPemSekolahActivity.this, DashboardActivity.class);
                 startActivity(i);
                 finish();
             }

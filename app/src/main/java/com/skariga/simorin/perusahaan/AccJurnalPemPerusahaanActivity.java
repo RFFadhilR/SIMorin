@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.skariga.simorin.R;
+import com.skariga.simorin.auth.DashboardActivity;
 import com.skyhope.showmoretextview.ShowMoreTextView;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -73,7 +74,7 @@ public class AccJurnalPemPerusahaanActivity extends AppCompatActivity {
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AccJurnalPemPerusahaanActivity.this, DashboardPemPerusahaanActivity.class);
+                Intent i = new Intent(AccJurnalPemPerusahaanActivity.this, DashboardActivity.class);
                 startActivity(i);
                 finish();
             }
