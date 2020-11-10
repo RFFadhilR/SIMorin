@@ -37,7 +37,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements OnMapReadyCallback, ListAbsenPemPerusahaanView {
 
     Button semua, dipilih;
-    TextView lihat_lokasi;
     ImageView kembali;
     GoogleMap map;
     RecyclerView data;
@@ -56,7 +55,6 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
 
         semua = findViewById(R.id.setujui_semua);
         dipilih = findViewById(R.id.setujui_dipilih);
-        lihat_lokasi = findViewById(R.id.lihat_lokasi);
         kembali = findViewById(R.id.back);
         data = findViewById(R.id.recycler_view);
 
@@ -68,11 +66,6 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
             startActivity(i);
             finish();
         });
-
-        lihat_lokasi.setOnClickListener(v -> new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Maaf...")
-                .setContentText("Fitur ini masih dalam pengembangan :)")
-                .show());
 
         semua.setOnClickListener(v -> new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Maaf...")
@@ -128,7 +121,7 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
         LatLng lokasi = new LatLng(latitude, longitude);
         map.addMarker(new MarkerOptions().position(lokasi).title("Lokasi Saat ini"));
         map.moveCamera(CameraUpdateFactory.newLatLng(lokasi));
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi,12.0f));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 12.0f));
         drawCircle(new LatLng(latitude, longitude));
     }
 
