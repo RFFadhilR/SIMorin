@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -43,13 +44,13 @@ public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbse
         SimpleDateFormat tanggal = new SimpleDateFormat("dd MMMM yyyy");
         SimpleDateFormat waktu = new SimpleDateFormat("HH:mm");
         holder.tv_nama.setText(absen.getNama_siswa());
-        if (absen.getWaktu_pulang().isEmpty()) {
-            holder.tv_tanggal.setText(tanggal.format(absen.getTanggal()) + " / " + waktu.format(absen.getWaktu_masuk()));
+        if (absen.getWaktu_pulang() == null) {
+            holder.tv_tanggal.setText(absen.getTanggal() + " / " + absen.getWaktu_masuk());
             absen.setStatus("MASUK");
             holder.tv_status.setText(absen.getStatus());
             holder.tv_status.setTextColor(Color.GREEN);
         } else {
-            holder.tv_tanggal.setText(tanggal.format(absen.getTanggal()) + " / " + waktu.format(absen.getWaktu_pulang()));
+            holder.tv_tanggal.setText(absen.getTanggal() + " / " + absen.getWaktu_pulang());
             absen.setStatus("PULANG");
             holder.tv_status.setText(absen.getStatus());
             holder.tv_status.setTextColor(Color.argb(255,255,165,0));
