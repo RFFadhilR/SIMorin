@@ -125,6 +125,7 @@ public class DashboardActivity extends AppCompatActivity {
                                         Intent i = new Intent(DashboardActivity.this, AbsenSiswaActivity.class);
                                         i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
                                         i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
+                                        i.putExtra("id", mId);
                                         startActivity(i);
                                         finish();
                                     } catch (Exception e) {

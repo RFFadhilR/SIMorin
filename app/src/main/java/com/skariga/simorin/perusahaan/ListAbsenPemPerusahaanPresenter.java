@@ -20,10 +20,9 @@ public class ListAbsenPemPerusahaanPresenter {
         this.view = view;
     }
 
-    void getData() {
-
+    void getData(String id) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<Absen>> call = apiInterface.getAbsens();
+        Call<List<Absen>> call = apiInterface.getAbsens(id);
         call.enqueue(new Callback<List<Absen>>() {
             @Override
             public void onResponse(@NonNull Call<List<Absen>> call, @NonNull Response<List<Absen>> response) {

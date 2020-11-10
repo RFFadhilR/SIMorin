@@ -86,8 +86,10 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
 
         data.setLayoutManager(new LinearLayoutManager(this));
 
+        String mId = getIntent().getStringExtra("id");
+
         presenter = new ListAbsenPemPerusahaanPresenter(this);
-        presenter.getData();
+        presenter.getData(mId);
 
         itemClickListener = ((view, position) -> {
             String status = absen.get(position).getStatus();
