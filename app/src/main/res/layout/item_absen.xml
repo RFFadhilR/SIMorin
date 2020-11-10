@@ -3,7 +3,6 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    android:background="@color/light_blue"
     android:id="@+id/isi_absen"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

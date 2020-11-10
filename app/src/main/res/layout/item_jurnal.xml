@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:background="@color/light_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/capsule_putih"
@@ -77,7 +82,7 @@
                     android:layout_marginRight="20dp"
                     android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    android:text="Lihat Detail"
+                    android:text="Tekan untuk \n Lihat Detail"
                     android:textColor="@color/blue"
                     android:textStyle="bold" />
 

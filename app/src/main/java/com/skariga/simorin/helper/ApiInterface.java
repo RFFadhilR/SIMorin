@@ -15,4 +15,9 @@ public interface ApiInterface {
             @Query("id_pembimbing_perusahaan") String id_pembimbing_perusahaan
     );
 
+    @GET("list-jurnal")
+    Call<List<Jurnal>> getJurnals(
+            @Query("id_pembimbing_perusahaan") String id_pembimbing_perusahaan
+    );
+
 }

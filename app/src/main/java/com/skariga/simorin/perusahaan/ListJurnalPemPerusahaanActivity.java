@@ -1,6 +1,7 @@
 package com.skariga.simorin.perusahaan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -17,16 +18,25 @@ import android.widget.TextView;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
+import com.skariga.simorin.helper.Jurnal;
 import com.skyhope.showmoretextview.ShowMoreTextView;
+
+import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class ListJurnalPemPerusahaanActivity extends AppCompatActivity {
+public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implements ListJurnalPemPerusahaanView{
 
     ShowMoreTextView kegiatan;
     ImageView kembali;
-    TextView lihat_detail;
     Button semua, dipilih;
+    RecyclerView recyclerView;
+
+    List<Jurnal> jurnals;
+
+    ListJurnalPemPerusahaanAdapter adapter;
+    ListJurnalPemPerusahaanPresenter presenter;
+    ListJurnalPemPerusahaanAdapter.ItemClickListener itemClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +46,9 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity {
 
         kegiatan = findViewById(R.id.kegiatan);
         kembali = findViewById(R.id.back);
-        lihat_detail = findViewById(R.id.lihat_detail);
         semua = findViewById(R.id.setujui_semua);
         dipilih = findViewById(R.id.setujui_dipilih);
+        recyclerView = findViewById(R.id.recycler_view);
 
         semua.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Maaf...")
@@ -50,21 +60,31 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity {
                 .setContentText("Fitur ini masih dalam pengembangan :)")
                 .show());
 
-        lihat_detail.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Maaf...")
-                .setContentText("Fitur ini masih dalam pengembangan :)")
-                .show());
-
         kembali.setOnClickListener(v -> {
             Intent i = new Intent(ListJurnalPemPerusahaanActivity.this, DashboardActivity.class);
             startActivity(i);
             finish();
         });
 
-        kegiatan.setShowingLine(2);
-        kegiatan.addShowLessText("Lebih Dikit");
-        kegiatan.addShowMoreText("Lebih Banyak");
+        recyclerView.setAdapter(adapter);
 
+        String mId = getIntent().getStringExtra("id");
+
+        presenter = new ListJurnalPemPerusahaanPresenter(this);
+        presenter.getDatas(mId);
+
+        itemClickListener = ((view, position) -> {
+            String kegiatan = jurnals.get(position).getKegiatan();
+            String prosedur = jurnals.get(position).getProsedur();
+            String spek = jurnals.get(position).getSpek();
+
+            new SweetAlertDialog(this)
+                    .setContentText("Kegiatan Kerja (Perkerjaan) \n" + kegiatan +
+                            "\nProsedur Pengerjaan Trouble Shooting\n" + prosedur +
+                            "\nSpesifikasi Bahan dan Peralatan Kerja\n" + spek)
+                    .show();
+
+        });
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -77,5 +97,15 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity {
             window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
             window.setBackgroundDrawable(background);
         }
+    }
+
+    @Override
+    public void onGetResults(List<Jurnal> jurnals) {
+
+    }
+
+    @Override
+    public void onErrorLoading(String message) {
+
     }
 }

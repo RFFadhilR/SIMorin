@@ -17,6 +17,8 @@ public class Jurnal {
     private String prosedur;
     @SerializedName("spek")
     private String spek;
+    @SerializedName("nama_siswa")
+    private String nama_siswa;
 
     public int getId_jurnal() {
         return id_jurnal;
@@ -72,5 +74,13 @@ public class Jurnal {
 
     public void setSpek(String spek) {
         this.spek = spek;
+    }
+
+    public String getNama_siswa() {
+        return nama_siswa;
+    }
+
+    public void setNama_siswa(String nama_siswa) {
+        this.nama_siswa = nama_siswa;
     }
 }

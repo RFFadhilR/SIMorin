@@ -66,8 +66,8 @@ public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbse
 
     class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tv_nama, tv_tanggal, tv_status, tv_lokasi;
-        CheckBox checkBox;
+        TextView tv_nama, tv_tanggal, tv_status;
+        CheckBox cb;
         CardView cardView;
         ItemClickListener itemClickListener;
 
@@ -77,8 +77,7 @@ public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbse
             tv_nama = itemView.findViewById(R.id.tv2);
             tv_tanggal = itemView.findViewById(R.id.tv22);
             tv_status = itemView.findViewById(R.id.tv222);
-            tv_lokasi = itemView.findViewById(R.id.lihat_lokasi);
-            checkBox = itemView.findViewById(R.id.checkBox1);
+            cb = itemView.findViewById(R.id.checkBox1);
             cardView = itemView.findViewById(R.id.isi_absen);
 
             this.itemClickListener = itemClickListener;

@@ -46,8 +46,6 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
     GoogleMap map;
     RecyclerView data;
 
-    String tanggal;
-
     List<Absen> absen;
     ArrayList<LatLng> arrayList = new ArrayList<LatLng>();
 

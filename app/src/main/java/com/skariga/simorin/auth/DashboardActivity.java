@@ -186,7 +186,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
 
-                rl1.setOnClickListener((View.OnClickListener) v -> {
+                rl1.setOnClickListener(v -> {
                     if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                             @Override
@@ -215,6 +215,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 rl2.setOnClickListener(v -> {
                     Intent i = new Intent(DashboardActivity.this, ListJurnalPemPerusahaanActivity.class);
+                    i.putExtra("id", mId);
                     startActivity(i);
                     finish();
                 });
