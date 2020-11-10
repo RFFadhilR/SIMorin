@@ -40,43 +40,25 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity {
         semua = findViewById(R.id.setujui_semua);
         dipilih = findViewById(R.id.setujui_dipilih);
 
-        semua.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        semua.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
-        dipilih.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        dipilih.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
-        lihat_detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        lihat_detail.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
-        kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ListJurnalPemPerusahaanActivity.this, DashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
+        kembali.setOnClickListener(v -> {
+            Intent i = new Intent(ListJurnalPemPerusahaanActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
         });
 
         kegiatan.setShowingLine(2);

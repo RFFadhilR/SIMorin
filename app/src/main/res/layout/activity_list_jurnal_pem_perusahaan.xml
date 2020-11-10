@@ -45,7 +45,7 @@
         android:background="@drawable/capsule_putih">
 
         <Button
-            android:id="@+id/setujui_semua"
+            android:id="@+id/ttd_semua"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -53,116 +53,31 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/capsule_gradient"
-            android:text="Setujui Semua"
+            android:text="Tanda Tangan Semua"
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/setujui_dipilih"
+            android:id="@+id/ttd_dipilih"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/setujui_semua"
+            android:layout_below="@id/ttd_semua"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/capsule_gradient"
-            android:text="Setujui yang dipilih"
+            android:text="Tanda Tangan yang dipilih"
             android:textColor="@color/white" />
 
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/rl_title"
-        android:layout_marginTop="20dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:background="@drawable/capsule_putih"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp">
-
-                    <CheckBox
-                        android:id="@+id/checkBox1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="15dp"
-                        android:text="Risqullah Fani Fadhil"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv2"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="01 Januari 2020 / 00:00"
-                        android:textColor="@color/black" />
-
-                    <com.skyhope.showmoretextview.ShowMoreTextView
-                        android:id="@+id/kegiatan"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv22"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="15dp"
-                        android:text="@string/lorem"
-                        android:textColor="@color/black" />
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/lihat_detail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="20dp"
-                        android:clickable="true"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:text="Lihat Detail"
-                        android:textColor="@color/blue"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </ScrollView>
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>
