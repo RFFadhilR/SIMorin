@@ -1,13 +1,17 @@
 package com.skariga.simorin.perusahaan;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +34,7 @@ import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
 import com.skariga.simorin.helper.Absen;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -41,11 +46,15 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
     GoogleMap map;
     RecyclerView data;
 
+    String tanggal;
+
+    List<Absen> absen;
+    ArrayList<LatLng> arrayList = new ArrayList<LatLng>();
+
     ListAbsenPemPerusahaanPresenter presenter;
     ListAbsenPemPerusahaanAdapter adapter;
     ListAbsenPemPerusahaanAdapter.ItemClickListener itemClickListener;
 
-    List<Absen> absen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +99,24 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
             String tanggal = absen.get(position).getTanggal();
             String waktu_masuk = absen.get(position).getWaktu_masuk();
             String waktu_pulang = absen.get(position).getWaktu_pulang();
+            double latss = Double.parseDouble(absen.get(position).getLatitude());
+            double longss = Double.parseDouble(absen.get(position).getLongitude());
+            LatLng lokss = new LatLng(latss, longss);
 
             if (status.equals("MASUK")) {
                 Toast.makeText(this, nama + "\n" + tanggal + " / " + waktu_masuk + "\n" + status, Toast.LENGTH_LONG).show();
+                arrayList.add(lokss);
+                for (int i = 0; i < arrayList.size(); i++) {
+                    map.addMarker(new MarkerOptions().position(arrayList.get(i)).title(tanggal));
+                    map.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
+                }
             } else {
                 Toast.makeText(this, nama + "\n" + tanggal + " / " + waktu_pulang + "\n" + status, Toast.LENGTH_LONG).show();
+                arrayList.add(lokss);
+                for (int i = 0; i < arrayList.size(); i++) {
+                    map.addMarker(new MarkerOptions().position(arrayList.get(i)).title(tanggal));
+                    map.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
+                }
             }
 
         });
@@ -121,8 +143,8 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
         LatLng lokasi = new LatLng(latitude, longitude);
         map.addMarker(new MarkerOptions().position(lokasi).title("Lokasi Saat ini"));
         map.moveCamera(CameraUpdateFactory.newLatLng(lokasi));
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 12.0f));
-        drawCircle(new LatLng(latitude, longitude));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 10.0f));
+        drawCircle(lokasi);
     }
 
     private void drawCircle(LatLng point) {
@@ -151,4 +173,5 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
                 .setContentText(message)
                 .show();
     }
+
 }

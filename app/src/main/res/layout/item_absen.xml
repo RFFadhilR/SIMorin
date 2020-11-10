@@ -78,7 +78,7 @@
                     android:layout_marginRight="20dp"
                     android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    android:text="Lihat Lokasi"
+                    android:text="Tekan untuk \n Lihat Lokasi"
                     android:textColor="@color/blue"
                     android:textStyle="bold"
                     android:tooltipText="Lihat Lokasi Siswa" />

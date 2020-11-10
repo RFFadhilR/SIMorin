@@ -1,6 +1,8 @@
 package com.skariga.simorin.perusahaan;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skariga.simorin.R;
@@ -18,6 +21,7 @@ import com.skariga.simorin.helper.Absen;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbsenPemPerusahaanAdapter.RecyclerViewAdapter> {
 
@@ -41,8 +45,6 @@ public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbse
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter holder, int position) {
         Absen absen = absens.get(position);
-        SimpleDateFormat tanggal = new SimpleDateFormat("dd MMMM yyyy");
-        SimpleDateFormat waktu = new SimpleDateFormat("HH:mm");
         holder.tv_nama.setText(absen.getNama_siswa());
         if (absen.getWaktu_pulang() == null) {
             holder.tv_tanggal.setText(absen.getTanggal() + " / " + absen.getWaktu_masuk());

@@ -30,6 +30,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginTop="20dp"
             android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:src="@drawable/back"
             app:tint="@color/white" />
 
