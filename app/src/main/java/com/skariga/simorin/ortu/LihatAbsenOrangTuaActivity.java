@@ -33,23 +33,15 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity {
         tv_lokasi = findViewById(R.id.lihat_lokasi);
         kembali = findViewById(R.id.back);
 
-        tv_lokasi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(LihatAbsenOrangTuaActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        tv_lokasi.setOnClickListener(v -> new SweetAlertDialog(LihatAbsenOrangTuaActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
-        kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LihatAbsenOrangTuaActivity.this, DashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
+        kembali.setOnClickListener(v -> {
+            Intent i = new Intent(LihatAbsenOrangTuaActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
         });
 
     }

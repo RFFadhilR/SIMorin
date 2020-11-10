@@ -36,24 +36,16 @@ public class LihatJurnalOrangTuaActivity extends AppCompatActivity {
         kembali = findViewById(R.id.back);
         liha_detail = findViewById(R.id.lihat_detail);
 
-        kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LihatJurnalOrangTuaActivity.this, DashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
+        kembali.setOnClickListener(v -> {
+            Intent i = new Intent(LihatJurnalOrangTuaActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
         });
 
-        liha_detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(LihatJurnalOrangTuaActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        liha_detail.setOnClickListener(v -> new SweetAlertDialog(LihatJurnalOrangTuaActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
         kegiatan.setShowingLine(2);
         kegiatan.addShowLessText("Lebih Dikit");

@@ -36,34 +36,21 @@ public class ListJurnalSiswaActivity extends AppCompatActivity {
         cari = findViewById(R.id.btn_cari);
         detail = findViewById(R.id.lihat_detail);
 
-        tambah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(ListJurnalSiswaActivity.this, JurnalKegiatanSiswaActivity.class);
-                startActivity(i);
-                finish();
-            }
+        tambah.setOnClickListener(view -> {
+            Intent i = new Intent(ListJurnalSiswaActivity.this, JurnalKegiatanSiswaActivity.class);
+            startActivity(i);
+            finish();
         });
 
-        cari.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new SweetAlertDialog(ListJurnalSiswaActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        cari.setOnClickListener(view -> new SweetAlertDialog(ListJurnalSiswaActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
-        detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new SweetAlertDialog(ListJurnalSiswaActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        detail.setOnClickListener(view -> new SweetAlertDialog(ListJurnalSiswaActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
         showMoreTextView.setShowingLine(2);
         showMoreTextView.addShowLessText("Lebih Dikit");

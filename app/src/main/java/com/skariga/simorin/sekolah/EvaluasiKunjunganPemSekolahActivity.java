@@ -56,33 +56,20 @@ public class EvaluasiKunjunganPemSekolahActivity extends AppCompatActivity {
         nis.setText("19828");
         nama.setText("Risqullah Fani FadhilRif'at");
 
-        siswa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(EvaluasiKunjunganPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        siswa.setOnClickListener(v -> new SweetAlertDialog(EvaluasiKunjunganPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
-        pembimbing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(EvaluasiKunjunganPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        pembimbing.setOnClickListener(v -> new SweetAlertDialog(EvaluasiKunjunganPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
-        kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(EvaluasiKunjunganPemSekolahActivity.this, DashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
+        kembali.setOnClickListener(v -> {
+            Intent i = new Intent(EvaluasiKunjunganPemSekolahActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
         });
 
     }

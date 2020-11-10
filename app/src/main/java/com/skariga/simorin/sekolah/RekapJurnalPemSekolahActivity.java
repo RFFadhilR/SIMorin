@@ -62,178 +62,114 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity {
         ls8 = findViewById(R.id.siswa8);
         ls9 = findViewById(R.id.siswa9);
 
-        kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(RekapJurnalPemSekolahActivity.this, DashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
+        kembali.setOnClickListener(v -> {
+            Intent i = new Intent(RekapJurnalPemSekolahActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
         });
 
-        semua.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(RekapJurnalPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
+        semua.setOnClickListener(v -> new SweetAlertDialog(RekapJurnalPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
+
+        dipilih.setOnClickListener(v -> new SweetAlertDialog(RekapJurnalPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
+
+        lp1.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            siswa.setVisibility(View.VISIBLE);
         });
 
-        dipilih.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(RekapJurnalPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
+        lp2.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            siswa.setVisibility(View.VISIBLE);
         });
 
-        lp1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                siswa.setVisibility(View.VISIBLE);
-            }
+        lp3.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            siswa.setVisibility(View.VISIBLE);
         });
 
-        lp2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                siswa.setVisibility(View.VISIBLE);
-            }
+        lp4.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            siswa.setVisibility(View.VISIBLE);
         });
 
-        lp3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                siswa.setVisibility(View.VISIBLE);
-            }
+        lp5.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            siswa.setVisibility(View.VISIBLE);
         });
 
-        lp4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                siswa.setVisibility(View.VISIBLE);
-            }
+        lp6.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            siswa.setVisibility(View.VISIBLE);
         });
 
-        lp5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                siswa.setVisibility(View.VISIBLE);
-            }
+        lp7.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            siswa.setVisibility(View.VISIBLE);
         });
 
-        lp6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                siswa.setVisibility(View.VISIBLE);
-            }
+        lp8.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            siswa.setVisibility(View.VISIBLE);
         });
 
-        lp7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                siswa.setVisibility(View.VISIBLE);
-            }
+        ls1.setOnClickListener(v -> {
+            siswa.setVisibility(View.GONE);
+            ttd_jurnal.setVisibility(View.VISIBLE);
+            jurnal.setVisibility(View.VISIBLE);
         });
 
-        lp8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                siswa.setVisibility(View.VISIBLE);
-            }
+        ls2.setOnClickListener(v -> {
+            siswa.setVisibility(View.GONE);
+            ttd_jurnal.setVisibility(View.VISIBLE);
+            jurnal.setVisibility(View.VISIBLE);
         });
 
-        ls1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                siswa.setVisibility(View.GONE);
-                ttd_jurnal.setVisibility(View.VISIBLE);
-                jurnal.setVisibility(View.VISIBLE);
-            }
+        ls3.setOnClickListener(v -> {
+            siswa.setVisibility(View.GONE);
+            ttd_jurnal.setVisibility(View.VISIBLE);
+            jurnal.setVisibility(View.VISIBLE);
         });
 
-        ls2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                siswa.setVisibility(View.GONE);
-                ttd_jurnal.setVisibility(View.VISIBLE);
-                jurnal.setVisibility(View.VISIBLE);
-            }
+        ls4.setOnClickListener(v -> {
+            siswa.setVisibility(View.GONE);
+            ttd_jurnal.setVisibility(View.VISIBLE);
+            jurnal.setVisibility(View.VISIBLE);
         });
 
-        ls3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                siswa.setVisibility(View.GONE);
-                ttd_jurnal.setVisibility(View.VISIBLE);
-                jurnal.setVisibility(View.VISIBLE);
-            }
+        ls5.setOnClickListener(v -> {
+            siswa.setVisibility(View.GONE);
+            ttd_jurnal.setVisibility(View.VISIBLE);
+            jurnal.setVisibility(View.VISIBLE);
         });
 
-        ls4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                siswa.setVisibility(View.GONE);
-                ttd_jurnal.setVisibility(View.VISIBLE);
-                jurnal.setVisibility(View.VISIBLE);
-            }
+        ls6.setOnClickListener(v -> {
+            siswa.setVisibility(View.GONE);
+            ttd_jurnal.setVisibility(View.VISIBLE);
+            jurnal.setVisibility(View.VISIBLE);
         });
 
-        ls5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                siswa.setVisibility(View.GONE);
-                ttd_jurnal.setVisibility(View.VISIBLE);
-                jurnal.setVisibility(View.VISIBLE);
-            }
+        ls7.setOnClickListener(v -> {
+            siswa.setVisibility(View.GONE);
+            ttd_jurnal.setVisibility(View.VISIBLE);
+            jurnal.setVisibility(View.VISIBLE);
         });
 
-        ls6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                siswa.setVisibility(View.GONE);
-                ttd_jurnal.setVisibility(View.VISIBLE);
-                jurnal.setVisibility(View.VISIBLE);
-            }
+        ls8.setOnClickListener(v -> {
+            siswa.setVisibility(View.GONE);
+            ttd_jurnal.setVisibility(View.VISIBLE);
+            jurnal.setVisibility(View.VISIBLE);
         });
 
-        ls7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                siswa.setVisibility(View.GONE);
-                ttd_jurnal.setVisibility(View.VISIBLE);
-                jurnal.setVisibility(View.VISIBLE);
-            }
-        });
-
-        ls8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                siswa.setVisibility(View.GONE);
-                ttd_jurnal.setVisibility(View.VISIBLE);
-                jurnal.setVisibility(View.VISIBLE);
-            }
-        });
-
-        ls9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                siswa.setVisibility(View.GONE);
-                ttd_jurnal.setVisibility(View.VISIBLE);
-                jurnal.setVisibility(View.VISIBLE);
-            }
+        ls9.setOnClickListener(v -> {
+            siswa.setVisibility(View.GONE);
+            ttd_jurnal.setVisibility(View.VISIBLE);
+            jurnal.setVisibility(View.VISIBLE);
         });
     }
 

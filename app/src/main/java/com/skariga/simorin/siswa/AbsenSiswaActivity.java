@@ -160,13 +160,10 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                             new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
                                     .setTitleText("Gagal...")
                                     .setContentText(message)
-                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                            Intent i = new Intent(AbsenSiswaActivity.this, DashboardActivity.class);
-                                            startActivity(i);
-                                            finish();
-                                        }
+                                    .setConfirmClickListener(sweetAlertDialog -> {
+                                        Intent i = new Intent(AbsenSiswaActivity.this, DashboardActivity.class);
+                                        startActivity(i);
+                                        finish();
                                     })
                                     .show();
                         }
@@ -178,15 +175,12 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                                 .show();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        sweetAlertDialog.dismiss();
-                        new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Error...")
-                                .setContentText(error.toString())
-                                .show();
-                    }
+                error -> {
+                    sweetAlertDialog.dismiss();
+                    new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Error...")
+                            .setContentText(error.toString())
+                            .show();
                 }
         ) {
             @Override

@@ -72,111 +72,96 @@ public class LoginActivity extends AppCompatActivity {
 
             private void Login(final String user, final String pass) {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    System.out.println(response);
+                        response -> {
+                            try {
+                                System.out.println(response);
 
-                                    JSONObject jsonObject = new JSONObject(response);
-                                    String success = jsonObject.getString("RESULT");
+                                JSONObject jsonObject = new JSONObject(response);
+                                String success = jsonObject.getString("RESULT");
 
-                                    if (success.equals("OK")) {
-                                        JSONObject object = jsonObject.getJSONObject("USER");
+                                if (success.equals("OK")) {
+                                    JSONObject object = jsonObject.getJSONObject("USER");
 
-                                        final String id = object.getString("ID").trim();
-                                        final String nama = object.getString("NAMA").trim();
-                                        final String role = object.getString("ROLE").trim();
-                                        final String psb = object.getString("PSB").trim();
+                                    final String id = object.getString("ID").trim();
+                                    final String nama = object.getString("NAMA").trim();
+                                    final String role = object.getString("ROLE").trim();
+                                    final String psb = object.getString("PSB").trim();
 
-                                        if (role.equals("Siswa")) {
-                                            sweetAlertDialogGlobal.dismiss();
-                                            new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                    .setTitleText("Yaey...")
-                                                    .setContentText("Anda Berhasil Login!")
-                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                        @Override
-                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                            sweetAlertDialog.dismiss();
-                                                            sessionManager.createSession(id, nama, psb, role);
-                                                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-                                                            startActivity(i);
-                                                            finish();
-                                                        }
-                                                    })
-                                                    .show();
-                                        } else if (role.equals("Pembimbing Sekolah")) {
-                                            sweetAlertDialogGlobal.dismiss();
-                                            new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                    .setTitleText("Yaey...")
-                                                    .setContentText("Anda Berhasil Login!")
-                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                        @Override
-                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                            sweetAlertDialog.dismiss();
-                                                            sessionManager.createSession(id, nama, psb, role);
-                                                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-                                                            startActivity(i);
-                                                            finish();
-                                                        }
-                                                    })
-                                                    .show();
-                                        } else if (role.equals("Pembimbing Perusahaan")) {
-                                            sweetAlertDialogGlobal.dismiss();
-                                            new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                    .setTitleText("Yaey...")
-                                                    .setContentText("Anda Berhasil Login!")
-                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                        @Override
-                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                            sweetAlertDialog.dismiss();
-                                                            sessionManager.createSession(id, nama, psb, role);
-                                                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-                                                            startActivity(i);
-                                                            finish();
-                                                        }
-                                                    })
-                                                    .show();
-                                        } else if (role.equals("Orang Tua")) {
-                                            sweetAlertDialogGlobal.dismiss();
-                                            new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                    .setTitleText("Yaey...")
-                                                    .setContentText("Anda Berhasil Login!")
-                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                        @Override
-                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                            sweetAlertDialog.dismiss();
-                                                            sessionManager.createSession(id, nama, null, role);
-                                                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-                                                            startActivity(i);
-                                                            finish();
-                                                        }
-                                                    })
-                                                    .show();
-                                        } else {
-                                            sweetAlertDialogGlobal.dismiss();
-                                            new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE)
-                                                    .setTitleText("Maaf...")
-                                                    .setContentText("Akses ditolak!")
-                                                    .show();
-                                        }
-                                    } else {
-                                        String message = jsonObject.getString("MESSAGE");
-
+                                    if (role.equals("Siswa")) {
                                         sweetAlertDialogGlobal.dismiss();
-                                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                                .setTitleText("Gagal...")
-                                                .setContentText(message)
+                                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                                .setTitleText("Yaey...")
+                                                .setContentText("Anda Berhasil Login!")
+                                                .setConfirmClickListener(sweetAlertDialog -> {
+                                                    sweetAlertDialog.dismiss();
+                                                    sessionManager.createSession(id, nama, psb, role);
+                                                    Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+                                                    startActivity(i);
+                                                    finish();
+                                                })
+                                                .show();
+                                    } else if (role.equals("Pembimbing Sekolah")) {
+                                        sweetAlertDialogGlobal.dismiss();
+                                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                                .setTitleText("Yaey...")
+                                                .setContentText("Anda Berhasil Login!")
+                                                .setConfirmClickListener(sweetAlertDialog -> {
+                                                    sweetAlertDialog.dismiss();
+                                                    sessionManager.createSession(id, nama, psb, role);
+                                                    Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+                                                    startActivity(i);
+                                                    finish();
+                                                })
+                                                .show();
+                                    } else if (role.equals("Pembimbing Perusahaan")) {
+                                        sweetAlertDialogGlobal.dismiss();
+                                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                                .setTitleText("Yaey...")
+                                                .setContentText("Anda Berhasil Login!")
+                                                .setConfirmClickListener(sweetAlertDialog -> {
+                                                    sweetAlertDialog.dismiss();
+                                                    sessionManager.createSession(id, nama, psb, role);
+                                                    Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+                                                    startActivity(i);
+                                                    finish();
+                                                })
+                                                .show();
+                                    } else if (role.equals("Orang Tua")) {
+                                        sweetAlertDialogGlobal.dismiss();
+                                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                                .setTitleText("Yaey...")
+                                                .setContentText("Anda Berhasil Login!")
+                                                .setConfirmClickListener(sweetAlertDialog -> {
+                                                    sweetAlertDialog.dismiss();
+                                                    sessionManager.createSession(id, nama, null, role);
+                                                    Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+                                                    startActivity(i);
+                                                    finish();
+                                                })
+                                                .show();
+                                    } else {
+                                        sweetAlertDialogGlobal.dismiss();
+                                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                                .setTitleText("Maaf...")
+                                                .setContentText("Akses ditolak!")
                                                 .show();
                                     }
-                                } catch (Exception e) {
+                                } else {
+                                    String message = jsonObject.getString("MESSAGE");
+
                                     sweetAlertDialogGlobal.dismiss();
-                                    e.printStackTrace();
                                     new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                            .setTitleText("Error...")
-                                            .setContentText(e.toString())
+                                            .setTitleText("Gagal...")
+                                            .setContentText(message)
                                             .show();
                                 }
+                            } catch (Exception e) {
+                                sweetAlertDialogGlobal.dismiss();
+                                e.printStackTrace();
+                                new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("Error...")
+                                        .setContentText(e.toString())
+                                        .show();
                             }
                         },
                         new Response.ErrorListener() {
@@ -190,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }) {
                     @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
+                    protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
                         params.put("username", user);
                         params.put("password", pass);

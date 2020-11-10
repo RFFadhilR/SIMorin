@@ -21,14 +21,12 @@ public class ListAbsenPemPerusahaanPresenter {
     }
 
     void getData() {
-        view.ShowLoading();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Absen>> call = apiInterface.getAbsens();
         call.enqueue(new Callback<List<Absen>>() {
             @Override
             public void onResponse(@NonNull Call<List<Absen>> call, @NonNull Response<List<Absen>> response) {
-                view.HideLoading();
                 if (response.isSuccessful() && response.body() != null) {
                     view.onGetResult(response.body());
                 }
@@ -36,7 +34,6 @@ public class ListAbsenPemPerusahaanPresenter {
 
             @Override
             public void onFailure(@NonNull Call<List<Absen>> call, @NonNull Throwable t) {
-                view.HideLoading();
                 view.onErrorLoading(t.getLocalizedMessage());
             }
         });

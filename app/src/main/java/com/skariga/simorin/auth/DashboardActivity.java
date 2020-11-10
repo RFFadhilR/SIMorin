@@ -84,21 +84,16 @@ public class DashboardActivity extends AppCompatActivity {
             nama.setText(mNama);
             psb.setText(mPer);
 
-            logout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                            .setTitleText("Yeay...")
-                            .setContentText("Anda berhasil Logout!")
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sessionManager.logout();
-                                }
-                            })
-                            .show();
-                }
-            });
+            logout.setOnClickListener(v -> new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Yeay...")
+                    .setContentText("Anda berhasil Logout!")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            sessionManager.logout();
+                        }
+                    })
+                    .show());
 
             if (mRole.equals("Siswa")) {
                 rl3.setVisibility(View.GONE);
@@ -109,55 +104,49 @@ public class DashboardActivity extends AppCompatActivity {
                 iv1.setImageResource(R.drawable.absen);
                 iv2.setImageResource(R.drawable.jurnal);
 
-                rl2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(DashboardActivity.this, ListJurnalSiswaActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
+                rl2.setOnClickListener(v -> {
+                    Intent i = new Intent(DashboardActivity.this, ListJurnalSiswaActivity.class);
+                    startActivity(i);
+                    finish();
                 });
 
-                rl1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
+                rl1.setOnClickListener((View.OnClickListener) v -> {
+                    if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
 
-                            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Location> task) {
-                                    Location location = task.getResult();
-                                    if (location != null) {
-                                        try {
-                                            Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
-                                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                            Intent i = new Intent(DashboardActivity.this, AbsenSiswaActivity.class);
-                                            i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
-                                            i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
-                                            startActivity(i);
-                                            finish();
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                            new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                                    .setTitleText("Error...")
-                                                    .setContentText(e.toString())
-                                                    .show();
-                                        }
-                                    } else {
-                                        new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.WARNING_TYPE)
-                                                .setTitleText("Maaf...")
-                                                .setContentText("Mohon periksa kembali KONEKSI INTERNET serta LOKASI anda, " +
-                                                        "pastikan kedua fitur tersebut menyala, " +
-                                                        "dan setelah itu silahkan ada buka GOOGLE MAPS pastikan LOKASI anda terditeksi / terbaca, " +
-                                                        "lalu silahkan anda buka kembali aplikasi ini.")
+                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Location> task) {
+                                Location location = task.getResult();
+                                if (location != null) {
+                                    try {
+                                        Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
+                                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                        Intent i = new Intent(DashboardActivity.this, AbsenSiswaActivity.class);
+                                        i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
+                                        i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
+                                        startActivity(i);
+                                        finish();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                                .setTitleText("Error...")
+                                                .setContentText(e.toString())
                                                 .show();
                                     }
+                                } else {
+                                    new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                            .setTitleText("Maaf...")
+                                            .setContentText("Mohon periksa kembali KONEKSI INTERNET serta LOKASI anda, " +
+                                                    "pastikan kedua fitur tersebut menyala, " +
+                                                    "dan setelah itu silahkan ada buka GOOGLE MAPS pastikan LOKASI anda terditeksi / terbaca, " +
+                                                    "lalu silahkan anda buka kembali aplikasi ini.")
+                                            .show();
                                 }
-                            });
-                        } else {
-                            ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                        }
+                            }
+                        });
+                    } else {
+                        ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
                     }
                 });
             } else if (mRole.equals("Pembimbing Sekolah")) {
@@ -169,31 +158,22 @@ public class DashboardActivity extends AppCompatActivity {
                 iv2.setImageResource(R.drawable.rekapjurnal);
                 iv3.setImageResource(R.drawable.evaluasikunjungan);
 
-                rl1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(DashboardActivity.this, RekapAbsenPemSekolahActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
+                rl1.setOnClickListener(v -> {
+                    Intent i = new Intent(DashboardActivity.this, RekapAbsenPemSekolahActivity.class);
+                    startActivity(i);
+                    finish();
                 });
 
-                rl2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(DashboardActivity.this, RekapJurnalPemSekolahActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
+                rl2.setOnClickListener(v -> {
+                    Intent i = new Intent(DashboardActivity.this, RekapJurnalPemSekolahActivity.class);
+                    startActivity(i);
+                    finish();
                 });
 
-                rl3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(DashboardActivity.this, EvaluasiKunjunganPemSekolahActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
+                rl3.setOnClickListener(v -> {
+                    Intent i = new Intent(DashboardActivity.this, EvaluasiKunjunganPemSekolahActivity.class);
+                    startActivity(i);
+                    finish();
                 });
             } else if (mRole.equals("Pembimbing Perusahaan")) {
                 rl3.setVisibility(View.GONE);
@@ -206,42 +186,36 @@ public class DashboardActivity extends AppCompatActivity {
 
                 fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
 
-                rl1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Location> task) {
-                                    Location location = task.getResult();
-                                    if (location != null) {
-                                        try {
-                                            Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
-                                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                            Intent i = new Intent(DashboardActivity.this, ListAbsenPemPerusahaanActivity.class);
-                                            i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
-                                            i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
-                                            startActivity(i);
-                                            finish();
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
+                rl1.setOnClickListener((View.OnClickListener) v -> {
+                    if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Location> task) {
+                                Location location = task.getResult();
+                                if (location != null) {
+                                    try {
+                                        Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
+                                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                        Intent i = new Intent(DashboardActivity.this, ListAbsenPemPerusahaanActivity.class);
+                                        i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
+                                        i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
+                                        startActivity(i);
+                                        finish();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
                                 }
-                            });
-                        } else {
-                            ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                        }
+                            }
+                        });
+                    } else {
+                        ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
                     }
                 });
 
-                rl2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(DashboardActivity.this, ListJurnalPemPerusahaanActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
+                rl2.setOnClickListener(v -> {
+                    Intent i = new Intent(DashboardActivity.this, ListJurnalPemPerusahaanActivity.class);
+                    startActivity(i);
+                    finish();
                 });
 
             } else if (mRole.equals("Orang Tua")) {
@@ -253,31 +227,22 @@ public class DashboardActivity extends AppCompatActivity {
                 iv2.setImageResource(R.drawable.lihatjurnal);
                 iv3.setImageResource(R.drawable.lihatkunjungan);
 
-                rl2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(DashboardActivity.this, LihatJurnalOrangTuaActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
+                rl2.setOnClickListener(v -> {
+                    Intent i = new Intent(DashboardActivity.this, LihatJurnalOrangTuaActivity.class);
+                    startActivity(i);
+                    finish();
                 });
 
-                rl1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(DashboardActivity.this, LihatAbsenOrangTuaActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
+                rl1.setOnClickListener(v -> {
+                    Intent i = new Intent(DashboardActivity.this, LihatAbsenOrangTuaActivity.class);
+                    startActivity(i);
+                    finish();
                 });
 
-                rl3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(DashboardActivity.this, LihatKunjunganOrangTuaActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
+                rl3.setOnClickListener(v -> {
+                    Intent i = new Intent(DashboardActivity.this, LihatKunjunganOrangTuaActivity.class);
+                    startActivity(i);
+                    finish();
                 });
             } else {
                 new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.WARNING_TYPE)

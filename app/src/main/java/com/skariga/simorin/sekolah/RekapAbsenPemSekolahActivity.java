@@ -47,87 +47,55 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity {
         l7 = findViewById(R.id.perusahaan8);
         l8 = findViewById(R.id.perusahaan9);
 
-        export.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(RekapAbsenPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
+        export.setOnClickListener(v -> new SweetAlertDialog(RekapAbsenPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
+
+        kembali.setOnClickListener(v -> {
+            Intent i = new Intent(RekapAbsenPemSekolahActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
         });
 
-        kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(RekapAbsenPemSekolahActivity.this, DashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
+        l1.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            absen.setVisibility(View.VISIBLE);
         });
 
-        l1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                absen.setVisibility(View.VISIBLE);
-            }
+        l2.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            absen.setVisibility(View.VISIBLE);
         });
 
-        l2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                absen.setVisibility(View.VISIBLE);
-            }
+        l3.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            absen.setVisibility(View.VISIBLE);
         });
 
-        l3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                absen.setVisibility(View.VISIBLE);
-            }
+        l4.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            absen.setVisibility(View.VISIBLE);
         });
 
-        l4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                absen.setVisibility(View.VISIBLE);
-            }
+        l5.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            absen.setVisibility(View.VISIBLE);
         });
 
-        l5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                absen.setVisibility(View.VISIBLE);
-            }
+        l6.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            absen.setVisibility(View.VISIBLE);
         });
 
-        l6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                absen.setVisibility(View.VISIBLE);
-            }
+        l7.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            absen.setVisibility(View.VISIBLE);
         });
 
-        l7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                absen.setVisibility(View.VISIBLE);
-            }
-        });
-
-        l8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perusahaan.setVisibility(View.GONE);
-                absen.setVisibility(View.VISIBLE);
-            }
+        l8.setOnClickListener(v -> {
+            perusahaan.setVisibility(View.GONE);
+            absen.setVisibility(View.VISIBLE);
         });
 
     }

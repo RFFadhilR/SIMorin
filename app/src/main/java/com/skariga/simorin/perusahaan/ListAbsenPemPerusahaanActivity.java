@@ -40,7 +40,6 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
     TextView lihat_lokasi;
     ImageView kembali;
     GoogleMap map;
-    SwipeRefreshLayout refresh;
     RecyclerView data;
 
     ListAbsenPemPerusahaanPresenter presenter;
@@ -60,58 +59,35 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
         lihat_lokasi = findViewById(R.id.lihat_lokasi);
         kembali = findViewById(R.id.back);
         data = findViewById(R.id.recycler_view);
-        refresh = findViewById(R.id.swipe_refresh);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
         mapFragment.getMapAsync(ListAbsenPemPerusahaanActivity.this);
 
-        kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ListAbsenPemPerusahaanActivity.this, DashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
+        kembali.setOnClickListener(v -> {
+            Intent i = new Intent(ListAbsenPemPerusahaanActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
         });
 
-        lihat_lokasi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        lihat_lokasi.setOnClickListener(v -> new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
-        semua.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        semua.setOnClickListener(v -> new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
-        dipilih.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Maaf...")
-                        .setContentText("Fitur ini masih dalam pengembangan :)")
-                        .show();
-            }
-        });
+        dipilih.setOnClickListener(v -> new SweetAlertDialog(ListAbsenPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Maaf...")
+                .setContentText("Fitur ini masih dalam pengembangan :)")
+                .show());
 
         data.setLayoutManager(new LinearLayoutManager(this));
 
         presenter = new ListAbsenPemPerusahaanPresenter(this);
         presenter.getData();
-
-        refresh.setOnRefreshListener(
-                () -> presenter.getData()
-        );
 
         itemClickListener = ((view, position) -> {
             String status = absen.get(position).getStatus();
@@ -162,16 +138,6 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
         circleOptions.strokeColor(R.color.blue);
         circleOptions.strokeWidth(2);
         map.addCircle(circleOptions);
-    }
-
-    @Override
-    public void ShowLoading() {
-        refresh.setRefreshing(true);
-    }
-
-    @Override
-    public void HideLoading() {
-        refresh.setRefreshing(false);
     }
 
     @Override
