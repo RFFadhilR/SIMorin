@@ -80,7 +80,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:text="Tekan untuk \n Lihat Detail"
+                    android:text="Tekan \n untuk \n Lihat \n Detail"
                     android:textColor="@color/blue"
                     android:textStyle="bold" />
 
