@@ -46,8 +46,8 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
 
         kegiatan = findViewById(R.id.kegiatan);
         kembali = findViewById(R.id.back);
-        semua = findViewById(R.id.setujui_semua);
-        dipilih = findViewById(R.id.setujui_dipilih);
+        semua = findViewById(R.id.ttd_semua);
+        dipilih = findViewById(R.id.ttd_dipilih);
         recyclerView = findViewById(R.id.recycler_view);
 
         semua.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
