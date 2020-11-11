@@ -80,8 +80,6 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:clickable="true"
-                    android:foreground="?attr/selectableItemBackground"
                     android:text="Tekan untuk \n Lihat Detail"
                     android:textColor="@color/blue"
                     android:textStyle="bold" />
