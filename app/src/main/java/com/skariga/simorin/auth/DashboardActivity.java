@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -134,19 +135,14 @@ public class DashboardActivity extends AppCompatActivity {
                                                 .setContentText(e.toString())
                                                 .show();
                                     }
-                                } else {
-                                    new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.WARNING_TYPE)
-                                            .setTitleText("Maaf...")
-                                            .setContentText("Mohon periksa kembali KONEKSI INTERNET serta LOKASI anda, " +
-                                                    "pastikan kedua fitur tersebut menyala, " +
-                                                    "dan setelah itu silahkan ada buka GOOGLE MAPS pastikan LOKASI anda terditeksi / terbaca, " +
-                                                    "lalu silahkan anda buka kembali aplikasi ini.")
-                                            .show();
                                 }
                             }
                         });
                     } else {
-                        ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                        ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                        }, 44);
                     }
                 });
             } else if (mRole.equals("Pembimbing Sekolah")) {
@@ -196,10 +192,13 @@ public class DashboardActivity extends AppCompatActivity {
                                     try {
                                         Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
                                         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+
                                         Intent i = new Intent(DashboardActivity.this, ListAbsenPemPerusahaanActivity.class);
+
                                         i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
                                         i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
                                         i.putExtra("id", mId);
+
                                         startActivity(i);
                                         finish();
                                     } catch (Exception e) {
@@ -209,7 +208,10 @@ public class DashboardActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                        ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                        }, 44);
                     }
                 });
 
@@ -219,7 +221,6 @@ public class DashboardActivity extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 });
-
             } else if (mRole.equals("Orang Tua")) {
                 tv1.setText("Lihat Absensi");
                 tv2.setText("Lihat Jurnal");

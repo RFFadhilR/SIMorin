@@ -11,14 +11,16 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
+    @FormUrlEncoded
     @POST("list-absen")
     Call<List<Absen>> getAbsens(
-            @Query("id_pembimbing_perusahaan") String id_pembimbing_perusahaan
+            @Field("id_pembimbing_perusahaan") String id_pembimbing_perusahaan
     );
 
+    @FormUrlEncoded
     @POST("list-jurnal")
     Call<List<Jurnal>> getJurnals(
-            @Query("id_pembimbing_perusahaan") String id_pembimbing_perusahaan
+            @Field("id_pembimbing_perusahaan") String id_pembimbing_perusahaan
     );
 
 }
