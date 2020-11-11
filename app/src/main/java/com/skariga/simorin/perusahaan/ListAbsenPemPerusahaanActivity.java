@@ -97,6 +97,7 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
             if (status.equals("MASUK")) {
                 Toast.makeText(this, nama + "\n" + tanggal + " / " + waktu_masuk + "\n" + status, Toast.LENGTH_LONG).show();
                 arrayList.add(lokss);
+
                 for (int i = 0; i < arrayList.size(); i++) {
                     map.addMarker(new MarkerOptions().position(arrayList.get(i)).title(tanggal));
                     map.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
@@ -104,12 +105,12 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
             } else {
                 Toast.makeText(this, nama + "\n" + tanggal + " / " + waktu_pulang + "\n" + status, Toast.LENGTH_LONG).show();
                 arrayList.add(lokss);
+
                 for (int i = 0; i < arrayList.size(); i++) {
                     map.addMarker(new MarkerOptions().position(arrayList.get(i)).title(tanggal));
                     map.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
                 }
             }
-
         });
 
     }

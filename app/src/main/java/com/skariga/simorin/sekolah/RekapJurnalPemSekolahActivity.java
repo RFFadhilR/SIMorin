@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.LinearGradient;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import android.widget.RelativeLayout;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
-import com.skyhope.showmoretextview.ShowMoreTextView;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -29,7 +27,6 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity {
     RelativeLayout perusahaan, siswa, ttd_jurnal, jurnal;
     LinearLayout lp1, lp2, lp3, lp4, lp5, lp6, lp7, lp8, ls1, ls2, ls3, ls4, ls5, ls6, ls7, ls8, ls9;
     Button semua, dipilih;
-    ShowMoreTextView kegiatan, prosedur, spek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

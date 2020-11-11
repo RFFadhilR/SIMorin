@@ -87,53 +87,16 @@ public class LoginActivity extends AppCompatActivity {
                                     final String role = object.getString("ROLE").trim();
                                     final String psb = object.getString("PSB").trim();
 
-                                    if (role.equals("Siswa")) {
-                                        sweetAlertDialogGlobal.dismiss();
+                                    if (role.equals("Siswa")
+                                            || role.equals("Pembimbing Sekolah")
+                                            || role.equals("Pembimbing Perusahaan")
+                                            || role.equals("Orang Tua")) {
                                         new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                .setTitleText("Yaey...")
+                                                .setTitleText("Yeay...")
                                                 .setContentText("Anda Berhasil Login!")
                                                 .setConfirmClickListener(sweetAlertDialog -> {
                                                     sweetAlertDialog.dismiss();
                                                     sessionManager.createSession(id, nama, psb, role);
-                                                    Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-                                                    startActivity(i);
-                                                    finish();
-                                                })
-                                                .show();
-                                    } else if (role.equals("Pembimbing Sekolah")) {
-                                        sweetAlertDialogGlobal.dismiss();
-                                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                .setTitleText("Yaey...")
-                                                .setContentText("Anda Berhasil Login!")
-                                                .setConfirmClickListener(sweetAlertDialog -> {
-                                                    sweetAlertDialog.dismiss();
-                                                    sessionManager.createSession(id, nama, psb, role);
-                                                    Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-                                                    startActivity(i);
-                                                    finish();
-                                                })
-                                                .show();
-                                    } else if (role.equals("Pembimbing Perusahaan")) {
-                                        sweetAlertDialogGlobal.dismiss();
-                                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                .setTitleText("Yaey...")
-                                                .setContentText("Anda Berhasil Login!")
-                                                .setConfirmClickListener(sweetAlertDialog -> {
-                                                    sweetAlertDialog.dismiss();
-                                                    sessionManager.createSession(id, nama, psb, role);
-                                                    Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-                                                    startActivity(i);
-                                                    finish();
-                                                })
-                                                .show();
-                                    } else if (role.equals("Orang Tua")) {
-                                        sweetAlertDialogGlobal.dismiss();
-                                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                .setTitleText("Yaey...")
-                                                .setContentText("Anda Berhasil Login!")
-                                                .setConfirmClickListener(sweetAlertDialog -> {
-                                                    sweetAlertDialog.dismiss();
-                                                    sessionManager.createSession(id, nama, null, role);
                                                     Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                                     startActivity(i);
                                                     finish();
@@ -141,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 .show();
                                     } else {
                                         sweetAlertDialogGlobal.dismiss();
+
                                         new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE)
                                                 .setTitleText("Maaf...")
                                                 .setContentText("Akses ditolak!")

@@ -133,7 +133,7 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
 
                             sweetAlertDialog.dismiss();
                             new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                    .setTitleText("Yaey...")
+                                    .setTitleText("Yeay...")
                                     .setContentText(message)
                                     .show();
                         } else if (result.equals("DONE")) {

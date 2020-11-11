@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,7 +16,6 @@ import android.widget.ImageView;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
-import com.skariga.simorin.siswa.JurnalKegiatanSiswaActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
