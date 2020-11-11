@@ -101,11 +101,18 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
 
     @Override
     public void onGetResults(List<Jurnal> jurnals) {
+        adapter = new ListJurnalPemPerusahaanAdapter(this, jurnals, itemClickListener);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
 
+        this.jurnals = jurnals;
     }
 
     @Override
     public void onErrorLoading(String message) {
-
+        new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Error...")
+                .setContentText(message)
+                .show();
     }
 }
