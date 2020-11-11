@@ -1,27 +1,21 @@
 package com.skariga.simorin.perusahaan;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.helper.Absen;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbsenPemPerusahaanAdapter.RecyclerViewAdapter> {
 
@@ -55,7 +49,7 @@ public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbse
             holder.tv_tanggal.setText(absen.getTanggal() + " / " + absen.getWaktu_pulang());
             absen.setStatus("PULANG");
             holder.tv_status.setText(absen.getStatus());
-            holder.tv_status.setTextColor(Color.argb(255,255,165,0));
+            holder.tv_status.setTextColor(Color.argb(255, 255, 165, 0));
         }
     }
 
