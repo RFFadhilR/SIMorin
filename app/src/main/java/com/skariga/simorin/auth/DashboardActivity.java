@@ -1,6 +1,7 @@
 package com.skariga.simorin.auth;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -53,6 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
     SessionManager sessionManager;
     FusedLocationProviderClient fusedLocationProviderClient;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -178,7 +180,9 @@ public class DashboardActivity extends AppCompatActivity {
                 tv2.setText("Acc Jurnal");
 
                 iv1.setImageResource(R.drawable.accabsen);
+                iv1.setTooltipText("Acc Absensi");
                 iv2.setImageResource(R.drawable.accjurnal);
+                iv2.setTooltipText("Acc Jurnal");
 
                 fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
 
