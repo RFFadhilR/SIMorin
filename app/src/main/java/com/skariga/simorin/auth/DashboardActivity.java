@@ -105,7 +105,9 @@ public class DashboardActivity extends AppCompatActivity {
                 tv2.setText("Jurnal Harian");
 
                 iv1.setImageResource(R.drawable.absen);
+                iv1.setTooltipText("Absensi Siswa");
                 iv2.setImageResource(R.drawable.jurnal);
+                iv2.setTooltipText("Jurnal Harian");
 
                 rl2.setOnClickListener(v -> {
                     Intent i = new Intent(DashboardActivity.this, ListJurnalSiswaActivity.class);
@@ -153,8 +155,11 @@ public class DashboardActivity extends AppCompatActivity {
                 tv3.setText("Evaluasi Kunjungan");
 
                 iv1.setImageResource(R.drawable.rekapabsen);
+                iv1.setTooltipText("Rekap Absensi");
                 iv2.setImageResource(R.drawable.rekapjurnal);
+                iv2.setTooltipText("Rekap Jurnal");
                 iv3.setImageResource(R.drawable.evaluasikunjungan);
+                iv3.setTooltipText("Evaluasi Kunjungan");
 
                 rl1.setOnClickListener(v -> {
                     Intent i = new Intent(DashboardActivity.this, RekapAbsenPemSekolahActivity.class);
@@ -231,8 +236,11 @@ public class DashboardActivity extends AppCompatActivity {
                 tv3.setText("Lihat Kunjungan");
 
                 iv1.setImageResource(R.drawable.lihatabsen);
+                iv1.setTooltipText("Lihat Absensi");
                 iv2.setImageResource(R.drawable.lihatjurnal);
+                iv2.setTooltipText("Lihat Jurnal");
                 iv3.setImageResource(R.drawable.lihatkunjungan);
+                iv3.setTooltipText("Lihat Kunjungan");
 
                 rl2.setOnClickListener(v -> {
                     Intent i = new Intent(DashboardActivity.this, LihatJurnalOrangTuaActivity.class);
