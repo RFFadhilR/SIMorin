@@ -1,6 +1,7 @@
 package com.skariga.simorin.perusahaan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.TargetApi;
@@ -32,7 +33,7 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
     Button semua, dipilih;
     RecyclerView recyclerView;
 
-    List<Jurnal> jurnals;
+    List<Jurnal> jurnal;
 
     ListJurnalPemPerusahaanAdapter adapter;
     ListJurnalPemPerusahaanPresenter presenter;
@@ -66,7 +67,7 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
             finish();
         });
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         String mId = getIntent().getStringExtra("id");
 
@@ -74,9 +75,9 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
         presenter.getDatas(mId);
 
         itemClickListener = ((view, position) -> {
-            String kegiatan = jurnals.get(position).getKegiatan();
-            String prosedur = jurnals.get(position).getProsedur();
-            String spek = jurnals.get(position).getSpek();
+            String kegiatan = jurnal.get(position).getKegiatan();
+            String prosedur = jurnal.get(position).getProsedur();
+            String spek = jurnal.get(position).getSpek();
 
             new SweetAlertDialog(this)
                     .setContentText("Kegiatan Kerja (Perkerjaan) \n" + kegiatan +
@@ -105,7 +106,7 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
-        this.jurnals = jurnals;
+        jurnal = jurnals;
     }
 
     @Override
