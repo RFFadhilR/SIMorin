@@ -7,7 +7,7 @@ public class Absen {
     @SerializedName("id_absen")
     private int id_absen;
     @SerializedName("id_siswa")
-    private  int id_siswa;
+    private int id_siswa;
     @SerializedName("nama_siswa")
     private String nama_siswa;
     @SerializedName("tanggal")
@@ -21,7 +21,34 @@ public class Absen {
     @SerializedName("latitude")
     private String latitude;
     @SerializedName("longitude")
-    private  String longitude;
+    private String longitude;
+    @SerializedName("total_hadir")
+    private String total_hadir;
+    @SerializedName("total_alpha")
+    private String total_alpha;
+    @SerializedName("keterangan")
+    private String keterangan;
+    @SerializedName("akses")
+    private String akses;
+    @SerializedName("kelas")
+    private String kelas;
+
+    public Absen(int id_absen, int id_siswa, String nama_siswa, String tanggal, String waktu_masuk, String waktu_pulang, String status, String latitude, String longitude, String total_hadir, String total_alpha, String keterangan, String akses, String kelas) {
+        this.id_absen = id_absen;
+        this.id_siswa = id_siswa;
+        this.nama_siswa = nama_siswa;
+        this.tanggal = tanggal;
+        this.waktu_masuk = waktu_masuk;
+        this.waktu_pulang = waktu_pulang;
+        this.status = status;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.total_hadir = total_hadir;
+        this.total_alpha = total_alpha;
+        this.keterangan = keterangan;
+        this.akses = akses;
+        this.kelas = kelas;
+    }
 
     public int getId_absen() {
         return id_absen;
@@ -93,5 +120,45 @@ public class Absen {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getTotal_hadir() {
+        return total_hadir;
+    }
+
+    public void setTotal_hadir(String total_hadir) {
+        this.total_hadir = total_hadir;
+    }
+
+    public String getTotal_alpha() {
+        return total_alpha;
+    }
+
+    public void setTotal_alpha(String total_alpha) {
+        this.total_alpha = total_alpha;
+    }
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
+
+    public String getAkses() {
+        return akses;
+    }
+
+    public void setAkses(String akses) {
+        this.akses = akses;
+    }
+
+    public String getKelas() {
+        return kelas;
+    }
+
+    public void setKelas(String kelas) {
+        this.kelas = kelas;
     }
 }

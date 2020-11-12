@@ -10,7 +10,7 @@ import retrofit2.http.POST;
 public interface ApiInterface {
 
     @FormUrlEncoded
-    @POST("list-absen")
+    @POST("list-absen-perusahaan")
     Call<List<Absen>> getAbsens(
             @Field("id_pembimbing_perusahaan") String id_pembimbing_perusahaan
     );

@@ -32,7 +32,7 @@ public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbse
     @NonNull
     @Override
     public RecyclerViewAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_absen, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_absen_perusahaan, parent, false);
         return new RecyclerViewAdapter(view, itemClickListener);
     }
 

@@ -133,9 +133,9 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
         double latitude = Double.parseDouble(getIntent().getStringExtra("latitude"));
         double longitude = Double.parseDouble(getIntent().getStringExtra("longitude"));
         LatLng lokasi = new LatLng(latitude, longitude);
-        map.addMarker(new MarkerOptions().position(lokasi).title("Lokasi Saat ini"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(lokasi));
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 10.0f));
+//        map.addMarker(new MarkerOptions().position(lokasi).title("Lokasi Saat ini"));
+//        map.moveCamera(CameraUpdateFactory.newLatLng(lokasi));
+//        map.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 10.0f));
         drawCircle(lokasi);
     }
 

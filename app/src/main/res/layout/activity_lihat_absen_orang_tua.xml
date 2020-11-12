@@ -45,12 +45,23 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/capsule_putih">
 
+        <fragment
+            android:id="@+id/maps"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp" />
+
         <TextView
             android:id="@+id/tv_nama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/maps"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
             android:text="Risqullah Fani FadhilRif'at"
             android:textColor="@color/black"
             android:textSize="16dp"
@@ -69,8 +80,8 @@
             android:id="@+id/tv_kelas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/maps"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="25dp"
             android:layout_marginRight="20dp"
             android:text="XII-RPA"
             android:textColor="@color/black"
@@ -103,8 +114,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginTop="40dp">
+                            android:layout_centerInParent="true">
 
                             <TextView
                                 android:id="@+id/tv_hadir"
@@ -121,6 +131,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/tv_hadir"
                                 android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="10dp"
                                 android:text="HADIR"
                                 android:textColor="@color/black"
                                 android:textSize="18dp" />
@@ -139,8 +150,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginTop="40dp">
+                            android:layout_centerInParent="true">
 
                             <TextView
                                 android:id="@+id/tv_alpha"
@@ -157,6 +167,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/tv_alpha"
                                 android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="10dp"
                                 android:text="ALPHA"
                                 android:textColor="@color/black"
                                 android:textSize="18dp" />
@@ -173,72 +184,81 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_title"
-        android:layout_marginTop="20dp">
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <!--    <ScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/rl_title"-->
+    <!--        android:layout_marginTop="20dp">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:background="@drawable/capsule_putih"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+    <!--        <RelativeLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content">-->
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginLeft="25dp"-->
+    <!--                android:layout_marginRight="25dp"-->
+    <!--                android:background="@drawable/capsule_putih"-->
+    <!--                android:gravity="center_vertical"-->
+    <!--                android:orientation="horizontal">-->
 
-                    <TextView
-                        android:id="@+id/tv22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:text="01 Januari 2020 / 00:00"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+    <!--                <RelativeLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content">-->
 
-                    <TextView
-                        android:id="@+id/tv222"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv22"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="15dp"
-                        android:text="HADIR"
-                        android:textColor="@color/green"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
+    <!--                    <TextView-->
+    <!--                        android:id="@+id/tv22"-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginLeft="20dp"-->
+    <!--                        android:layout_marginTop="20dp"-->
+    <!--                        android:text="01 Januari 2020 / 00:00"-->
+    <!--                        android:textColor="@color/black"-->
+    <!--                        android:textStyle="bold" />-->
 
-                    <TextView
-                        android:id="@+id/lihat_lokasi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="20dp"
-                        android:clickable="true"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:text="Lihat Lokasi"
-                        android:textColor="@color/blue"
-                        android:textStyle="bold"
-                        android:tooltipText="Lihat Lokasi Siswa" />
+    <!--                    <TextView-->
+    <!--                        android:id="@+id/tv222"-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_below="@id/tv22"-->
+    <!--                        android:layout_marginLeft="20dp"-->
+    <!--                        android:layout_marginTop="5dp"-->
+    <!--                        android:layout_marginBottom="15dp"-->
+    <!--                        android:text="HADIR"-->
+    <!--                        android:textColor="@color/green"-->
+    <!--                        android:textSize="18dp"-->
+    <!--                        android:textStyle="bold" />-->
 
-                </RelativeLayout>
+    <!--                    <TextView-->
+    <!--                        android:id="@+id/lihat_lokasi"-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_alignParentEnd="true"-->
+    <!--                        android:layout_centerVertical="true"-->
+    <!--                        android:layout_marginRight="20dp"-->
+    <!--                        android:clickable="true"-->
+    <!--                        android:foreground="?attr/selectableItemBackground"-->
+    <!--                        android:text="Lihat Lokasi"-->
+    <!--                        android:textColor="@color/blue"-->
+    <!--                        android:textStyle="bold"-->
+    <!--                        android:tooltipText="Lihat Lokasi Siswa" />-->
 
-            </LinearLayout>
+    <!--                </RelativeLayout>-->
 
-        </RelativeLayout>
+    <!--            </LinearLayout>-->
 
-    </ScrollView>
+    <!--        </RelativeLayout>-->
+
+    <!--    </ScrollView>-->
 
 </RelativeLayout>

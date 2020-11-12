@@ -128,15 +128,12 @@ public class LoginActivity extends AppCompatActivity {
                                         .show();
                             }
                         },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                sweetAlertDialogGlobal.dismiss();
-                                new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                        .setTitleText("Error...")
-                                        .setContentText(error.toString())
-                                        .show();
-                            }
+                        error -> {
+                            sweetAlertDialogGlobal.dismiss();
+                            new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("Error...")
+                                    .setContentText(error.toString())
+                                    .show();
                         }) {
                     @Override
                     protected Map<String, String> getParams() {

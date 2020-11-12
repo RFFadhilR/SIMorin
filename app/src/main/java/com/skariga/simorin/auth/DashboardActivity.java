@@ -250,6 +250,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 rl1.setOnClickListener(v -> {
                     Intent i = new Intent(DashboardActivity.this, LihatAbsenOrangTuaActivity.class);
+                    i.putExtra("id", mId);
                     startActivity(i);
                     finish();
                 });
