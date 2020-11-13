@@ -29,6 +29,7 @@ import com.skariga.simorin.auth.LoginActivity;
 import com.skariga.simorin.helper.Absen;
 import com.skariga.simorin.perusahaan.ListAbsenPemPerusahaanActivity;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -96,40 +97,46 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
                         String success = jsonObject.getString("RESULT");
 
                         if (success.equals("OK")) {
-                            JSONObject object = jsonObject.getJSONObject("ABSENSI");
+                            String total_alpha = jsonObject.getString("TOTAL_ALPHA");
+                            String total_hadir = jsonObject.getString("TOTAL_HADIR");
 
-                            String id_absen = object.getString("id_absen");
-                            String id_siswa = object.getString("id_siswa");
-                            String nama_siswa = object.getString("nama_siswa");
-                            String kelas = object.getString("kelas");
-                            String perusahaan = object.getString("perusahaan");
-                            String total_hadir = object.getString("total_hadir");
-                            String total_alpha = object.getString("total_alpha");
-                            String lati = object.getString("latitude");
-                            String longi = object.getString("longitude");
-
-                            tv_nama.setText(nama_siswa);
-                            tv_perusahaan.setText(perusahaan);
-                            tv_kelas.setText(kelas);
                             tv_thadir.setText(total_hadir);
                             tv_talpha.setText(total_alpha);
 
-                            absens.add(new Absen(
-                                    object.getInt("id_absen"),
-                                    object.getInt("id_siswa"),
-                                    object.getString("nama_siswa"),
-                                    object.getString("tanggal"),
-                                    object.getString("waktu_masuk"),
-                                    object.getString("waktu_pulang"),
-                                    object.getString("status"),
-                                    object.getString("latitude"),
-                                    object.getString("longitude"),
-                                    object.getString("total_hadir"),
-                                    object.getString("total_alpha"),
-                                    object.getString("keterangan"),
-                                    object.getString("akses"),
-                                    object.getString("kelas")
-                            ));
+                            JSONArray array = jsonObject.getJSONArray("ABSENSI");
+
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject obj = array.getJSONObject(i);
+
+                                String id_absen = obj.getString("id_absen");
+                                String id_siswa = obj.getString("id_siswa");
+                                String nama_siswa = obj.getString("nama_siswa");
+                                String kelas = obj.getString("kelas");
+                                String perusahaan = obj.getString("perusahaan");
+                                String lati = obj.getString("latitude");
+                                String longi = obj.getString("longitude");
+
+                                tv_nama.setText(nama_siswa);
+                                tv_perusahaan.setText(perusahaan);
+                                tv_kelas.setText(kelas);
+
+//                                absens.add(new Absen(
+//                                        obj.getInt("id_absen"),
+//                                        object.getInt("id_siswa"),
+//                                        object.getString("nama_siswa"),
+//                                        object.getString("tanggal"),
+//                                        object.getString("waktu_masuk"),
+//                                        object.getString("waktu_pulang"),
+//                                        object.getString("status"),
+//                                        object.getString("latitude"),
+//                                        object.getString("longitude"),
+//                                        object.getString("total_hadir"),
+//                                        object.getString("total_alpha"),
+//                                        object.getString("keterangan"),
+//                                        object.getString("akses"),
+//                                        object.getString("kelas")
+//                                ));
+                            }
 
                             LihatAbsenOrangTuaAdapter adapter = new LihatAbsenOrangTuaAdapter(LihatAbsenOrangTuaActivity.this, absens, itemClickListerner);
                             recyclerView.setAdapter(adapter);
@@ -141,7 +148,6 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
                                 .show();
                     }
                 }, error -> {
-
         }) {
             @Override
             protected Map<String, String> getParams() {
@@ -153,6 +159,7 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
         RequestQueue requestQueue = Volley.newRequestQueue(LihatAbsenOrangTuaActivity.this);
         requestQueue.add(stringRequest);
     }
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void setStatusBarGradiant(Activity activity) {
