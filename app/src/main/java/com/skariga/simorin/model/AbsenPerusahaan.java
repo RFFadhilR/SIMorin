@@ -1,8 +1,8 @@
-package com.skariga.simorin.helper;
+package com.skariga.simorin.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Absen {
+public class AbsenPerusahaan {
 
     @SerializedName("id_absen")
     private int id_absen;
@@ -33,7 +33,7 @@ public class Absen {
     @SerializedName("kelas")
     private String kelas;
 
-    public Absen(int id_absen, int id_siswa, String nama_siswa, String tanggal, String waktu_masuk, String waktu_pulang, String status, String latitude, String longitude, String total_hadir, String total_alpha, String keterangan, String akses, String kelas) {
+    public AbsenPerusahaan(int id_absen, int id_siswa, String nama_siswa, String tanggal, String waktu_masuk, String waktu_pulang, String status, String latitude, String longitude, String total_hadir, String total_alpha, String keterangan, String akses, String kelas) {
         this.id_absen = id_absen;
         this.id_siswa = id_siswa;
         this.nama_siswa = nama_siswa;

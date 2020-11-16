@@ -25,7 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
-import com.skariga.simorin.helper.Absen;
+import com.skariga.simorin.model.AbsenPerusahaan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
     GoogleMap map;
     RecyclerView data;
 
-    List<Absen> absen;
+    List<AbsenPerusahaan> absenPerusahaan;
     ArrayList<LatLng> arrayList = new ArrayList<LatLng>();
 
     ListAbsenPemPerusahaanPresenter presenter;
@@ -85,13 +85,13 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
         presenter.getData(mId);
 
         itemClickListener = ((view, position) -> {
-            String status = absen.get(position).getStatus();
-            String nama = absen.get(position).getNama_siswa();
-            String tanggal = absen.get(position).getTanggal();
-            String waktu_masuk = absen.get(position).getWaktu_masuk();
-            String waktu_pulang = absen.get(position).getWaktu_pulang();
-            double latss = Double.parseDouble(absen.get(position).getLatitude());
-            double longss = Double.parseDouble(absen.get(position).getLongitude());
+            String status = absenPerusahaan.get(position).getStatus();
+            String nama = absenPerusahaan.get(position).getNama_siswa();
+            String tanggal = absenPerusahaan.get(position).getTanggal();
+            String waktu_masuk = absenPerusahaan.get(position).getWaktu_masuk();
+            String waktu_pulang = absenPerusahaan.get(position).getWaktu_pulang();
+            double latss = Double.parseDouble(absenPerusahaan.get(position).getLatitude());
+            double longss = Double.parseDouble(absenPerusahaan.get(position).getLongitude());
             LatLng lokss = new LatLng(latss, longss);
 
             if (status.equals("MASUK")) {
@@ -150,12 +150,12 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
     }
 
     @Override
-    public void onGetResult(List<Absen> absens) {
-        adapter = new ListAbsenPemPerusahaanAdapter(this, absens, itemClickListener);
+    public void onGetResult(List<AbsenPerusahaan> absenPerusahaans) {
+        adapter = new ListAbsenPemPerusahaanAdapter(this, absenPerusahaans, itemClickListener);
         adapter.notifyDataSetChanged();
         data.setAdapter(adapter);
 
-        absen = absens;
+        absenPerusahaan = absenPerusahaans;
     }
 
     @Override

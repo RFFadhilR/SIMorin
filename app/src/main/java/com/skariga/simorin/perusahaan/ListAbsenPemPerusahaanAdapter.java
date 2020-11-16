@@ -13,19 +13,19 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skariga.simorin.R;
-import com.skariga.simorin.helper.Absen;
+import com.skariga.simorin.model.AbsenPerusahaan;
 
 import java.util.List;
 
 public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbsenPemPerusahaanAdapter.RecyclerViewAdapter> {
 
     private Context context;
-    private List<Absen> absens;
+    private List<AbsenPerusahaan> absenPerusahaans;
     private ItemClickListener itemClickListener;
 
-    public ListAbsenPemPerusahaanAdapter(Context context, List<Absen> absens, ItemClickListener itemClickListener) {
+    public ListAbsenPemPerusahaanAdapter(Context context, List<AbsenPerusahaan> absenPerusahaans, ItemClickListener itemClickListener) {
         this.context = context;
-        this.absens = absens;
+        this.absenPerusahaans = absenPerusahaans;
         this.itemClickListener = itemClickListener;
     }
 
@@ -38,24 +38,24 @@ public class ListAbsenPemPerusahaanAdapter extends RecyclerView.Adapter<ListAbse
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter holder, int position) {
-        Absen absen = absens.get(position);
-        holder.tv_nama.setText(absen.getNama_siswa());
-        if (absen.getWaktu_pulang() == null) {
-            holder.tv_tanggal.setText(absen.getTanggal() + " / " + absen.getWaktu_masuk());
-            absen.setStatus("MASUK");
-            holder.tv_status.setText(absen.getStatus());
+        AbsenPerusahaan absenPerusahaan = absenPerusahaans.get(position);
+        holder.tv_nama.setText(absenPerusahaan.getNama_siswa());
+        if (absenPerusahaan.getWaktu_pulang() == null) {
+            holder.tv_tanggal.setText(absenPerusahaan.getTanggal() + " / " + absenPerusahaan.getWaktu_masuk());
+            absenPerusahaan.setStatus("MASUK");
+            holder.tv_status.setText(absenPerusahaan.getStatus());
             holder.tv_status.setTextColor(Color.GREEN);
         } else {
-            holder.tv_tanggal.setText(absen.getTanggal() + " / " + absen.getWaktu_pulang());
-            absen.setStatus("PULANG");
-            holder.tv_status.setText(absen.getStatus());
+            holder.tv_tanggal.setText(absenPerusahaan.getTanggal() + " / " + absenPerusahaan.getWaktu_pulang());
+            absenPerusahaan.setStatus("PULANG");
+            holder.tv_status.setText(absenPerusahaan.getStatus());
             holder.tv_status.setTextColor(Color.argb(255, 255, 165, 0));
         }
     }
 
     @Override
     public int getItemCount() {
-        return absens.size();
+        return absenPerusahaans.size();
     }
 
     class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -1,4 +1,4 @@
-package com.skariga.simorin.helper;
+package com.skariga.simorin.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

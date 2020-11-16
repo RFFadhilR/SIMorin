@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skariga.simorin.R;
-import com.skariga.simorin.helper.Jurnal;
+import com.skariga.simorin.model.JurnalPerusahaan;
 import com.skyhope.showmoretextview.ShowMoreTextView;
 
 import java.util.List;
@@ -20,25 +20,25 @@ import java.util.List;
 public class ListJurnalPemPerusahaanAdapter extends RecyclerView.Adapter<ListJurnalPemPerusahaanAdapter.RecyclerViewAdapter> {
 
     private Context context;
-    private List<Jurnal> jurnals;
+    private List<JurnalPerusahaan> jurnalPerusahaans;
     private ItemClickListener itemClickListener;
 
-    public ListJurnalPemPerusahaanAdapter(Context context, List<Jurnal> jurnals, ItemClickListener itemClickListener) {
+    public ListJurnalPemPerusahaanAdapter(Context context, List<JurnalPerusahaan> jurnalPerusahaans, ItemClickListener itemClickListener) {
         this.context = context;
-        this.jurnals = jurnals;
+        this.jurnalPerusahaans = jurnalPerusahaans;
         this.itemClickListener = itemClickListener;
     }
 
     @NonNull
     @Override
     public RecyclerViewAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_jurnal, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_jurnal_perusahaan, parent, false);
         return new RecyclerViewAdapter(v, itemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter holder, int position) {
-        Jurnal jurnal = jurnals.get(position);
+        JurnalPerusahaan jurnal = jurnalPerusahaans.get(position);
         holder.tv_nama.setText(jurnal.getNama_siswa());
         holder.tv_tanggal.setText(jurnal.getTanggal() + " / " + jurnal.getWaktu_masuk());
         holder.tv_kegiatan.setText(jurnal.getKegiatan());
@@ -49,7 +49,7 @@ public class ListJurnalPemPerusahaanAdapter extends RecyclerView.Adapter<ListJur
 
     @Override
     public int getItemCount() {
-        return jurnals.size();
+        return jurnalPerusahaans.size();
     }
 
     public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener{

@@ -1,8 +1,8 @@
-package com.skariga.simorin.helper;
+package com.skariga.simorin.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Jurnal {
+public class JurnalPerusahaan {
     @SerializedName("id_jurnal")
     private int id_jurnal;
     @SerializedName("tanggal")

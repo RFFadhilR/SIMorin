@@ -15,7 +15,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -25,9 +24,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
-import com.skariga.simorin.auth.LoginActivity;
-import com.skariga.simorin.helper.Absen;
-import com.skariga.simorin.perusahaan.ListAbsenPemPerusahaanActivity;
+import com.skariga.simorin.model.AbsenOrtu;
+import com.skariga.simorin.model.AbsenPerusahaan;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,16 +36,15 @@ import java.util.List;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import retrofit2.http.POST;
 
 public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     ImageView kembali;
-    TextView tv_nama, tv_perusahaan, tv_kelas, tv_thadir, tv_talpha;
+    TextView tv_nama, tv_perusahaan, tv_thadir, tv_talpha;
     RecyclerView recyclerView;
     GoogleMap map;
 
-    List<Absen> absens;
+    List<AbsenOrtu> absenOrtus;
 
     LihatAbsenOrangTuaAdapter.ItemClickListerner itemClickListerner;
 
@@ -61,7 +58,6 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
 
         recyclerView = findViewById(R.id.recycler_view);
         tv_nama = findViewById(R.id.tv_nama);
-        tv_kelas = findViewById(R.id.tv_kelas);
         tv_perusahaan = findViewById(R.id.tv_perusahaan);
         tv_talpha = findViewById(R.id.tv_alpha);
         tv_thadir = findViewById(R.id.tv_hadir);
@@ -76,7 +72,7 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
             finish();
         });
 
-        absens = new ArrayList<>();
+        absenOrtus = new ArrayList<>();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -108,37 +104,23 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject obj = array.getJSONObject(i);
 
-                                String id_absen = obj.getString("id_absen");
-                                String id_siswa = obj.getString("id_siswa");
                                 String nama_siswa = obj.getString("nama_siswa");
-                                String kelas = obj.getString("kelas");
                                 String perusahaan = obj.getString("perusahaan");
-                                String lati = obj.getString("latitude");
-                                String longi = obj.getString("longitude");
 
                                 tv_nama.setText(nama_siswa);
                                 tv_perusahaan.setText(perusahaan);
-                                tv_kelas.setText(kelas);
 
-//                                absens.add(new Absen(
-//                                        obj.getInt("id_absen"),
-//                                        object.getInt("id_siswa"),
-//                                        object.getString("nama_siswa"),
-//                                        object.getString("tanggal"),
-//                                        object.getString("waktu_masuk"),
-//                                        object.getString("waktu_pulang"),
-//                                        object.getString("status"),
-//                                        object.getString("latitude"),
-//                                        object.getString("longitude"),
-//                                        object.getString("total_hadir"),
-//                                        object.getString("total_alpha"),
-//                                        object.getString("keterangan"),
-//                                        object.getString("akses"),
-//                                        object.getString("kelas")
-//                                ));
+                                absenOrtus.add(new AbsenOrtu(
+                                        obj.getInt("status"),
+                                        obj.getString("keterangan"),
+                                        obj.getString("tanggal"),
+                                        obj.getString("latitude"),
+                                        obj.getString("longitude")
+                                ));
+
                             }
 
-                            LihatAbsenOrangTuaAdapter adapter = new LihatAbsenOrangTuaAdapter(LihatAbsenOrangTuaActivity.this, absens, itemClickListerner);
+                            LihatAbsenOrangTuaAdapter adapter = new LihatAbsenOrangTuaAdapter(LihatAbsenOrangTuaActivity.this, absenOrtus, itemClickListerner);
                             recyclerView.setAdapter(adapter);
                         }
                     } catch (Exception e) {

@@ -10,16 +10,14 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
-import com.skariga.simorin.helper.Jurnal;
+import com.skariga.simorin.model.JurnalPerusahaan;
 import com.skyhope.showmoretextview.ShowMoreTextView;
 
 import java.util.List;
@@ -33,7 +31,7 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
     Button semua, dipilih;
     RecyclerView recyclerView;
 
-    List<Jurnal> jurnal;
+    List<JurnalPerusahaan> jurnalPerusahaan;
 
     ListJurnalPemPerusahaanAdapter adapter;
     ListJurnalPemPerusahaanPresenter presenter;
@@ -75,9 +73,9 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
         presenter.getDatas(mId);
 
         itemClickListener = ((view, position) -> {
-            String kegiatan = jurnal.get(position).getKegiatan();
-            String prosedur = jurnal.get(position).getProsedur();
-            String spek = jurnal.get(position).getSpek();
+            String kegiatan = jurnalPerusahaan.get(position).getKegiatan();
+            String prosedur = jurnalPerusahaan.get(position).getProsedur();
+            String spek = jurnalPerusahaan.get(position).getSpek();
 
             new SweetAlertDialog(this)
                     .setContentText("Kegiatan Kerja (Perkerjaan) \n" + kegiatan +
@@ -101,12 +99,12 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
     }
 
     @Override
-    public void onGetResults(List<Jurnal> jurnals) {
-        adapter = new ListJurnalPemPerusahaanAdapter(this, jurnals, itemClickListener);
+    public void onGetResults(List<JurnalPerusahaan> jurnalPerusahaans) {
+        adapter = new ListJurnalPemPerusahaanAdapter(this, jurnalPerusahaans, itemClickListener);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
-        jurnal = jurnals;
+        jurnalPerusahaan = jurnalPerusahaans;
     }
 
     @Override

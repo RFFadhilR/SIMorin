@@ -76,17 +76,6 @@
             android:text="PT.INTERNUSA CIPTA SOLUSI PERDANA"
             android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_kelas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/maps"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
-            android:text="XII-RPA"
-            android:textColor="@color/black"
-            android:textSize="15dp" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

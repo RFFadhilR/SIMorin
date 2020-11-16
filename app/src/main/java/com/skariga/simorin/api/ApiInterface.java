@@ -1,4 +1,7 @@
-package com.skariga.simorin.helper;
+package com.skariga.simorin.api;
+
+import com.skariga.simorin.model.AbsenPerusahaan;
+import com.skariga.simorin.model.JurnalPerusahaan;
 
 import java.util.List;
 
@@ -11,13 +14,13 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("list-absen-perusahaan")
-    Call<List<Absen>> getAbsens(
+    Call<List<AbsenPerusahaan>> getAbsens(
             @Field("id_pembimbing_perusahaan") String id_pembimbing_perusahaan
     );
 
     @FormUrlEncoded
     @POST("list-jurnal")
-    Call<List<Jurnal>> getJurnals(
+    Call<List<JurnalPerusahaan>> getJurnals(
             @Field("id_pembimbing_perusahaan") String id_pembimbing_perusahaan
     );
 

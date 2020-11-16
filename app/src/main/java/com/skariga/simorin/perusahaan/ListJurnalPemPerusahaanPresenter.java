@@ -2,9 +2,9 @@ package com.skariga.simorin.perusahaan;
 
 import androidx.annotation.NonNull;
 
-import com.skariga.simorin.helper.ApiClient;
-import com.skariga.simorin.helper.ApiInterface;
-import com.skariga.simorin.helper.Jurnal;
+import com.skariga.simorin.api.ApiClient;
+import com.skariga.simorin.api.ApiInterface;
+import com.skariga.simorin.model.JurnalPerusahaan;
 
 import java.util.List;
 
@@ -22,17 +22,17 @@ public class ListJurnalPemPerusahaanPresenter {
 
     void getDatas(String id) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<Jurnal>> call = apiInterface.getJurnals(id);
-        call.enqueue(new Callback<List<Jurnal>>() {
+        Call<List<JurnalPerusahaan>> call = apiInterface.getJurnals(id);
+        call.enqueue(new Callback<List<JurnalPerusahaan>>() {
             @Override
-            public void onResponse(@NonNull Call<List<Jurnal>> call, @NonNull Response<List<Jurnal>> response) {
+            public void onResponse(@NonNull Call<List<JurnalPerusahaan>> call, @NonNull Response<List<JurnalPerusahaan>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     view.onGetResults(response.body());
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Jurnal>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<List<JurnalPerusahaan>> call, @NonNull Throwable t) {
                 view.onErrorLoading(t.getLocalizedMessage());
             }
         });

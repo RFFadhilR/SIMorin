@@ -11,20 +11,20 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skariga.simorin.R;
-import com.skariga.simorin.helper.Absen;
-import com.skariga.simorin.perusahaan.ListAbsenPemPerusahaanAdapter;
+import com.skariga.simorin.model.AbsenOrtu;
+import com.skariga.simorin.model.AbsenPerusahaan;
 
 import java.util.List;
 
 public class LihatAbsenOrangTuaAdapter extends RecyclerView.Adapter<LihatAbsenOrangTuaAdapter.RecyclerViewAdapter> {
 
     private Context context;
-    private List<Absen> absens;
+    private List<AbsenOrtu> absenOrtus;
     private ItemClickListerner itemClickListerner;
 
-    public LihatAbsenOrangTuaAdapter(Context context, List<Absen> absens, ItemClickListerner itemClickListerner) {
+    public LihatAbsenOrangTuaAdapter(Context context, List<AbsenOrtu> absenOrtus, ItemClickListerner itemClickListerner) {
         this.context = context;
-        this.absens = absens;
+        this.absenOrtus = absenOrtus;
         this.itemClickListerner = itemClickListerner;
     }
 
@@ -37,10 +37,10 @@ public class LihatAbsenOrangTuaAdapter extends RecyclerView.Adapter<LihatAbsenOr
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter holder, int position) {
-        Absen absen = absens.get(position);
+        AbsenOrtu absen = absenOrtus.get(position);
         holder.tv_tanggal.setText(absen.getTanggal());
-        String akses = absen.getAkses();
-        if (akses.equals(1)) {
+        int akses = absen.getStatus();
+        if (akses == 1) {
             absen.setKeterangan("HADIR");
             holder.tv_keterangan.setText(absen.getKeterangan());
         } else {
@@ -51,7 +51,7 @@ public class LihatAbsenOrangTuaAdapter extends RecyclerView.Adapter<LihatAbsenOr
 
     @Override
     public int getItemCount() {
-        return absens.size();
+        return absenOrtus.size();
     }
 
     public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {

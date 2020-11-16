@@ -2,9 +2,9 @@ package com.skariga.simorin.perusahaan;
 
 import androidx.annotation.NonNull;
 
-import com.skariga.simorin.helper.Absen;
-import com.skariga.simorin.helper.ApiClient;
-import com.skariga.simorin.helper.ApiInterface;
+import com.skariga.simorin.model.AbsenPerusahaan;
+import com.skariga.simorin.api.ApiClient;
+import com.skariga.simorin.api.ApiInterface;
 
 import java.util.List;
 
@@ -22,17 +22,17 @@ public class ListAbsenPemPerusahaanPresenter {
 
     void getData(String id) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<Absen>> call = apiInterface.getAbsens(id);
-        call.enqueue(new Callback<List<Absen>>() {
+        Call<List<AbsenPerusahaan>> call = apiInterface.getAbsens(id);
+        call.enqueue(new Callback<List<AbsenPerusahaan>>() {
             @Override
-            public void onResponse(@NonNull Call<List<Absen>> call, @NonNull Response<List<Absen>> response) {
+            public void onResponse(@NonNull Call<List<AbsenPerusahaan>> call, @NonNull Response<List<AbsenPerusahaan>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     view.onGetResult(response.body());
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Absen>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<List<AbsenPerusahaan>> call, @NonNull Throwable t) {
                 view.onErrorLoading(t.getLocalizedMessage());
             }
         });
