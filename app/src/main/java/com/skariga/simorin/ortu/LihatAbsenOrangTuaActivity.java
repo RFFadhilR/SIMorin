@@ -130,6 +130,10 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
                                 .show();
                     }
                 }, error -> {
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Error...")
+                    .setContentText(error.toString())
+                    .show();
         }) {
             @Override
             protected Map<String, String> getParams() {
