@@ -15,14 +15,6 @@ public class AbsenOrtu {
     @SerializedName("longitude")
     private String longitude;
 
-    public AbsenOrtu(int status, String keterangan, String tanggal, String latitude, String longitude) {
-        this.status = status;
-        this.keterangan = keterangan;
-        this.tanggal = tanggal;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
     public String getLatitude() {
         return latitude;
     }

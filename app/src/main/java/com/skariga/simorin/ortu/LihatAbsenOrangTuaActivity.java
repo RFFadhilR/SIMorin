@@ -14,18 +14,23 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
 import com.skariga.simorin.model.AbsenOrtu;
 import com.skariga.simorin.model.AbsenPerusahaan;
+import com.skariga.simorin.perusahaan.ListAbsenPemPerusahaanActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,7 +42,7 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnMapReadyCallback, LihatAbsenOrangTuaView {
 
     ImageView kembali;
     TextView tv_nama, tv_perusahaan, tv_thadir, tv_talpha;
@@ -45,10 +50,11 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
     GoogleMap map;
 
     List<AbsenOrtu> absenOrtus;
+    ArrayList<LatLng> arrayList = new ArrayList<LatLng>();
 
+    LihatAbsenOrangTuaPresenter presenter;
+    LihatAbsenOrangTuaAdapter adapter;
     LihatAbsenOrangTuaAdapter.ItemClickListerner itemClickListerner;
-
-    private static final String URL_ABSEN = "https://simorin.malangcreativeteam.biz.id/api/lihat-absen-ortu";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,80 +78,32 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
             finish();
         });
 
-        absenOrtus = new ArrayList<>();
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        itemClickListerner = ((view, position) -> {
-
-        });
 
         String mId = getIntent().getStringExtra("id");
 
-        getAbsen(mId);
-    }
+        presenter = new LihatAbsenOrangTuaPresenter(this);
+        presenter.getAbsensi(mId);
 
-    private void getAbsen(String mId) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ABSEN,
-                response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        String success = jsonObject.getString("RESULT");
+        itemClickListerner = ((view, position) -> {
+            String tanggal = absenOrtus.get(position).getTanggal();
+            String ket = absenOrtus.get(position).getKeterangan();
+            double latitude = Double.parseDouble(absenOrtus.get(position).getLatitude());
+            double longitude = Double.parseDouble(absenOrtus.get(position).getLongitude());
 
-                        if (success.equals("OK")) {
-                            String total_alpha = jsonObject.getString("TOTAL_ALPHA");
-                            String total_hadir = jsonObject.getString("TOTAL_HADIR");
+            Toast.makeText(this, tanggal + "\n" + ket, Toast.LENGTH_LONG).show();
+            LatLng lokasi = new LatLng(latitude, longitude);
 
-                            tv_thadir.setText(total_hadir);
-                            tv_talpha.setText(total_alpha);
+            arrayList.add(lokasi);
 
-                            JSONArray array = jsonObject.getJSONArray("ABSENSI");
-
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject obj = array.getJSONObject(i);
-
-                                String nama_siswa = obj.getString("nama_siswa");
-                                String perusahaan = obj.getString("perusahaan");
-
-                                tv_nama.setText(nama_siswa);
-                                tv_perusahaan.setText(perusahaan);
-
-                                absenOrtus.add(new AbsenOrtu(
-                                        obj.getInt("status"),
-                                        obj.getString("keterangan"),
-                                        obj.getString("tanggal"),
-                                        obj.getString("latitude"),
-                                        obj.getString("longitude")
-                                ));
-
-                            }
-
-                            LihatAbsenOrangTuaAdapter adapter = new LihatAbsenOrangTuaAdapter(LihatAbsenOrangTuaActivity.this, absenOrtus, itemClickListerner);
-                            recyclerView.setAdapter(adapter);
-                        }
-                    } catch (Exception e) {
-                        new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Error...")
-                                .setContentText(e.toString())
-                                .show();
-                    }
-                }, error -> {
-            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Error...")
-                    .setContentText(error.toString())
-                    .show();
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("id", mId);
-                return params;
+            for (int i = 0; i < arrayList.size(); i++) {
+                map.addMarker(new MarkerOptions().position(arrayList.get(i)).title(tanggal));
+                map.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
             }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(LihatAbsenOrangTuaActivity.this);
-        requestQueue.add(stringRequest);
-    }
 
+        });
+
+    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void setStatusBarGradiant(Activity activity) {
@@ -162,5 +120,22 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+    }
+
+    @Override
+    public void onGetResult(List<AbsenOrtu> absenOrtus) {
+        adapter = new LihatAbsenOrangTuaAdapter(this, absenOrtus, itemClickListerner);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
+
+        this.absenOrtus = absenOrtus;
+    }
+
+    @Override
+    public void onErrorLoading(String message) {
+        new SweetAlertDialog(LihatAbsenOrangTuaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Error...")
+                .setContentText(message)
+                .show();
     }
 }
