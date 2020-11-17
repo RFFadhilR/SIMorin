@@ -4,6 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class AbsenOrtu {
 
+    @SerializedName("id_absen")
+    private int id_absen;
+    @SerializedName("id_siswa")
+    private int id_siswa;
+    @SerializedName("nama_siswa")
+    private String nama_siswa;
+    @SerializedName("perusahaan")
+    private String perusahaan;
     @SerializedName("status")
     private int status;
     @SerializedName("keterangan")
