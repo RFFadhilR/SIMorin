@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -55,6 +56,8 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
     LihatAbsenOrangTuaPresenter presenter;
     LihatAbsenOrangTuaAdapter adapter;
     LihatAbsenOrangTuaAdapter.ItemClickListerner itemClickListerner;
+
+    public static String URL = "https://simorin.malangcreativeteam.biz.id/api/absensi-ortu";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +105,44 @@ public class LihatAbsenOrangTuaActivity extends AppCompatActivity implements OnM
             }
 
         });
+
+        getData(mId);
+
+    }
+
+    private void getData(String mId) {
+        StringRequest request = new StringRequest(Request.Method.POST, URL,
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONObject object = jsonObject.getJSONObject("DATA");
+                        tv_thadir.setText(object.getString("TOTAL_HADIR"));
+                        tv_talpha.setText(object.getString("TOTAL_ALPHA"));
+                        tv_nama.setText(object.getString("NAMA"));
+                        tv_perusahaan.setText(object.getString("PERUSAHAAN"));
+                    } catch (Exception e) {
+                        new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Error...")
+                                .setContentText(e.toString())
+                                .show();
+                    }
+                },
+                error -> {
+                    new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Error...")
+                            .setContentText(error.toString())
+                            .show();
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", mId);
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(LihatAbsenOrangTuaActivity.this);
+        queue.add(request);
 
     }
 
