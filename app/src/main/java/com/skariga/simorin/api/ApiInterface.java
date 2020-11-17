@@ -28,7 +28,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("list-absen-ortu")
     Call<List<AbsenOrtu>> getAbsensi(
-            @Field("nis") String nis
+            @Field("id_orangtua") String id_orangtua
     );
 
 }
