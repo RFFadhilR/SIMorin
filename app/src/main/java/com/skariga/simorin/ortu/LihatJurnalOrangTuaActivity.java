@@ -1,6 +1,8 @@
 package com.skariga.simorin.ortu;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -15,15 +17,24 @@ import android.widget.TextView;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
+import com.skariga.simorin.model.JurnalOrtu;
 import com.skyhope.showmoretextview.ShowMoreTextView;
+
+import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class LihatJurnalOrangTuaActivity extends AppCompatActivity {
+public class LihatJurnalOrangTuaActivity extends AppCompatActivity implements LihatJurnalOrangTuaView {
 
     ShowMoreTextView kegiatan;
     ImageView kembali;
-    TextView liha_detail;
+    RecyclerView recyclerView;
+
+    List<JurnalOrtu> jurnalOrtus;
+
+    LihatJurnalOrangTuaAdapter adapter;
+    LihatJurnalOrangTuaPresenter presenter;
+    LihatJurnalOrangTuaAdapter.ItemClickListener itemClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +44,7 @@ public class LihatJurnalOrangTuaActivity extends AppCompatActivity {
 
         kegiatan = findViewById(R.id.kegiatan);
         kembali = findViewById(R.id.back);
-        liha_detail = findViewById(R.id.lihat_detail);
+        recyclerView = findViewById(R.id.recycler_view);
 
         kembali.setOnClickListener(v -> {
             Intent i = new Intent(LihatJurnalOrangTuaActivity.this, DashboardActivity.class);
@@ -41,14 +52,29 @@ public class LihatJurnalOrangTuaActivity extends AppCompatActivity {
             finish();
         });
 
-        liha_detail.setOnClickListener(v -> new SweetAlertDialog(LihatJurnalOrangTuaActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Maaf...")
-                .setContentText("Fitur ini masih dalam pengembangan :)")
-                .show());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        kegiatan.setShowingLine(2);
-        kegiatan.addShowLessText("Lebih Dikit");
-        kegiatan.addShowMoreText("Lebih Banyak");
+        String mId = getIntent().getStringExtra("id");
+
+        presenter = new LihatJurnalOrangTuaPresenter(this);
+        presenter.getJurnal(mId);
+
+        itemClickListener = ((view, position) -> {
+            String tanggal = jurnalOrtus.get(position).getTanggal();
+            String wmasuk = jurnalOrtus.get(position).getWaktu_masuk();
+            String wpulang = jurnalOrtus.get(position).getWaktu_pulang();
+            String kegiatan = jurnalOrtus.get(position).getKegiatan();
+            String prosedur = jurnalOrtus.get(position).getProsedur();
+            String spek = jurnalOrtus.get(position).getSpek();
+
+            new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
+                    .setTitleText(tanggal + " / " + wmasuk + " - " + wpulang)
+                    .setContentText("Kegiatan Kerja (Perkerjaan)\n" + kegiatan
+                            + "\nProsedur Pengerjaan Trouble Shooting\n" + prosedur
+                            + "\nSpesifikasi Bahan dan Peralatan Kerja\n" + spek)
+                    .show();
+
+        });
 
     }
 
@@ -62,5 +88,22 @@ public class LihatJurnalOrangTuaActivity extends AppCompatActivity {
             window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
             window.setBackgroundDrawable(background);
         }
+    }
+
+    @Override
+    public void onGetResult(List<JurnalOrtu> jurnalOrtus) {
+        adapter = new LihatJurnalOrangTuaAdapter(this, jurnalOrtus, itemClickListener);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
+
+        this.jurnalOrtus = jurnalOrtus;
+    }
+
+    @Override
+    public void onErrorResult(String message) {
+        new SweetAlertDialog(LihatJurnalOrangTuaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Error...")
+                .setContentText(message)
+                .show();
     }
 }

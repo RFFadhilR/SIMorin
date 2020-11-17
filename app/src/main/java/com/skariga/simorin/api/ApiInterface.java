@@ -2,6 +2,7 @@ package com.skariga.simorin.api;
 
 import com.skariga.simorin.model.AbsenOrtu;
 import com.skariga.simorin.model.AbsenPerusahaan;
+import com.skariga.simorin.model.JurnalOrtu;
 import com.skariga.simorin.model.JurnalPerusahaan;
 
 import java.util.List;
@@ -28,6 +29,12 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("list-absen-ortu")
     Call<List<AbsenOrtu>> getAbsensi(
+            @Field("id_orangtua") String id_orangtua
+    );
+
+    @FormUrlEncoded
+    @POST("list-jurnal-ortu")
+    Call<List<JurnalOrtu>> getJurnal(
             @Field("id_orangtua") String id_orangtua
     );
 

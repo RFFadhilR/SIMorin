@@ -244,6 +244,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 rl2.setOnClickListener(v -> {
                     Intent i = new Intent(DashboardActivity.this, LihatJurnalOrangTuaActivity.class);
+                    i.putExtra("id", mId);
                     startActivity(i);
                     finish();
                 });

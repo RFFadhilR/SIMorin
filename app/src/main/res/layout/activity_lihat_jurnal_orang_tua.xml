@@ -65,17 +65,6 @@
             android:text="PT.INTERNUSA CIPTA SOLUSI PERDANA"
             android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_kelas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="20dp"
-            android:text="XII-RPA"
-            android:textColor="@color/black"
-            android:textSize="15dp" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,8 +92,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginTop="40dp">
+                            android:layout_centerInParent="true">
 
                             <TextView
                                 android:id="@+id/tv_hadir"
@@ -121,6 +109,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/tv_hadir"
                                 android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="10dp"
                                 android:text="Jurnal Harian"
                                 android:textColor="@color/black"
                                 android:textSize="18dp" />
@@ -137,77 +126,86 @@
 
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/rl_title"
-        android:layout_marginTop="20dp">
+        android:id="@+id/recycler_view"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/rl_title"-->
+<!--        android:layout_marginTop="20dp">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:background="@drawable/capsule_putih"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="25dp"-->
+<!--                android:layout_marginRight="25dp"-->
+<!--                android:background="@drawable/capsule_putih"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal">-->
 
-                    <TextView
-                        android:id="@+id/tv22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="01 Januari 2020 / 00:00"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content">-->
 
-                    <com.skyhope.showmoretextview.ShowMoreTextView
-                        android:id="@+id/kegiatan"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv22"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="15dp"
-                        android:text="@string/lorem"
-                        android:textColor="@color/black" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv22"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_marginBottom="5dp"-->
+<!--                        android:text="01 Januari 2020 / 00:00"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <com.skyhope.showmoretextview.ShowMoreTextView-->
+<!--                        android:id="@+id/kegiatan"-->
+<!--                        android:layout_width="240dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@id/tv22"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginTop="7dp"-->
+<!--                        android:layout_marginBottom="15dp"-->
+<!--                        android:text="@string/lorem"-->
+<!--                        android:textColor="@color/black" />-->
 
 
-                </RelativeLayout>
+<!--                </RelativeLayout>-->
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content">-->
 
-                    <TextView
-                        android:id="@+id/lihat_detail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="20dp"
-                        android:clickable="true"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:text="Lihat Detail"
-                        android:textColor="@color/blue"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/lihat_detail"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_marginRight="20dp"-->
+<!--                        android:clickable="true"-->
+<!--                        android:foreground="?attr/selectableItemBackground"-->
+<!--                        android:text="Tekan \n Untuk \n Lihat \n Detail"-->
+<!--                        android:textColor="@color/blue"-->
+<!--                        android:textStyle="bold" />-->
 
-                </RelativeLayout>
+<!--                </RelativeLayout>-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
 
-    </ScrollView>
+<!--    </ScrollView>-->
 
 </RelativeLayout>
