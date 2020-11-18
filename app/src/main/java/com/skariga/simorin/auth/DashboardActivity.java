@@ -115,30 +115,27 @@ public class DashboardActivity extends AppCompatActivity {
                     finish();
                 });
 
-                rl1.setOnClickListener((View.OnClickListener) v -> {
+                rl1.setOnClickListener(v -> {
                     if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DashboardActivity.this);
 
-                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location != null) {
-                                    try {
-                                        Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
-                                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                        Intent i = new Intent(DashboardActivity.this, AbsenSiswaActivity.class);
-                                        i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
-                                        i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
-                                        startActivity(i);
-                                        finish();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                        new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                                .setTitleText("Error...")
-                                                .setContentText(e.toString())
-                                                .show();
-                                    }
+                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(task -> {
+                            Location location = task.getResult();
+                            if (location != null) {
+                                try {
+                                    Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
+                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                    Intent i = new Intent(DashboardActivity.this, AbsenSiswaActivity.class);
+                                    i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
+                                    i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
+                                    startActivity(i);
+                                    finish();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                            .setTitleText("Error...")
+                                            .setContentText(e.toString())
+                                            .show();
                                 }
                             }
                         });
@@ -163,6 +160,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 rl1.setOnClickListener(v -> {
                     Intent i = new Intent(DashboardActivity.this, RekapAbsenPemSekolahActivity.class);
+                    i.putExtra("id", mId);
                     startActivity(i);
                     finish();
                 });
@@ -193,26 +191,23 @@ public class DashboardActivity extends AppCompatActivity {
 
                 rl1.setOnClickListener(v -> {
                     if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location != null) {
-                                    try {
-                                        Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
-                                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(task -> {
+                            Location location = task.getResult();
+                            if (location != null) {
+                                try {
+                                    Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
+                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
-                                        Intent i = new Intent(DashboardActivity.this, ListAbsenPemPerusahaanActivity.class);
+                                    Intent i = new Intent(DashboardActivity.this, ListAbsenPemPerusahaanActivity.class);
 
-                                        i.putExtra("latitude", Double.toString((double) addresses.get(0).getLatitude()));
-                                        i.putExtra("longitude", Double.toString((double) addresses.get(0).getLongitude()));
-                                        i.putExtra("id", mId);
+                                    i.putExtra("latitude", Double.toString(addresses.get(0).getLatitude()));
+                                    i.putExtra("longitude", Double.toString(addresses.get(0).getLongitude()));
+                                    i.putExtra("id", mId);
 
-                                        startActivity(i);
-                                        finish();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
+                                    startActivity(i);
+                                    finish();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
                             }
                         });

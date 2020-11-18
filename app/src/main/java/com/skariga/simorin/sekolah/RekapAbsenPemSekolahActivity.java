@@ -1,6 +1,8 @@
 package com.skariga.simorin.sekolah;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -18,15 +20,28 @@ import android.widget.RelativeLayout;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
+import com.skariga.simorin.model.Perusahaan;
+import com.skariga.simorin.model.Rekap;
+
+import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class RekapAbsenPemSekolahActivity extends AppCompatActivity {
+public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements RekapAbsenPemSekolahView{
 
     RelativeLayout perusahaan, absen;
+    RecyclerView rv_persuahaan, rv_absen;
     ImageView kembali;
-    LinearLayout l1, l2, l3, l4, l5, l6, l7, l8;
     Button export;
+
+    List<Perusahaan> perusahaans;
+    List<Rekap> rekaps;
+
+    RekapAbsenPemSekolahAdapter adapter;
+    RekapAbsenPemSekolahAdapters adapters;
+    RekapAbsenPemSekolahPresenter presenter;
+    RekapAbsenPemSekolahAdapter.ItemClickListener itemClickListener;
+    RekapAbsenPemSekolahAdapters.ItemClickListener itemClickListeners;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +51,10 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity {
 
         perusahaan = findViewById(R.id.rl_perusahaan);
         absen = findViewById(R.id.rl_absen);
+        rv_persuahaan = findViewById(R.id.rv_perusahaan);
+        rv_absen = findViewById(R.id.rv_absen);
         kembali = findViewById(R.id.back);
         export = findViewById(R.id.btn_export);
-        l1 = findViewById(R.id.perusahaan2);
-        l2 = findViewById(R.id.perusahaan3);
-        l3 = findViewById(R.id.perusahaan4);
-        l4 = findViewById(R.id.perusahaan5);
-        l5 = findViewById(R.id.perusahaan6);
-        l6 = findViewById(R.id.perusahaan7);
-        l7 = findViewById(R.id.perusahaan8);
-        l8 = findViewById(R.id.perusahaan9);
 
         export.setOnClickListener(v -> new SweetAlertDialog(RekapAbsenPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Maaf...")
@@ -58,44 +67,19 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity {
             finish();
         });
 
-        l1.setOnClickListener(v -> {
-            perusahaan.setVisibility(View.GONE);
-            absen.setVisibility(View.VISIBLE);
-        });
+        rv_persuahaan.setLayoutManager(new LinearLayoutManager(this));
+        rv_absen.setLayoutManager(new LinearLayoutManager(this));
 
-        l2.setOnClickListener(v -> {
-            perusahaan.setVisibility(View.GONE);
-            absen.setVisibility(View.VISIBLE);
-        });
+        String mId = getIntent().getStringExtra("id");
 
-        l3.setOnClickListener(v -> {
-            perusahaan.setVisibility(View.GONE);
-            absen.setVisibility(View.VISIBLE);
-        });
+        presenter = new RekapAbsenPemSekolahPresenter(this);
+        presenter.getPerusahaan(mId);
 
-        l4.setOnClickListener(v -> {
+        itemClickListener = ((view, position) -> {
+            String id_perusahaan = Integer.toString(perusahaans.get(position).getId_perusahaan());
             perusahaan.setVisibility(View.GONE);
             absen.setVisibility(View.VISIBLE);
-        });
-
-        l5.setOnClickListener(v -> {
-            perusahaan.setVisibility(View.GONE);
-            absen.setVisibility(View.VISIBLE);
-        });
-
-        l6.setOnClickListener(v -> {
-            perusahaan.setVisibility(View.GONE);
-            absen.setVisibility(View.VISIBLE);
-        });
-
-        l7.setOnClickListener(v -> {
-            perusahaan.setVisibility(View.GONE);
-            absen.setVisibility(View.VISIBLE);
-        });
-
-        l8.setOnClickListener(v -> {
-            perusahaan.setVisibility(View.GONE);
-            absen.setVisibility(View.VISIBLE);
+            presenter.getRekap(id_perusahaan);
         });
 
     }
@@ -110,5 +94,31 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity {
             window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
             window.setBackgroundDrawable(background);
         }
+    }
+
+    @Override
+    public void onGetResultPer(List<Perusahaan> perusahaans) {
+        adapter = new RekapAbsenPemSekolahAdapter(this, perusahaans, itemClickListener);
+        adapter.notifyDataSetChanged();
+        rv_persuahaan.setAdapter(adapter);
+
+        this.perusahaans = perusahaans;
+    }
+
+    @Override
+    public void onGetReseltRek(List<Rekap> rekaps) {
+        adapters = new RekapAbsenPemSekolahAdapters(this, rekaps, itemClickListeners);
+        adapters.notifyDataSetChanged();
+        rv_absen.setAdapter(adapters);
+
+        this.rekaps = rekaps;
+    }
+
+    @Override
+    public void onErrorResult(String message) {
+        new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Error...")
+                .setContentText(message)
+                .show();
     }
 }
