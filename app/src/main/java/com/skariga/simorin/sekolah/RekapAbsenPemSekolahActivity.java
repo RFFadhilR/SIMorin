@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
@@ -80,6 +81,12 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
             perusahaan.setVisibility(View.GONE);
             absen.setVisibility(View.VISIBLE);
             presenter.getRekap(id_perusahaan);
+        });
+
+        itemClickListeners = ((view, position) -> {
+            String nis = Integer.toString(rekaps.get(position).getNis());
+            String nama = rekaps.get(position).getNama();
+            Toast.makeText(this, nis + nama, Toast.LENGTH_LONG).show();
         });
 
     }
