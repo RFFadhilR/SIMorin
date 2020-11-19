@@ -15,14 +15,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
 import com.skariga.simorin.model.Perusahaan;
-import com.skariga.simorin.model.Rekap;
+import com.skariga.simorin.model.RekapAbsen;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
     Button export;
 
     List<Perusahaan> perusahaans;
-    List<Rekap> rekaps;
+    List<RekapAbsen> rekapAbsens;
 
     RekapAbsenPemSekolahAdapter adapter;
     RekapAbsenPemSekolahAdapters adapters;
@@ -84,8 +83,8 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
         });
 
         itemClickListeners = ((view, position) -> {
-            String nis = Integer.toString(rekaps.get(position).getNis());
-            String nama = rekaps.get(position).getNama();
+            String nis = Integer.toString(rekapAbsens.get(position).getNis());
+            String nama = rekapAbsens.get(position).getNama();
             Toast.makeText(this, nis + nama, Toast.LENGTH_LONG).show();
         });
 
@@ -113,12 +112,12 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
     }
 
     @Override
-    public void onGetReseltRek(List<Rekap> rekaps) {
-        adapters = new RekapAbsenPemSekolahAdapters(this, rekaps, itemClickListeners);
+    public void onGetReseltRek(List<RekapAbsen> rekapAbsens) {
+        adapters = new RekapAbsenPemSekolahAdapters(this, rekapAbsens, itemClickListeners);
         adapters.notifyDataSetChanged();
         rv_absen.setAdapter(adapters);
 
-        this.rekaps = rekaps;
+        this.rekapAbsens = rekapAbsens;
     }
 
     @Override

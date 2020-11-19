@@ -11,19 +11,19 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skariga.simorin.R;
-import com.skariga.simorin.model.Rekap;
+import com.skariga.simorin.model.RekapAbsen;
 
 import java.util.List;
 
 public class RekapAbsenPemSekolahAdapters extends RecyclerView.Adapter<RekapAbsenPemSekolahAdapters.RecyclerViewAdapter>{
 
     private Context context;
-    private List<Rekap> rekaps;
+    private List<RekapAbsen> rekapAbsens;
     private ItemClickListener itemClickListener;
 
-    public RekapAbsenPemSekolahAdapters(Context context, List<Rekap> rekaps, ItemClickListener itemClickListener) {
+    public RekapAbsenPemSekolahAdapters(Context context, List<RekapAbsen> rekapAbsens, ItemClickListener itemClickListener) {
         this.context = context;
-        this.rekaps = rekaps;
+        this.rekapAbsens = rekapAbsens;
         this.itemClickListener = itemClickListener;
     }
 
@@ -36,12 +36,12 @@ public class RekapAbsenPemSekolahAdapters extends RecyclerView.Adapter<RekapAbse
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter holder, int position) {
-        Rekap rekap = rekaps.get(position);
-        holder.tv_nis.setText(rekap.getNis());
-        holder.tv_nama.setText(rekap.getNama());
-        holder.tv_tanggal.setText(rekap.getTanggal());
-        holder.tv_total.setText("Total Jam : " + rekap.getTotal_jam());
-        int status = rekap.getStatus();
+        RekapAbsen rekapAbsen = rekapAbsens.get(position);
+        holder.tv_nis.setText(rekapAbsen.getNis());
+        holder.tv_nama.setText(rekapAbsen.getNama());
+        holder.tv_tanggal.setText(rekapAbsen.getTanggal());
+        holder.tv_total.setText("Total Jam : " + rekapAbsen.getTotal_jam());
+        int status = rekapAbsen.getStatus();
         if (status == 2) {
             holder.tv_ais.setText("A / I / S : ALPHA ");
         } else {
@@ -51,7 +51,7 @@ public class RekapAbsenPemSekolahAdapters extends RecyclerView.Adapter<RekapAbse
 
     @Override
     public int getItemCount() {
-        return rekaps.size();
+        return rekapAbsens.size();
     }
 
     public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener{

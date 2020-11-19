@@ -5,7 +5,9 @@ import com.skariga.simorin.model.AbsenPerusahaan;
 import com.skariga.simorin.model.JurnalOrtu;
 import com.skariga.simorin.model.JurnalPerusahaan;
 import com.skariga.simorin.model.Perusahaan;
-import com.skariga.simorin.model.Rekap;
+import com.skariga.simorin.model.RekapAbsen;
+import com.skariga.simorin.model.RekapJurnal;
+import com.skariga.simorin.model.Siswa;
 
 import java.util.List;
 
@@ -42,13 +44,25 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("list-aperusahaan")
-    Call<List<Perusahaan>> getPers (
+    Call<List<Perusahaan>> getPers(
             @Field("id_pemsekolah") String id_pemsekolah
     );
 
     @FormUrlEncoded
     @POST("list-arekap")
-    Call<List<Rekap>> getReks (
+    Call<List<RekapAbsen>> getReks(
             @Field("id_perusahaan") String id_perusahaan
+    );
+
+    @FormUrlEncoded
+    @POST("list-siswa")
+    Call<List<Siswa>> getSiswa(
+            @Field("id_perusahaan") String id_perusahaan
+    );
+
+    @FormUrlEncoded
+    @POST("list-jrekap")
+    Call<List<RekapJurnal>> getRekj(
+            @Field("id_siswa") String id_siswa
     );
 }

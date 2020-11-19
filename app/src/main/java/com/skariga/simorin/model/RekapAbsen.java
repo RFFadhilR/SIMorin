@@ -2,7 +2,7 @@ package com.skariga.simorin.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Rekap {
+public class RekapAbsen {
     @SerializedName("id_absen")
     private int id_absen;
     @SerializedName("nis")
