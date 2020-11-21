@@ -65,4 +65,10 @@ public interface ApiInterface {
     Call<List<RekapJurnal>> getRekj(
             @Field("id_siswa") String id_siswa
     );
+
+    @FormUrlEncoded
+    @POST("list-jurnal-siswa")
+    Call<List<JurnalPerusahaan>> getJuranlSiswa(
+            @Field("id_siswa") String id_siswa
+    );
 }

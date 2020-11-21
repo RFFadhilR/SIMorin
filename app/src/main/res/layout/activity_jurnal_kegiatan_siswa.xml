@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:text="Jurnal Kegiatan"
+            android:text="Jurnal Harian"
             android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -114,7 +114,7 @@
                 android:layout_below="@id/ly_prosedur"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
-                android:text="Kegiatan Kerja (Pekerjaan)"
+                android:text="Spesifikasi Bahan dan Peralaran Kerja"
                 android:textColor="@color/black" />
 
             <com.google.android.material.textfield.TextInputLayout

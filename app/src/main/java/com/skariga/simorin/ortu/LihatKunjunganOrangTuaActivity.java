@@ -33,9 +33,9 @@ public class LihatKunjunganOrangTuaActivity extends AppCompatActivity {
         lihat_detail = findViewById(R.id.lihat_detail);
 
         lihat_detail.setOnClickListener(v -> new SweetAlertDialog(LihatKunjunganOrangTuaActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Maaf...")
-                .setContentText("Fitur ini masih dalam pengembangan :)")
-                .show());
+                        .setTitleText("Maaf...")
+                        .setContentText("Fitur ini masih dalam pengembangan :)")
+                        .show());
 
         kembali.setOnClickListener(v -> {
             Intent i = new Intent(LihatKunjunganOrangTuaActivity.this, DashboardActivity.class);

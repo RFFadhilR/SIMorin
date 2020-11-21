@@ -66,6 +66,10 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 sweetAlertDialog.show();
 
+                date = new Date();
+                SimpleDateFormat time = new SimpleDateFormat("HH:mm");
+
+                String waktu_pulang = time.format(date);
                 String keg_kerja = kegiatan_kerja.getText().toString().trim();
                 String pro_peng = prosedur_pengerjaan.getText().toString().trim();
                 String spek_bahan = spesifikasi_bahan.getText().toString().trim();
@@ -97,60 +101,55 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
                             .show();
                 }
 
-                InputJurnal(mId, keg_kerja, pro_peng, spek_bahan);
+                InputJurnal(mId, keg_kerja, pro_peng, spek_bahan, waktu_pulang);
             }
 
-            private void InputJurnal(final String id, final String kegiatan_kerja, final String prosedur_pengerjaan, final String spesifikasi_bahan) {
+            private void InputJurnal(final String id, final String kegiatan_kerja, final String prosedur_pengerjaan, final String spesifikasi_bahan, final String waktu_pulang) {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_INPUTJURNAL,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    sweetAlertDialog.dismiss();
+                        response -> {
+                            try {
+                                sweetAlertDialog.dismiss();
 
-                                    JSONObject jsonObject = new JSONObject(response);
-                                    String result = jsonObject.getString("RESULT");
-                                    String message = jsonObject.getString("MESSAGE");
+                                JSONObject jsonObject = new JSONObject(response);
+                                String result = jsonObject.getString("RESULT");
+                                String message = jsonObject.getString("MESSAGE");
 
-                                    if (result.equals("OK")) {
-                                        new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                .setTitleText("Yaey...")
-                                                .setContentText(message)
-                                                .show();
-                                    } else {
-                                        new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                                .setTitleText("Gagal...")
-                                                .setContentText(message)
-                                                .show();
-                                    }
-                                } catch (Exception ex) {
-                                    sweetAlertDialog.dismiss();
-
+                                if (result.equals("OK")) {
+                                    new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                            .setTitleText("Yaey...")
+                                            .setContentText(message)
+                                            .show();
+                                } else {
                                     new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                            .setTitleText("Error")
-                                            .setContentText(ex.getMessage().toString())
+                                            .setTitleText("Gagal...")
+                                            .setContentText(message)
                                             .show();
                                 }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
+                            } catch (Exception ex) {
                                 sweetAlertDialog.dismiss();
 
                                 new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                        .setTitleText("Error...")
-                                        .setContentText(error.toString())
+                                        .setTitleText("Error")
+                                        .setContentText(ex.getMessage().toString())
                                         .show();
                             }
+                        },
+                        error -> {
+                            sweetAlertDialog.dismiss();
+
+                            new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("Error...")
+                                    .setContentText(error.toString())
+                                    .show();
                         }) {
                     @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
+                    protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
                         params.put("user_id", id);
                         params.put("kegiatan_kerja", kegiatan_kerja);
                         params.put("prosedur_pengerjaan", prosedur_pengerjaan);
                         params.put("spesifikasi_bahan", spesifikasi_bahan);
+                        params.put("waktu_pulang", waktu_pulang);
                         return params;
                     }
                 };
@@ -160,13 +159,10 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(JurnalKegiatanSiswaActivity.this, DashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
+        back.setOnClickListener(v -> {
+            Intent i = new Intent(JurnalKegiatanSiswaActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
         });
     }
 }

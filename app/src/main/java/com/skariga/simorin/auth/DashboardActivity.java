@@ -38,6 +38,7 @@ import com.skariga.simorin.sekolah.EvaluasiKunjunganPemSekolahActivity;
 import com.skariga.simorin.sekolah.RekapAbsenPemSekolahActivity;
 import com.skariga.simorin.sekolah.RekapJurnalPemSekolahActivity;
 import com.skariga.simorin.siswa.AbsenSiswaActivity;
+import com.skariga.simorin.siswa.JurnalKegiatanSiswaActivity;
 import com.skariga.simorin.siswa.ListJurnalSiswaActivity;
 
 import java.util.HashMap;
@@ -99,21 +100,16 @@ public class DashboardActivity extends AppCompatActivity {
                     .show());
 
             if (mRole.equals("Siswa")) {
-                rl3.setVisibility(View.GONE);
-
                 tv1.setText("Absensi Siswa");
                 tv2.setText("Jurnal Harian");
+                tv3.setText("Histori Jurnal Harian");
 
                 iv1.setImageResource(R.drawable.absen);
                 iv1.setTooltipText("Absensi Siswa");
                 iv2.setImageResource(R.drawable.jurnal);
                 iv2.setTooltipText("Jurnal Harian");
-
-                rl2.setOnClickListener(v -> {
-                    Intent i = new Intent(DashboardActivity.this, ListJurnalSiswaActivity.class);
-                    startActivity(i);
-                    finish();
-                });
+                iv3.setImageResource(R.drawable.lihatjurnal);
+                iv3.setTooltipText("Histori Jurnal Harian");
 
                 rl1.setOnClickListener(v -> {
                     if (ActivityCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -146,6 +142,28 @@ public class DashboardActivity extends AppCompatActivity {
                         }, 44);
                     }
                 });
+
+                rl2.setOnClickListener(v -> {
+                    new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Maaf...")
+                            .setContentText("Apakah anda sudah waktunya pulang kerja?")
+                            .setConfirmButton("Iyaa waktunya pulang", sweetAlertDialog -> {
+                                Intent i = new Intent(DashboardActivity.this, JurnalKegiatanSiswaActivity.class);
+                                i.putExtra("id", mId);
+                                startActivity(i);
+                                finish();
+                            })
+                            .setCancelText("Belum waktunya pulang")
+                            .show();
+                });
+
+                rl3.setOnClickListener(v -> {
+                    Intent i = new Intent(DashboardActivity.this, ListJurnalSiswaActivity.class);
+                    i.putExtra("id", mId);
+                    startActivity(i);
+                    finish();
+                });
+
             } else if (mRole.equals("Pembimbing Sekolah")) {
                 tv1.setText("Rekap Absensi");
                 tv2.setText("Rekap Jurnal");

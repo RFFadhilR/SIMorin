@@ -119,7 +119,6 @@ public class EvaluasiKunjunganPemSekolahActivity extends AppCompatActivity imple
                             perusahaanAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             sp_perusahaan.setAdapter(perusahaanAdapter);
                         }
-
                     } catch (Exception e) {
                         new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error...")

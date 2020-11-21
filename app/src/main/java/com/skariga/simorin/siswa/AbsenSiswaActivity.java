@@ -45,7 +45,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCallback {
     private static String URL_ABSEN = "https://simorin.malangcreativeteam.biz.id/api/absen_siswa";
     Button btn_kembali, btn_absen;
-    TextView tv_status, tv_tanggal;
+    TextView tv_tanggal;
     GoogleMap map;
     Date date;
     SessionManager sessionManager;
@@ -75,7 +75,6 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
 
         tv_tanggal = findViewById(R.id.tv_tanggal);
         btn_kembali = findViewById(R.id.btn_kembali);
-        tv_status = findViewById(R.id.tv_status);
         btn_absen = findViewById(R.id.btn_absen_ulang);
 
         tv_tanggal.setText(formatter.format(date));
@@ -140,17 +139,6 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                             sweetAlertDialog.dismiss();
 
                             JSONObject data = jsonObject.getJSONObject("DATA");
-
-                            if (data.getString("status").equals("0")) {
-                                tv_status.setText("Pending");
-                            } else if (data.getString("status").equals("1")) {
-                                tv_status.setText("Diterima");
-                                tv_status.setTextColor(Color.GREEN);
-                            } else {
-                                tv_status.setText("Ditolak");
-                                tv_status.setTextColor(Color.RED);
-                                btn_absen.setVisibility(View.VISIBLE);
-                            }
 
                             tv_tanggal.setText(data.getString("waktu_masuk"));
                         } else {

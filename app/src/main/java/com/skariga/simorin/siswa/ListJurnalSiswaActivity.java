@@ -1,6 +1,8 @@
 package com.skariga.simorin.siswa;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -8,21 +10,33 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.skariga.simorin.R;
+import com.skariga.simorin.auth.DashboardActivity;
+import com.skariga.simorin.model.JurnalPerusahaan;
 import com.skyhope.showmoretextview.ShowMoreTextView;
+
+import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class ListJurnalSiswaActivity extends AppCompatActivity {
+public class ListJurnalSiswaActivity extends AppCompatActivity implements ListJurnalSiswaView {
 
-    ShowMoreTextView showMoreTextView;
-    Button tambah, cari;
-    TextView detail;
+    Button cari;
+    ImageView kembali;
+    RecyclerView recyclerView;
+
+    List<JurnalPerusahaan> jurnalPerusahaans;
+
+    ListJurnalSiswaPresenter presenter;
+    ListJurnalSiswaAdapter adapter;
+    ListJurnalSiswaAdapter.ItemClickListener itemClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +44,12 @@ public class ListJurnalSiswaActivity extends AppCompatActivity {
         setStatusBarGradiant(ListJurnalSiswaActivity.this);
         setContentView(R.layout.activity_list_jurnal_siswa);
 
-        showMoreTextView = findViewById(R.id.kegiatan);
-        tambah = findViewById(R.id.btn_tambah);
         cari = findViewById(R.id.btn_cari);
-        detail = findViewById(R.id.lihat_detail);
+        kembali = findViewById(R.id.back);
+        recyclerView = findViewById(R.id.recycler_view);
 
-        tambah.setOnClickListener(view -> {
-            Intent i = new Intent(ListJurnalSiswaActivity.this, JurnalKegiatanSiswaActivity.class);
+        kembali.setOnClickListener(v -> {
+            Intent i = new Intent(this, DashboardActivity.class);
             startActivity(i);
             finish();
         });
@@ -46,15 +59,24 @@ public class ListJurnalSiswaActivity extends AppCompatActivity {
                 .setContentText("Fitur ini masih dalam pengembangan :)")
                 .show());
 
-        detail.setOnClickListener(view -> new SweetAlertDialog(ListJurnalSiswaActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Maaf...")
-                .setContentText("Fitur ini masih dalam pengembangan :)")
-                .show());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        showMoreTextView.setShowingLine(2);
-        showMoreTextView.addShowLessText("Lebih Dikit");
-        showMoreTextView.addShowMoreText("Lebih Banyak");
+        String mId = getIntent().getStringExtra("id");
 
+        presenter = new ListJurnalSiswaPresenter(this);
+        presenter.getJurnalSiswa(mId);
+
+        itemClickListener = ((view, position) -> {
+            String kegiatan = jurnalPerusahaans.get(position).getKegiatan();
+            String prosedur = jurnalPerusahaans.get(position).getProsedur();
+            String spek = jurnalPerusahaans.get(position).getSpek();
+
+            new SweetAlertDialog(this)
+                    .setContentText("Kegiatan Kerja (Pekerjaan) \n" + kegiatan
+                            + "\n Prosedur Pengerjaan Trouble Shooting \n" + prosedur
+                            + "\n Spesifikasi Bahan dan Peralatan Kerja \n" + spek)
+                    .show();
+        });
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -69,4 +91,20 @@ public class ListJurnalSiswaActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onGetResult(List<JurnalPerusahaan> jurnalPerusahaans) {
+        adapter = new ListJurnalSiswaAdapter(this, jurnalPerusahaans, itemClickListener);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
+
+        this.jurnalPerusahaans = jurnalPerusahaans;
+    }
+
+    @Override
+    public void onErrorResult(String message) {
+        new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Error...")
+                .setContentText(message)
+                .show();
+    }
 }
