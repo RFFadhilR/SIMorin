@@ -98,7 +98,7 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity implements 
 
         itemClicklisteners = ((view, position) -> {
             String id = Integer.toString(siswas.get(position).getId_siswa());
-            presenter.getSiswa(id);
+            presenter.getRekapJurnal(id);
             siswa.setVisibility(View.GONE);
             ttd_jurnal.setVisibility(View.VISIBLE);
             rv_jurnal.setVisibility(View.VISIBLE);
@@ -151,6 +151,7 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity implements 
         rv_jurnal.setAdapter(adapterr);
 
         rekapJurnals = jurnals;
+
     }
 
     @Override

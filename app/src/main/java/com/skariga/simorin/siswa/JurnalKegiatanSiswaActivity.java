@@ -34,10 +34,10 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
     Date date;
     Button btn_submit;
     SimpleDateFormat format;
-    SessionManager sessionManager;
     EditText kegiatan_kerja, prosedur_pengerjaan, spesifikasi_bahan;
     String URL_INPUTJURNAL = "https://simorin.malangcreativeteam.biz.id/api/input_jurnal";
-    SweetAlertDialog sweetAlertDialog;
+    String URL_FALIDASI = "https://simorin.malangcreativeteam.biz.id/api/get-jurnal-siswa";
+    SweetAlertDialog sweetAlertDialog, alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +53,13 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
         date = new Date();
         format = new SimpleDateFormat("E, dd MMMM yyyy");
 
-        sessionManager = new SessionManager(this);
-        sessionManager.checkLogin();
-
         sweetAlertDialog = new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading...");
+//.setContentText("Anda sudah memasukkan jurnal kegiatan pada hari ini dan termasuk absen pulang!")
+        alertDialog = new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.WARNING_TYPE).setTitleText("Maaf...");
 
-        HashMap<String, String> user = sessionManager.getUserDetail();
-        final String mId = user.get(SessionManager.ID);
+        final String mId = getIntent().getStringExtra("id");
+
+        getData(mId);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +118,11 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
                                     new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                             .setTitleText("Yaey...")
                                             .setContentText(message)
+                                            .setConfirmClickListener(sweetAlertDialog -> {
+                                                Intent i = new Intent(JurnalKegiatanSiswaActivity.this, DashboardActivity.class);
+                                                startActivity(i);
+                                                finish();
+                                            })
                                             .show();
                                 } else {
                                     new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
@@ -130,7 +135,7 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
 
                                 new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
                                         .setTitleText("Error")
-                                        .setContentText(ex.getMessage().toString())
+                                        .setContentText(ex.toString())
                                         .show();
                             }
                         },
@@ -164,5 +169,42 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         });
+    }
+
+    private void getData(String id) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_FALIDASI,
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String result = jsonObject.getString("RESULT");
+                        String message = jsonObject.getString("MESSAGE");
+
+                        if (result.equals("OK")) {
+                            alertDialog.dismiss();
+                        } else {
+                            alertDialog.setContentText(message).show();
+                        }
+                    } catch (Exception ex) {
+                        new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Error")
+                                .setContentText(ex.toString())
+                                .show();
+                    }
+                },
+                error -> {
+                    new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Error...")
+                            .setContentText(error.toString())
+                            .show();
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id_siswa", id);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(JurnalKegiatanSiswaActivity.this);
+        requestQueue.add(stringRequest);
     }
 }

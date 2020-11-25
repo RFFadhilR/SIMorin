@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,6 +34,7 @@ public class ListJurnalSiswaActivity extends AppCompatActivity implements ListJu
     Button cari;
     ImageView kembali;
     RecyclerView recyclerView;
+    SweetAlertDialog sweetAlertDialog;
 
     List<JurnalPerusahaan> jurnalPerusahaans;
 
@@ -59,6 +63,9 @@ public class ListJurnalSiswaActivity extends AppCompatActivity implements ListJu
                 .setContentText("Fitur ini masih dalam pengembangan :)")
                 .show());
 
+        sweetAlertDialog = new SweetAlertDialog(ListJurnalSiswaActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        sweetAlertDialog.setTitleText("Loading...").show();
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         String mId = getIntent().getStringExtra("id");
@@ -72,7 +79,7 @@ public class ListJurnalSiswaActivity extends AppCompatActivity implements ListJu
             String spek = jurnalPerusahaans.get(position).getSpek();
 
             new SweetAlertDialog(this)
-                    .setContentText("Kegiatan Kerja (Pekerjaan) \n" + kegiatan
+                    .setContentText("Kegiatan Kerja (Pekerjaan)\n" + kegiatan
                             + "\n Prosedur Pengerjaan Trouble Shooting \n" + prosedur
                             + "\n Spesifikasi Bahan dan Peralatan Kerja \n" + spek)
                     .show();
@@ -98,6 +105,7 @@ public class ListJurnalSiswaActivity extends AppCompatActivity implements ListJu
         recyclerView.setAdapter(adapter);
 
         this.jurnalPerusahaans = jurnalPerusahaans;
+        sweetAlertDialog.dismiss();
     }
 
     @Override
@@ -105,6 +113,11 @@ public class ListJurnalSiswaActivity extends AppCompatActivity implements ListJu
         new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText("Error...")
                 .setContentText(message)
+                .setConfirmClickListener(sweetAlertDialog -> {
+                    Intent i = new Intent(ListJurnalSiswaActivity.this, DashboardActivity.class);
+                    startActivity(i);
+                    finish();
+                })
                 .show();
     }
 }

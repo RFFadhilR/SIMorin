@@ -147,13 +147,13 @@ public class DashboardActivity extends AppCompatActivity {
                     new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("Maaf...")
                             .setContentText("Apakah anda sudah waktunya pulang kerja?")
-                            .setConfirmButton("Iyaa waktunya pulang", sweetAlertDialog -> {
+                            .setConfirmButton("Iyaa!", sweetAlertDialog -> {
                                 Intent i = new Intent(DashboardActivity.this, JurnalKegiatanSiswaActivity.class);
                                 i.putExtra("id", mId);
                                 startActivity(i);
                                 finish();
                             })
-                            .setCancelText("Belum waktunya pulang")
+                            .setCancelText("Belum!")
                             .show();
                 });
 

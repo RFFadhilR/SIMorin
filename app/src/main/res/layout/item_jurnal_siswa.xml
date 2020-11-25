@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
@@ -25,13 +25,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv2"
-                android:layout_marginTop="15dp"
-                android:textSize="16dp"
-                android:textStyle="bold"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="5dp"
                 android:text="01 Januari 2020 / 00:00"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <com.skyhope.showmoretextview.ShowMoreTextView
                 android:id="@+id/kegiatan"
