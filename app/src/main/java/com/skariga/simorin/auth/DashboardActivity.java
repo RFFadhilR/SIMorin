@@ -24,6 +24,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,9 +45,12 @@ import com.skariga.simorin.siswa.AbsenSiswaActivity;
 import com.skariga.simorin.siswa.JurnalKegiatanSiswaActivity;
 import com.skariga.simorin.siswa.ListJurnalSiswaActivity;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -54,6 +61,7 @@ public class DashboardActivity extends AppCompatActivity {
     RelativeLayout rl1, rl2, rl3;
     SessionManager sessionManager;
     FusedLocationProviderClient fusedLocationProviderClient;
+    String URL_FALIDASI = "https://simorin.malangcreativeteam.biz.id/api/get-jurnal-siswa";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -144,17 +152,7 @@ public class DashboardActivity extends AppCompatActivity {
                 });
 
                 rl2.setOnClickListener(v -> {
-                    new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                            .setTitleText("Maaf...")
-                            .setContentText("Apakah anda sudah waktunya pulang kerja?")
-                            .setConfirmButton("Iyaa!", sweetAlertDialog -> {
-                                Intent i = new Intent(DashboardActivity.this, JurnalKegiatanSiswaActivity.class);
-                                i.putExtra("id", mId);
-                                startActivity(i);
-                                finish();
-                            })
-                            .setCancelText("Belum!")
-                            .show();
+                    getData(mId);
                 });
 
                 rl3.setOnClickListener(v -> {
@@ -299,4 +297,55 @@ public class DashboardActivity extends AppCompatActivity {
             window.setBackgroundDrawable(background);
         }
     }
+
+    private void getData(String id) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_FALIDASI,
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String result = jsonObject.getString("RESULT");
+                        String message = jsonObject.getString("MESSAGE"); // "Anda sudah memasukkan jurnal kegiatan pada hari ini dan juga berhasil untuk absen pulang!"
+
+                        if (result.equals("KOSONG")) {
+                            new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                                    .setTitleText("Maaf...")
+                                    .setContentText("Apakah anda sudah waktunya pulang kerja?")
+                                    .setConfirmButton("Iyaa!", sweetAlertDialog -> {
+                                        Intent i = new Intent(DashboardActivity.this, JurnalKegiatanSiswaActivity.class);
+                                        i.putExtra("id", id);
+                                        startActivity(i);
+                                        finish();
+                                    })
+                                    .setCancelText("Belum!")
+                                    .show();
+                        } else {
+                            new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                    .setTitleText("Maaf...")
+                                    .setContentText(message)
+                                    .show();
+                        }
+                    } catch (Exception ex) {
+                        new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Error")
+                                .setContentText(ex.toString())
+                                .show();
+                    }
+                },
+                error -> {
+                    new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Error...")
+                            .setContentText(error.toString())
+                            .show();
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id_siswa", id);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(DashboardActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
 }

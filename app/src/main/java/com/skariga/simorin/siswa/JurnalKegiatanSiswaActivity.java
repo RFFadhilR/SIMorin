@@ -36,7 +36,6 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
     SimpleDateFormat format;
     EditText kegiatan_kerja, prosedur_pengerjaan, spesifikasi_bahan;
     String URL_INPUTJURNAL = "https://simorin.malangcreativeteam.biz.id/api/input_jurnal";
-    String URL_FALIDASI = "https://simorin.malangcreativeteam.biz.id/api/get-jurnal-siswa";
     SweetAlertDialog sweetAlertDialog, alertDialog;
 
     @Override
@@ -54,12 +53,8 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
         format = new SimpleDateFormat("E, dd MMMM yyyy");
 
         sweetAlertDialog = new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading...");
-//.setContentText("Anda sudah memasukkan jurnal kegiatan pada hari ini dan termasuk absen pulang!")
-        alertDialog = new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.WARNING_TYPE).setTitleText("Maaf...");
 
         final String mId = getIntent().getStringExtra("id");
-
-        getData(mId);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +140,11 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
                             new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
                                     .setTitleText("Error...")
                                     .setContentText(error.toString())
+                                    .setConfirmClickListener(sweetAlertDialog -> {
+                                        Intent i = new Intent(JurnalKegiatanSiswaActivity.this, DashboardActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    })
                                     .show();
                         }) {
                     @Override
@@ -169,42 +169,5 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         });
-    }
-
-    private void getData(String id) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_FALIDASI,
-                response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        String result = jsonObject.getString("RESULT");
-                        String message = jsonObject.getString("MESSAGE");
-
-                        if (result.equals("OK")) {
-                            alertDialog.dismiss();
-                        } else {
-                            alertDialog.setContentText(message).show();
-                        }
-                    } catch (Exception ex) {
-                        new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Error")
-                                .setContentText(ex.toString())
-                                .show();
-                    }
-                },
-                error -> {
-                    new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Error...")
-                            .setContentText(error.toString())
-                            .show();
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("id_siswa", id);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(JurnalKegiatanSiswaActivity.this);
-        requestQueue.add(stringRequest);
     }
 }
