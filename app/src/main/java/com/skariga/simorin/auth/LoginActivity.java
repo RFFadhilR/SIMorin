@@ -36,7 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText et_user, et_pass;
     String username, password;
     SessionManager sessionManager;
-    public static String URL_LOGIN = "https://simorin.malangcreativeteam.biz.id/api/login";
+//    public static String URL_LOGIN = "https://simorin.malangcreativeteam.biz.id/api/login";
+    public static String URL_LOGIN = "http://192.168.20.109/SimorinLaravel/public/api/login";
     SweetAlertDialog sweetAlertDialogGlobal;
 
     @Override

@@ -35,7 +35,8 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
     Button btn_submit;
     SimpleDateFormat format;
     EditText kegiatan_kerja, prosedur_pengerjaan, spesifikasi_bahan;
-    String URL_INPUTJURNAL = "https://simorin.malangcreativeteam.biz.id/api/input_jurnal";
+//    String URL_INPUTJURNAL = "https://simorin.malangcreativeteam.biz.id/api/input_jurnal";
+    String URL_INPUTJURNAL = "http://192.168.20.109/SimorinLaravel/public/api/input_jurnal";
     SweetAlertDialog sweetAlertDialog, alertDialog;
 
     @Override
@@ -76,27 +77,24 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
                             .setTitleText("Gagal...")
                             .setContentText("Kegiatan kerja harus diisi")
                             .show();
-                }
-
-                if (pro_peng.isEmpty()) {
+                } else if (pro_peng.isEmpty()) {
                     sweetAlertDialog.dismiss();
 
                     new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("Gagal...")
                             .setContentText("Prosedur pengerjaan harus diisi")
                             .show();
-                }
-
-                if (spek_bahan.isEmpty()) {
+                } else if (spek_bahan.isEmpty()) {
                     sweetAlertDialog.dismiss();
 
                     new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("Gagal...")
                             .setContentText("Spesifikasi bahan harus diisi")
                             .show();
+                } else {
+                    InputJurnal(mId, keg_kerja, pro_peng, spek_bahan, waktu_pulang);
                 }
 
-                InputJurnal(mId, keg_kerja, pro_peng, spek_bahan, waktu_pulang);
             }
 
             private void InputJurnal(final String id, final String kegiatan_kerja, final String prosedur_pengerjaan, final String spesifikasi_bahan, final String waktu_pulang) {
@@ -140,11 +138,6 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
                             new SweetAlertDialog(JurnalKegiatanSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
                                     .setTitleText("Error...")
                                     .setContentText(error.toString())
-                                    .setConfirmClickListener(sweetAlertDialog -> {
-                                        Intent i = new Intent(JurnalKegiatanSiswaActivity.this, DashboardActivity.class);
-                                        startActivity(i);
-                                        finish();
-                                    })
                                     .show();
                         }) {
                     @Override

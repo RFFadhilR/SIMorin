@@ -27,7 +27,7 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements RekapAbsenPemSekolahView{
+public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements RekapAbsenPemSekolahView {
 
     RelativeLayout perusahaan, absen;
     RecyclerView rv_persuahaan, rv_absen;
@@ -77,16 +77,17 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
 
         itemClickListener = ((view, position) -> {
             String id_perusahaan = Integer.toString(perusahaans.get(position).getId_perusahaan());
+            Toast.makeText(RekapAbsenPemSekolahActivity.this, perusahaans.get(position).getId_perusahaan(), Toast.LENGTH_LONG).show();
+            presenter.getRekap(id_perusahaan);
             perusahaan.setVisibility(View.GONE);
             absen.setVisibility(View.VISIBLE);
-            presenter.getRekap(id_perusahaan);
         });
 
-        itemClickListeners = ((view, position) -> {
-            String nis = Integer.toString(rekapAbsens.get(position).getNis());
-            String nama = rekapAbsens.get(position).getNama();
-            Toast.makeText(this, nis + nama, Toast.LENGTH_LONG).show();
-        });
+//        itemClickListeners = ((view, position) -> {
+//            String nis = Integer.toString(rekapAbsens.get(position).getNis());
+//            String nama = rekapAbsens.get(position).getNama();
+//            Toast.makeText(this, nis + nama, Toast.LENGTH_LONG).show();
+//        });
 
     }
 
@@ -113,11 +114,11 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
 
     @Override
     public void onGetReseltRek(List<RekapAbsen> rekapAbsens) {
-        adapters = new RekapAbsenPemSekolahAdapters(this, rekapAbsens, itemClickListeners);
-        adapters.notifyDataSetChanged();
-        rv_absen.setAdapter(adapters);
-
-        this.rekapAbsens = rekapAbsens;
+//        adapters = new RekapAbsenPemSekolahAdapters(this, rekapAbsens, itemClickListeners);
+//        adapters.notifyDataSetChanged();
+//        rv_absen.setAdapter(adapters);
+//
+//        this.rekapAbsens = rekapAbsens;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.skariga.simorin.siswa;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +36,7 @@ public class ListJurnalSiswaActivity extends AppCompatActivity implements ListJu
     ImageView kembali;
     RecyclerView recyclerView;
     SweetAlertDialog sweetAlertDialog;
+    AlertDialog.Builder alertDialog;
 
     List<JurnalPerusahaan> jurnalPerusahaans;
 
@@ -78,11 +80,17 @@ public class ListJurnalSiswaActivity extends AppCompatActivity implements ListJu
             String prosedur = jurnalPerusahaans.get(position).getProsedur();
             String spek = jurnalPerusahaans.get(position).getSpek();
 
-            new SweetAlertDialog(this)
-                    .setContentText("Kegiatan Kerja (Pekerjaan)\n" + kegiatan
-                            + "\n Prosedur Pengerjaan Trouble Shooting \n" + prosedur
-                            + "\n Spesifikasi Bahan dan Peralatan Kerja \n" + spek)
-                    .show();
+            alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setMessage("Kegiatan Kerja (Pekerjaan)\n" + kegiatan + "\n" + " "
+                    + "\nProsedur Pengerjaan Trouble Shooting\n" + prosedur + "\n" + " "
+                    + "\nSpesifikasi Bahan dan Peralatan Kerja\n" + spek);
+            alertDialog.show();
+
+//            new SweetAlertDialog(this)
+//                    .setContentText("Kegiatan Kerja (Pekerjaan)\n" + kegiatan
+//                            + "\n Prosedur Pengerjaan Trouble Shooting \n" + prosedur
+//                            + "\n Spesifikasi Bahan dan Peralatan Kerja \n" + spek)
+//                    .show();
         });
     }
 

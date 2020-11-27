@@ -10,10 +10,14 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
@@ -24,12 +28,13 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implements ListJurnalPemPerusahaanView{
+public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implements ListJurnalPemPerusahaanView {
 
     ShowMoreTextView kegiatan;
     ImageView kembali;
     Button semua, dipilih;
     RecyclerView recyclerView;
+    CheckBox checkBox;
 
     List<JurnalPerusahaan> jurnalPerusahaan;
 
@@ -48,6 +53,7 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
         semua = findViewById(R.id.ttd_semua);
         dipilih = findViewById(R.id.ttd_dipilih);
         recyclerView = findViewById(R.id.recycler_view);
+        checkBox = findViewById(R.id.checkBox1);
 
         semua.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Maaf...")
@@ -72,18 +78,17 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
         presenter = new ListJurnalPemPerusahaanPresenter(this);
         presenter.getDatas(mId);
 
-        itemClickListener = ((view, position) -> {
+        itemClickListener = (view, position) -> {
             String kegiatan = jurnalPerusahaan.get(position).getKegiatan();
             String prosedur = jurnalPerusahaan.get(position).getProsedur();
             String spek = jurnalPerusahaan.get(position).getSpek();
 
-            new SweetAlertDialog(this)
+            new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this)
                     .setContentText("Kegiatan Kerja (Perkerjaan) \n" + kegiatan +
                             "\nProsedur Pengerjaan Trouble Shooting\n" + prosedur +
                             "\nSpesifikasi Bahan dan Peralatan Kerja\n" + spek)
                     .show();
-
-        });
+        };
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

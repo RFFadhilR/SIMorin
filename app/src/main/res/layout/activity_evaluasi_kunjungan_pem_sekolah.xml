@@ -118,67 +118,6 @@
                     android:layout_marginBottom="10dp" />
 
                 <LinearLayout
-                    android:id="@+id/permasalahan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="1. Rekap Permasalahan"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Evaluasi Hasil Kunjungan"
-                        android:textColor="@color/black" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/ly_evaluasi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp">
-
-                        <EditText
-                            android:id="@+id/et_evaluasi"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:lines="5"
-                            android:maxLines="5"
-                            android:textColor="@color/black" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Penyelesaian"
-                        android:textColor="@color/black" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/ly_penyelesaian"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp">
-
-                        <EditText
-                            android:id="@+id/et_penyelesaian"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:lines="5"
-                            android:maxLines="5"
-                            android:textColor="@color/black" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/ly_lksp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -189,7 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="2. Rekap monitoring siswa prakerin"
+                        android:text="Rekap monitoring siswa prakerin"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
@@ -413,45 +352,106 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/permasalahan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Rekap Permasalahan"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Evaluasi Hasil Kunjungan"
+                        android:textColor="@color/black" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/ly_evaluasi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_marginBottom="5dp">
 
-                        <RelativeLayout
+                        <EditText
+                            android:id="@+id/et_evaluasi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="0.5">
+                            android:lines="5"
+                            android:maxLines="5"
+                            android:textColor="@color/black" />
 
-                            <Button
-                                android:id="@+id/btn_ttd_siswa"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/capsule_gradient"
-                                android:text="TTD Siswa"
-                                android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                        </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Penyelesaian"
+                        android:textColor="@color/black" />
 
-                        <RelativeLayout
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/ly_penyelesaian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp">
+
+                        <EditText
+                            android:id="@+id/et_penyelesaian"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="0.5">
+                            android:lines="5"
+                            android:maxLines="5"
+                            android:textColor="@color/black" />
 
-                            <Button
-                                android:id="@+id/btn_ttd_pembimbing"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/capsule_gradient"
-                                android:text="TTD Pembimbing"
-                                android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                        </RelativeLayout>
+                </LinearLayout>
 
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.5">
+
+                        <Button
+                            android:id="@+id/btn_ttd_siswa"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/capsule_gradient"
+                            android:text="TTD Siswa"
+                            android:textColor="@color/white" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0.5">
+
+                        <Button
+                            android:id="@+id/btn_ttd_pembimbing"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/capsule_gradient"
+                            android:text="TTD Pembimbing"
+                            android:textColor="@color/white" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 

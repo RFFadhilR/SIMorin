@@ -43,7 +43,8 @@ import java.util.logging.SimpleFormatter;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCallback {
-    private static String URL_ABSEN = "https://simorin.malangcreativeteam.biz.id/api/absen_siswa";
+    //    private static String URL_ABSEN = "https://simorin.malangcreativeteam.biz.id/api/absen_siswa";
+    private static String URL_ABSEN = "http://192.168.20.109/SimorinLaravel/public/api/absen_siswa";
     Button btn_kembali, btn_absen;
     TextView tv_tanggal;
     GoogleMap map;
@@ -160,6 +161,11 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                         new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error...")
                                 .setContentText(ex.toString())
+                                .setConfirmClickListener(sweetAlertDialog -> {
+                                    Intent i = new Intent(this, DashboardActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                })
                                 .show();
                     }
                 },
@@ -168,11 +174,16 @@ public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCa
                     new SweetAlertDialog(AbsenSiswaActivity.this, SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("Error...")
                             .setContentText(error.toString())
+                            .setConfirmClickListener(sweetAlertDialog -> {
+                                Intent i = new Intent(this, DashboardActivity.class);
+                                startActivity(i);
+                                finish();
+                            })
                             .show();
                 }
         ) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("user_id", id);
                 params.put("date", tanggal);

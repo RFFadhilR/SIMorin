@@ -19,7 +19,7 @@ import retrofit2.http.POST;
 public interface ApiInterface {
 
     @FormUrlEncoded
-    @POST("list-absen-perusahaan")
+    @POST("list-absen")
     Call<List<AbsenPerusahaan>> getAbsens(
             @Field("id_pembimbing_perusahaan") String id_pembimbing_perusahaan
     );

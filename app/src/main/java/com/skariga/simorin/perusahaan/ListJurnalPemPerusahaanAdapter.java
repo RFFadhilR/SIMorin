@@ -52,7 +52,7 @@ public class ListJurnalPemPerusahaanAdapter extends RecyclerView.Adapter<ListJur
         return jurnalPerusahaans.size();
     }
 
-    public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tv_tanggal, tv_nama;
         ShowMoreTextView tv_kegiatan;
@@ -71,12 +71,13 @@ public class ListJurnalPemPerusahaanAdapter extends RecyclerView.Adapter<ListJur
 
             this.itemClickListener = itemClickListener;
             card_view.setOnClickListener(this);
+            cb.setOnClickListener(this);
 
         }
 
         @Override
         public void onClick(View v) {
-            itemClickListener.onItemClick(v, getAdapterPosition());
+            itemClickListener.onItemClick(card_view, getAdapterPosition());
         }
     }
 

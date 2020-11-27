@@ -47,6 +47,8 @@ import com.skariga.simorin.siswa.ListJurnalSiswaActivity;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -61,7 +63,9 @@ public class DashboardActivity extends AppCompatActivity {
     RelativeLayout rl1, rl2, rl3;
     SessionManager sessionManager;
     FusedLocationProviderClient fusedLocationProviderClient;
-    String URL_FALIDASI = "https://simorin.malangcreativeteam.biz.id/api/get-jurnal-siswa";
+//    String URL_FALIDASI = "https://simorin.malangcreativeteam.biz.id/api/get-jurnal-siswa";
+    String URL_FALIDASI = "http://192.168.20.109/SimorinLaravel/public/api/get-jurnal-siswa";
+    SweetAlertDialog sweetAlertDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -96,15 +100,12 @@ public class DashboardActivity extends AppCompatActivity {
             nama.setText(mNama);
             psb.setText(mPer);
 
+            sweetAlertDialog = new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading...");
+
             logout.setOnClickListener(v -> new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                     .setTitleText("Yeay...")
                     .setContentText("Anda berhasil Logout!")
-                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                            sessionManager.logout();
-                        }
-                    })
+                    .setConfirmClickListener(sweetAlertDialog -> sessionManager.logout())
                     .show());
 
             if (mRole.equals("Siswa")) {
@@ -152,7 +153,10 @@ public class DashboardActivity extends AppCompatActivity {
                 });
 
                 rl2.setOnClickListener(v -> {
-                    getData(mId);
+                    Date date = new Date();
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    sweetAlertDialog.show();
+                    getData(mId, format.format(date));
                 });
 
                 rl3.setOnClickListener(v -> {
@@ -298,10 +302,11 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
-    private void getData(String id) {
+    private void getData(String id, String tanggal) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_FALIDASI,
                 response -> {
                     try {
+                        sweetAlertDialog.dismiss();
                         JSONObject jsonObject = new JSONObject(response);
                         String result = jsonObject.getString("RESULT");
                         String message = jsonObject.getString("MESSAGE"); // "Anda sudah memasukkan jurnal kegiatan pada hari ini dan juga berhasil untuk absen pulang!"
@@ -332,6 +337,7 @@ public class DashboardActivity extends AppCompatActivity {
                     }
                 },
                 error -> {
+                    sweetAlertDialog.dismiss();
                     new SweetAlertDialog(DashboardActivity.this, SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("Error...")
                             .setContentText(error.toString())
@@ -341,6 +347,7 @@ public class DashboardActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_siswa", id);
+                params.put("tanggal", tanggal);
                 return params;
             }
         };
