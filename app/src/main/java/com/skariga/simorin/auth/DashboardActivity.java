@@ -64,7 +64,7 @@ public class DashboardActivity extends AppCompatActivity {
     SessionManager sessionManager;
     FusedLocationProviderClient fusedLocationProviderClient;
 //    String URL_FALIDASI = "https://simorin.malangcreativeteam.biz.id/api/get-jurnal-siswa";
-    String URL_FALIDASI = "http://192.168.20.109/SimorinLaravel/public/api/get-jurnal-siswa";
+    String URL_FALIDASI = "http://192.168.10.226/SimorinLaravel/public/api/get-jurnal-siswa";
     SweetAlertDialog sweetAlertDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.O)

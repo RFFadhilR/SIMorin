@@ -15,36 +15,36 @@ import com.skariga.simorin.R;
 import com.skariga.simorin.model.JurnalPerusahaan;
 import com.skyhope.showmoretextview.ShowMoreTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListJurnalPemPerusahaanAdapter extends RecyclerView.Adapter<ListJurnalPemPerusahaanAdapter.RecyclerViewAdapter> {
 
     private Context context;
     private List<JurnalPerusahaan> jurnalPerusahaans;
-    private ItemClickListener itemClickListener;
 
-    public ListJurnalPemPerusahaanAdapter(Context context, List<JurnalPerusahaan> jurnalPerusahaans, ItemClickListener itemClickListener) {
+    public ListJurnalPemPerusahaanAdapter(Context context, List<JurnalPerusahaan> jurnalPerusahaans) {
         this.context = context;
         this.jurnalPerusahaans = jurnalPerusahaans;
-        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
     @Override
     public RecyclerViewAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_jurnal_perusahaan, parent, false);
-        return new RecyclerViewAdapter(v, itemClickListener);
+        return new RecyclerViewAdapter(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter holder, int position) {
-        JurnalPerusahaan jurnal = jurnalPerusahaans.get(position);
-        holder.tv_nama.setText(jurnal.getNama_siswa());
-        holder.tv_tanggal.setText(jurnal.getTanggal() + " / " + jurnal.getWaktu_masuk());
-        holder.tv_kegiatan.setText(jurnal.getKegiatan());
-        holder.tv_kegiatan.setShowingLine(2);
-        holder.tv_kegiatan.addShowLessText("Lebih Dikit");
-        holder.tv_kegiatan.addShowMoreText("Lebih Banyak");
+        holder.bind(jurnalPerusahaans.get(position));
+//        JurnalPerusahaan jurnal = jurnalPerusahaans.get(position);
+//        holder.tv_nama.setText(jurnal.getNama_siswa());
+//        holder.tv_tanggal.setText(jurnal.getTanggal() + " / " + jurnal.getWaktu_masuk());
+//        holder.tv_kegiatan.setText(jurnal.getKegiatan());
+//        holder.tv_kegiatan.setShowingLine(2);
+//        holder.tv_kegiatan.addShowLessText("Lebih Dikit");
+//        holder.tv_kegiatan.addShowMoreText("Lebih Banyak");
     }
 
     @Override
@@ -52,15 +52,14 @@ public class ListJurnalPemPerusahaanAdapter extends RecyclerView.Adapter<ListJur
         return jurnalPerusahaans.size();
     }
 
-    public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class RecyclerViewAdapter extends RecyclerView.ViewHolder {
 
         TextView tv_tanggal, tv_nama;
         ShowMoreTextView tv_kegiatan;
         CheckBox cb;
         CardView card_view;
-        ItemClickListener itemClickListener;
 
-        public RecyclerViewAdapter(View itemView, ItemClickListener itemClickListener) {
+        public RecyclerViewAdapter(View itemView) {
             super(itemView);
 
             tv_nama = itemView.findViewById(R.id.tv2);
@@ -69,19 +68,31 @@ public class ListJurnalPemPerusahaanAdapter extends RecyclerView.Adapter<ListJur
             cb = itemView.findViewById(R.id.checkBox1);
             card_view = itemView.findViewById(R.id.card_view);
 
-            this.itemClickListener = itemClickListener;
-            card_view.setOnClickListener(this);
-            cb.setOnClickListener(this);
-
         }
 
-        @Override
-        public void onClick(View v) {
-            itemClickListener.onItemClick(card_view, getAdapterPosition());
+        void bind(final JurnalPerusahaan jurnal) {
+            tv_nama.setText(jurnal.getNama_siswa());
+            tv_tanggal.setText(jurnal.getTanggal() + " / " + jurnal.getWaktu_masuk());
+            tv_kegiatan.setText(jurnal.getKegiatan());
+            tv_kegiatan.setShowingLine(2);
+            tv_kegiatan.addShowLessText("Lebih Dikit");
+            tv_kegiatan.addShowMoreText("Lebih Banyak");
+            cb.setChecked(jurnal.isChecked() ? true : false);
+            card_view.setOnClickListener(v -> {
+                jurnal.setChecked(!jurnal.isChecked());
+                cb.setChecked(jurnal.isChecked() ? true : false);
+            });
         }
+
     }
 
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
+    public List<JurnalPerusahaan> getSelected() {
+        ArrayList<JurnalPerusahaan> selected = new ArrayList<>();
+        for (int i = 0; i < jurnalPerusahaans.size(); i++) {
+            if (jurnalPerusahaans.get(i).isChecked()) {
+                selected.add(jurnalPerusahaans.get(i));
+            }
+        }
+        return selected;
     }
 }

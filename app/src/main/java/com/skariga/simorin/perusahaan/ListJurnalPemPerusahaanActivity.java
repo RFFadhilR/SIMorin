@@ -40,7 +40,6 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
 
     ListJurnalPemPerusahaanAdapter adapter;
     ListJurnalPemPerusahaanPresenter presenter;
-    ListJurnalPemPerusahaanAdapter.ItemClickListener itemClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +59,23 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
                 .setContentText("Fitur ini masih dalam pengembangan :)")
                 .show());
 
-        dipilih.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Maaf...")
-                .setContentText("Fitur ini masih dalam pengembangan :)")
-                .show());
+//        new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+//                .setTitleText("Maaf...")
+//                .setContentText("Fitur ini masih dalam pengembangan :)")
+//                .show()
+
+        dipilih.setOnClickListener(v -> {
+            if (adapter.getSelected().size() > 0) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < adapter.getSelected().size(); i++) {
+                    stringBuilder.append(adapter.getSelected().get(i).getId_jurnal());
+                    stringBuilder.append("\n");
+                }
+                Toast.makeText(this, stringBuilder.toString().trim(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "KOSONG!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         kembali.setOnClickListener(v -> {
             Intent i = new Intent(ListJurnalPemPerusahaanActivity.this, DashboardActivity.class);
@@ -77,18 +89,6 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
 
         presenter = new ListJurnalPemPerusahaanPresenter(this);
         presenter.getDatas(mId);
-
-        itemClickListener = (view, position) -> {
-            String kegiatan = jurnalPerusahaan.get(position).getKegiatan();
-            String prosedur = jurnalPerusahaan.get(position).getProsedur();
-            String spek = jurnalPerusahaan.get(position).getSpek();
-
-            new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this)
-                    .setContentText("Kegiatan Kerja (Perkerjaan) \n" + kegiatan +
-                            "\nProsedur Pengerjaan Trouble Shooting\n" + prosedur +
-                            "\nSpesifikasi Bahan dan Peralatan Kerja\n" + spek)
-                    .show();
-        };
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -105,7 +105,7 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
 
     @Override
     public void onGetResults(List<JurnalPerusahaan> jurnalPerusahaans) {
-        adapter = new ListJurnalPemPerusahaanAdapter(this, jurnalPerusahaans, itemClickListener);
+        adapter = new ListJurnalPemPerusahaanAdapter(this, jurnalPerusahaans);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 

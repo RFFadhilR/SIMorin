@@ -36,7 +36,7 @@ public class JurnalKegiatanSiswaActivity extends AppCompatActivity {
     SimpleDateFormat format;
     EditText kegiatan_kerja, prosedur_pengerjaan, spesifikasi_bahan;
 //    String URL_INPUTJURNAL = "https://simorin.malangcreativeteam.biz.id/api/input_jurnal";
-    String URL_INPUTJURNAL = "http://192.168.20.109/SimorinLaravel/public/api/input_jurnal";
+    String URL_INPUTJURNAL = "http://192.168.10.226/SimorinLaravel/public/api/input_jurnal";
     SweetAlertDialog sweetAlertDialog, alertDialog;
 
     @Override

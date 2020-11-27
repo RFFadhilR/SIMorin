@@ -19,6 +19,15 @@ public class JurnalPerusahaan {
     private String spek;
     @SerializedName("nama_siswa")
     private String nama_siswa;
+    private boolean isChecked = false;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public int getId_jurnal() {
         return id_jurnal;
