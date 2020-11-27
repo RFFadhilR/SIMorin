@@ -86,6 +86,16 @@ public class ListJurnalPemPerusahaanAdapter extends RecyclerView.Adapter<ListJur
 
     }
 
+    public List<JurnalPerusahaan> getAllData() {
+        ArrayList<JurnalPerusahaan> allData = new ArrayList<>();
+
+        for (int i = 0; i < jurnalPerusahaans.size(); i++) {
+            allData.add(jurnalPerusahaans.get(i));
+        }
+
+        return allData;
+    }
+
     public List<JurnalPerusahaan> getSelected() {
         ArrayList<JurnalPerusahaan> selected = new ArrayList<>();
         for (int i = 0; i < jurnalPerusahaans.size(); i++) {

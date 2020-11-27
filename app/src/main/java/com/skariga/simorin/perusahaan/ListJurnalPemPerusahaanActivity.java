@@ -54,10 +54,21 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
         recyclerView = findViewById(R.id.recycler_view);
         checkBox = findViewById(R.id.checkBox1);
 
-        semua.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Maaf...")
-                .setContentText("Fitur ini masih dalam pengembangan :)")
-                .show());
+//        semua.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
+//                .setTitleText("Maaf...")
+//                .setContentText("Fitur ini masih dalam pengembangan :)")
+//                .show());
+
+        semua.setOnClickListener(v -> {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < adapter.getAllData().size(); i++) {
+                stringBuilder.append(adapter.getAllData().get(i).getId_jurnal());
+                stringBuilder.append("\n");
+            }
+
+            Toast.makeText(this, stringBuilder.toString().trim(), Toast.LENGTH_SHORT).show();
+        });
 
 //        new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
 //                .setTitleText("Maaf...")
