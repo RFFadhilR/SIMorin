@@ -63,8 +63,8 @@ public class DashboardActivity extends AppCompatActivity {
     RelativeLayout rl1, rl2, rl3;
     SessionManager sessionManager;
     FusedLocationProviderClient fusedLocationProviderClient;
-//    String URL_FALIDASI = "https://simorin.malangcreativeteam.biz.id/api/get-jurnal-siswa";
-    String URL_FALIDASI = "http://192.168.10.226/SimorinLaravel/public/api/get-jurnal-siswa";
+    //    String URL_FALIDASI = "https://simorin.malangcreativeteam.biz.id/api/get-jurnal-siswa";
+    String URL_FALIDASI = "http://192.168.1.5/SimorinLaravel/public/api/get-jurnal-siswa";
     SweetAlertDialog sweetAlertDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -200,7 +200,7 @@ public class DashboardActivity extends AppCompatActivity {
                 rl3.setVisibility(View.GONE);
 
                 tv1.setText("Acc Absensi");
-                tv2.setText("Acc Jurnal");
+                tv2.setText("TTD Jurnal");
 
                 iv1.setImageResource(R.drawable.accabsen);
                 iv1.setTooltipText("Acc Absensi");
@@ -227,7 +227,10 @@ public class DashboardActivity extends AppCompatActivity {
                                     startActivity(i);
                                     finish();
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+                                    new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                                            .setTitleText("Error...")
+                                            .setContentText(e.toString())
+                                            .show();
                                 }
                             }
                         });

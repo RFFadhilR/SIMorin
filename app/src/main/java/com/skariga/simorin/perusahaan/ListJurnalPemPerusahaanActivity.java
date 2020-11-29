@@ -35,6 +35,7 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
     Button semua, dipilih;
     RecyclerView recyclerView;
     CheckBox checkBox;
+    SweetAlertDialog sweetAlertDialog;
 
     List<JurnalPerusahaan> jurnalPerusahaan;
 
@@ -54,33 +55,26 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
         recyclerView = findViewById(R.id.recycler_view);
         checkBox = findViewById(R.id.checkBox1);
 
-//        semua.setOnClickListener(v -> new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-//                .setTitleText("Maaf...")
-//                .setContentText("Fitur ini masih dalam pengembangan :)")
-//                .show());
+        sweetAlertDialog = new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading...");
+        sweetAlertDialog.show();
 
         semua.setOnClickListener(v -> {
             StringBuilder stringBuilder = new StringBuilder();
 
             for (int i = 0; i < adapter.getAllData().size(); i++) {
                 stringBuilder.append(adapter.getAllData().get(i).getId_jurnal());
-                stringBuilder.append("\n");
+                stringBuilder.append(", ");
             }
 
             Toast.makeText(this, stringBuilder.toString().trim(), Toast.LENGTH_SHORT).show();
         });
-
-//        new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.WARNING_TYPE)
-//                .setTitleText("Maaf...")
-//                .setContentText("Fitur ini masih dalam pengembangan :)")
-//                .show()
 
         dipilih.setOnClickListener(v -> {
             if (adapter.getSelected().size() > 0) {
                 StringBuilder stringBuilder = new StringBuilder();
                 for (int i = 0; i < adapter.getSelected().size(); i++) {
                     stringBuilder.append(adapter.getSelected().get(i).getId_jurnal());
-                    stringBuilder.append("\n");
+                    stringBuilder.append(", ");
                 }
                 Toast.makeText(this, stringBuilder.toString().trim(), Toast.LENGTH_SHORT).show();
             } else {
@@ -121,6 +115,7 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
         recyclerView.setAdapter(adapter);
 
         jurnalPerusahaan = jurnalPerusahaans;
+        sweetAlertDialog.dismiss();
     }
 
     @Override
@@ -128,6 +123,11 @@ public class ListJurnalPemPerusahaanActivity extends AppCompatActivity implement
         new SweetAlertDialog(ListJurnalPemPerusahaanActivity.this, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText("Error...")
                 .setContentText(message)
+                .setConfirmClickListener(sweetAlertDialog -> {
+                    Intent i = new Intent(this, DashboardActivity.class);
+                    startActivity(i);
+                    finish();
+                })
                 .show();
     }
 }

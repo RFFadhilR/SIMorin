@@ -35,4 +35,23 @@ public class ListJurnalSiswaPresenter {
             }
         });
     }
+
+    void getSearch(String id, String mulai, String sampai) {
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<List<JurnalPerusahaan>> call = apiInterface.getSearch(id, mulai, sampai);
+        call.enqueue(new Callback<List<JurnalPerusahaan>>() {
+            @Override
+            public void onResponse(Call<List<JurnalPerusahaan>> call, Response<List<JurnalPerusahaan>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    view.onGetResult(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<JurnalPerusahaan>> call, Throwable t) {
+                view.onErrorResult(t.getLocalizedMessage());
+            }
+        });
+    }
+
 }

@@ -44,7 +44,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AbsenSiswaActivity extends FragmentActivity implements OnMapReadyCallback {
     //    private static String URL_ABSEN = "https://simorin.malangcreativeteam.biz.id/api/absen_siswa";
-    private static String URL_ABSEN = "http://192.168.10.226/SimorinLaravel/public/api/absen_siswa";
+    private static String URL_ABSEN = "http://192.168.1.5/SimorinLaravel/public/api/absen_siswa";
     Button btn_kembali, btn_absen;
     TextView tv_tanggal;
     GoogleMap map;

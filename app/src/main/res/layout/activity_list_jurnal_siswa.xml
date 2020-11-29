@@ -58,6 +58,8 @@
                 android:id="@+id/et_mulai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
                 android:hint="Mulai Dari" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -75,6 +77,8 @@
                 android:id="@+id/et_sampai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
                 android:hint="Sampai Dari" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -104,67 +108,67 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_below="@id/content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginLeft="25dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp" />
 
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/content"-->
-<!--        android:layout_marginTop="20dp">-->
+    <!--    <ScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/content"-->
+    <!--        android:layout_marginTop="20dp">-->
 
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
+    <!--        <RelativeLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content">-->
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="25dp"-->
-<!--                android:layout_marginRight="25dp"-->
-<!--                android:background="@drawable/capsule_putih"-->
-<!--                android:gravity="center_vertical"-->
-<!--                android:orientation="vertical">-->
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginLeft="25dp"-->
+    <!--                android:layout_marginRight="25dp"-->
+    <!--                android:background="@drawable/capsule_putih"-->
+    <!--                android:gravity="center_vertical"-->
+    <!--                android:orientation="vertical">-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tv2"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="15dp"-->
-<!--                    android:layout_marginTop="15dp"-->
-<!--                    android:text="Risqullah Fani Fadhil"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold" />-->
+    <!--                <TextView-->
+    <!--                    android:id="@+id/tv2"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginLeft="15dp"-->
+    <!--                    android:layout_marginTop="15dp"-->
+    <!--                    android:text="Risqullah Fani Fadhil"-->
+    <!--                    android:textColor="@color/black"-->
+    <!--                    android:textStyle="bold" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tv22"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/tv2"-->
-<!--                    android:layout_marginLeft="15dp"-->
-<!--                    android:layout_marginBottom="5dp"-->
-<!--                    android:text="01 Januari 2020 / 00:00"-->
-<!--                    android:textColor="@color/black" />-->
+    <!--                <TextView-->
+    <!--                    android:id="@+id/tv22"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_below="@id/tv2"-->
+    <!--                    android:layout_marginLeft="15dp"-->
+    <!--                    android:layout_marginBottom="5dp"-->
+    <!--                    android:text="01 Januari 2020 / 00:00"-->
+    <!--                    android:textColor="@color/black" />-->
 
-<!--                <com.skyhope.showmoretextview.ShowMoreTextView-->
-<!--                    android:id="@+id/kegiatan"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/tv22"-->
-<!--                    android:layout_marginLeft="15dp"-->
-<!--                    android:layout_marginRight="15dp"-->
-<!--                    android:layout_marginBottom="15dp"-->
-<!--                    android:text="@string/lorem"-->
-<!--                    android:textColor="@color/black" />-->
+    <!--                <com.skyhope.showmoretextview.ShowMoreTextView-->
+    <!--                    android:id="@+id/kegiatan"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_below="@id/tv22"-->
+    <!--                    android:layout_marginLeft="15dp"-->
+    <!--                    android:layout_marginRight="15dp"-->
+    <!--                    android:layout_marginBottom="15dp"-->
+    <!--                    android:text="@string/lorem"-->
+    <!--                    android:textColor="@color/black" />-->
 
-<!--            </LinearLayout>-->
+    <!--            </LinearLayout>-->
 
-<!--        </RelativeLayout>-->
+    <!--        </RelativeLayout>-->
 
-<!--    </ScrollView>-->
+    <!--    </ScrollView>-->
 
 </RelativeLayout>

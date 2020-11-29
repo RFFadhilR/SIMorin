@@ -71,4 +71,13 @@ public interface ApiInterface {
     Call<List<JurnalPerusahaan>> getJuranlSiswa(
             @Field("id_siswa") String id_siswa
     );
+
+    @FormUrlEncoded
+    @POST("search-jurnal-siswa")
+    Call<List<JurnalPerusahaan>> getSearch(
+            @Field("id") String id,
+            @Field("mulai") String mulai,
+            @Field("sampai") String sampai
+    );
+
 }

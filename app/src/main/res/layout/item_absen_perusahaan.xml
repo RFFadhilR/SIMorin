@@ -13,6 +13,7 @@
         android:background="@color/light_blue">
 
         <LinearLayout
+            android:id="@+id/linear_ly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -26,9 +27,12 @@
                 android:layout_marginLeft="15dp">
 
                 <CheckBox
+                    android:buttonTint="@color/black"
                     android:id="@+id/checkBox1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false" />
 
             </RelativeLayout>
 
@@ -65,22 +69,22 @@
                     android:layout_marginBottom="15dp"
                     android:text="MASUK"
                     android:textColor="@color/green"
-                    android:textSize="18dp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/lihat_lokasi"
+                    android:id="@+id/tv_lihat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="15dp"
                     android:clickable="true"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    android:text="Tekan untuk \n Lihat Lokasi"
+                    android:text="Tekan Untuk\nLihat Lokasi"
                     android:textColor="@color/blue"
-                    android:textStyle="bold"
-                    android:tooltipText="Lihat Lokasi Siswa" />
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 

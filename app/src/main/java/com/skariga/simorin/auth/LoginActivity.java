@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     String username, password;
     SessionManager sessionManager;
 //    public static String URL_LOGIN = "https://simorin.malangcreativeteam.biz.id/api/login";
-    public static String URL_LOGIN = "http://192.168.10.226/SimorinLaravel/public/api/login";
+    public static String URL_LOGIN = "http://192.168.1.5/SimorinLaravel/public/api/login";
     SweetAlertDialog sweetAlertDialogGlobal;
 
     @Override
@@ -75,8 +75,6 @@ public class LoginActivity extends AppCompatActivity {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
                         response -> {
                             try {
-                                System.out.println(response);
-
                                 JSONObject jsonObject = new JSONObject(response);
                                 String success = jsonObject.getString("RESULT");
 

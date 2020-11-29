@@ -48,35 +48,84 @@
             android:id="@+id/maps"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:layout_centerHorizontal="true"
-            android:layout_margin="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp" />
 
-        <Button
-            android:id="@+id/setujui_semua"
+        <LinearLayout
+            android:id="@+id/ll_semua"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/maps"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/capsule_gradient"
-            android:text="Setujui Semua"
-            android:textColor="@color/white" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/setujui_dipilih"
+            <Button
+                android:id="@+id/btn_ssemua"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/maps"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/capsule_terima"
+                android:text="Setujui Semua"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_tsemua"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/maps"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/capsule_tolak"
+                android:text="Tolak Semua"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_dipilih"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/setujui_semua"
-            android:layout_centerHorizontal="true"
+            android:layout_below="@id/ll_semua"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/capsule_gradient"
-            android:text="Setujui yang dipilih"
-            android:textColor="@color/white" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_sdipilih"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/maps"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/capsule_terima"
+                android:text="Setujui Dipilih"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_tdipilih"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/maps"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/capsule_tolak"
+                android:text="Tolak Dipilih"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -87,7 +136,7 @@
         android:layout_below="@id/rl_title"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="25dp" />
 
     <!--    <ScrollView-->
