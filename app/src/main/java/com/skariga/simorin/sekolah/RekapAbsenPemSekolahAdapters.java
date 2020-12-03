@@ -37,10 +37,10 @@ public class RekapAbsenPemSekolahAdapters extends RecyclerView.Adapter<RekapAbse
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter holder, int position) {
         RekapAbsen rekapAbsen = rekapAbsens.get(position);
-        holder.tv_nis.setText(rekapAbsen.getNis());
+        holder.tv_niss.setText(Integer.toString(rekapAbsen.getNis()));
         holder.tv_nama.setText(rekapAbsen.getNama());
         holder.tv_tanggal.setText(rekapAbsen.getTanggal());
-        holder.tv_total.setText("Total Jam : " + rekapAbsen.getTotal_jam());
+        holder.tv_total.setText("Total Jam : " + Integer.toString(rekapAbsen.getTotal_jam()));
         int status = rekapAbsen.getStatus();
         if (status == 2) {
             holder.tv_ais.setText("A / I / S : ALPHA ");
@@ -56,18 +56,18 @@ public class RekapAbsenPemSekolahAdapters extends RecyclerView.Adapter<RekapAbse
 
     public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView tv_nis, tv_nama, tv_tanggal, tv_ais, tv_total;
+        TextView tv_niss, tv_nama, tv_tanggal, tv_ais, tv_total;
         CardView cardView;
         ItemClickListener itemClickListener;
 
         public RecyclerViewAdapter(@NonNull View itemView, ItemClickListener itemClickListener) {
             super(itemView);
 
-            tv_nis = itemView.findViewById(R.id.tv_nis);
+            tv_niss = itemView.findViewById(R.id.tv_nis);
             tv_nama = itemView.findViewById(R.id.tv_nama);
             tv_tanggal = itemView.findViewById(R.id.tv_tanggal);
             tv_ais = itemView.findViewById(R.id.tv_AIS);
-            tv_total = itemView.findViewById(R.id.tv_total);
+            tv_total = itemView.findViewById(R.id.tv_totola);
             cardView = itemView.findViewById(R.id.card_view);
 
             this.itemClickListener = itemClickListener;

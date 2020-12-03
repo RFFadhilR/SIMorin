@@ -35,6 +35,7 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity implements 
     RelativeLayout perusahaan, siswa, ttd_jurnal, jurnal;
     RecyclerView rv_perusahaan, rv_siswa, rv_jurnal;
     Button semua, dipilih;
+    SweetAlertDialog sweetAlertDialog;
 
     List<Perusahaan> perusahaans;
     List<Siswa> siswas;
@@ -64,21 +65,43 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity implements 
         semua = findViewById(R.id.btn_semua);
         dipilih = findViewById(R.id.btn_dipilih);
 
+        sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading...");
+        sweetAlertDialog.show();
+
         kembali.setOnClickListener(v -> {
             Intent i = new Intent(RekapJurnalPemSekolahActivity.this, DashboardActivity.class);
             startActivity(i);
             finish();
         });
 
-        semua.setOnClickListener(v -> new SweetAlertDialog(RekapJurnalPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Maaf...")
-                .setContentText("Fitur ini masih dalam pengembangan :)")
-                .show());
+        dipilih.setOnClickListener(v -> {
+            if (adapterr.getSelected().size() > 0) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < adapterr.getSelected().size(); i++) {
+                    stringBuilder.append(adapterr.getSelected().get(i).getId_jurnal());
+                    stringBuilder.append(", ");
+                }
 
-        dipilih.setOnClickListener(v -> new SweetAlertDialog(RekapJurnalPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Maaf...")
-                .setContentText("Fitur ini masih dalam pengembangan :)")
-                .show());
+                Toast.makeText(this, stringBuilder.toString().trim(), Toast.LENGTH_SHORT).show();
+            } else {
+//                new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+//                        .setTitleText("Maaf...")
+//                        .setContentText("Anda belum memilih absen!")
+//                        .show();
+                Toast.makeText(this, "KOSONG!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        semua.setOnClickListener(v -> {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < adapterr.getAllData().size(); i++) {
+                stringBuilder.append(adapterr.getAllData().get(i).getId_jurnal());
+                stringBuilder.append(", ");
+            }
+
+            Toast.makeText(this, stringBuilder.toString().trim(), Toast.LENGTH_SHORT).show();
+        });
 
         String mId = getIntent().getStringExtra("id");
 
@@ -91,6 +114,10 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity implements 
 
         itemClickListenerp = ((view, position) -> {
             String id = Integer.toString(perusahaans.get(position).getId_perusahaan());
+//            new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+//                    .setTitleText(id)
+//                    .show();
+            sweetAlertDialog.show();
             presenter.getSiswa(id);
             perusahaan.setVisibility(View.GONE);
             siswa.setVisibility(View.VISIBLE);
@@ -99,6 +126,7 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity implements 
         itemClicklisteners = ((view, position) -> {
             String id = Integer.toString(siswas.get(position).getId_siswa());
             presenter.getRekapJurnal(id);
+            sweetAlertDialog.show();
             siswa.setVisibility(View.GONE);
             ttd_jurnal.setVisibility(View.VISIBLE);
             rv_jurnal.setVisibility(View.VISIBLE);
@@ -133,6 +161,7 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity implements 
         rv_perusahaan.setAdapter(adapterp);
 
         this.perusahaans = perusahaans;
+        sweetAlertDialog.dismiss();
     }
 
     @Override
@@ -142,6 +171,7 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity implements 
         rv_siswa.setAdapter(adapters);
 
         this.siswas = siswas;
+        sweetAlertDialog.dismiss();
     }
 
     @Override
@@ -151,7 +181,7 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity implements 
         rv_jurnal.setAdapter(adapterr);
 
         rekapJurnals = jurnals;
-
+        sweetAlertDialog.dismiss();
     }
 
     @Override
@@ -159,6 +189,11 @@ public class RekapJurnalPemSekolahActivity extends AppCompatActivity implements 
         new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText("Error...")
                 .setContentText(message)
+                .setConfirmClickListener(sweetAlertDialog -> {
+                    Intent i = new Intent(this, DashboardActivity.class);
+                    startActivity(i);
+                    finish();
+                })
                 .show();
     }
 }

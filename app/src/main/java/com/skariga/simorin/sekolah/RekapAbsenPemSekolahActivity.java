@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.Dash;
 import com.skariga.simorin.R;
 import com.skariga.simorin.auth.DashboardActivity;
 import com.skariga.simorin.model.Perusahaan;
@@ -33,6 +34,7 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
     RecyclerView rv_persuahaan, rv_absen;
     ImageView kembali;
     Button export;
+    SweetAlertDialog sweetAlertDialog;
 
     List<Perusahaan> perusahaans;
     List<RekapAbsen> rekapAbsens;
@@ -56,6 +58,8 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
         kembali = findViewById(R.id.back);
         export = findViewById(R.id.btn_export);
 
+        sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading...");
+
         export.setOnClickListener(v -> new SweetAlertDialog(RekapAbsenPemSekolahActivity.this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Maaf...")
                 .setContentText("Fitur ini masih dalam pengembangan :)")
@@ -77,18 +81,23 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
 
         itemClickListener = ((view, position) -> {
             String id_perusahaan = Integer.toString(perusahaans.get(position).getId_perusahaan());
-            Toast.makeText(RekapAbsenPemSekolahActivity.this, perusahaans.get(position).getId_perusahaan(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(RekapAbsenPemSekolahActivity.this, id_perusahaan, Toast.LENGTH_LONG).show();
+//            new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+//                    .setTitleText(id_perusahaan)
+//                    .show();
+            sweetAlertDialog.show();
             presenter.getRekap(id_perusahaan);
             perusahaan.setVisibility(View.GONE);
             absen.setVisibility(View.VISIBLE);
         });
 
-//        itemClickListeners = ((view, position) -> {
-//            String nis = Integer.toString(rekapAbsens.get(position).getNis());
-//            String nama = rekapAbsens.get(position).getNama();
-//            Toast.makeText(this, nis + nama, Toast.LENGTH_LONG).show();
-//        });
+        itemClickListeners = ((view, position) -> {
+            String nis = Integer.toString(rekapAbsens.get(position).getNis());
+            String nama = rekapAbsens.get(position).getNama();
+            Toast.makeText(this, nis + " " + nama, Toast.LENGTH_LONG).show();
+        });
 
+        sweetAlertDialog.show();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -110,15 +119,17 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
         rv_persuahaan.setAdapter(adapter);
 
         this.perusahaans = perusahaans;
+        sweetAlertDialog.dismiss();
     }
 
     @Override
     public void onGetReseltRek(List<RekapAbsen> rekapAbsens) {
-//        adapters = new RekapAbsenPemSekolahAdapters(this, rekapAbsens, itemClickListeners);
-//        adapters.notifyDataSetChanged();
-//        rv_absen.setAdapter(adapters);
-//
-//        this.rekapAbsens = rekapAbsens;
+        adapters = new RekapAbsenPemSekolahAdapters(this, rekapAbsens, itemClickListeners);
+        adapters.notifyDataSetChanged();
+        rv_absen.setAdapter(adapters);
+
+        this.rekapAbsens = rekapAbsens;
+        sweetAlertDialog.dismiss();
     }
 
     @Override
@@ -126,6 +137,11 @@ public class RekapAbsenPemSekolahActivity extends AppCompatActivity implements R
         new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText("Error...")
                 .setContentText(message)
+                .setConfirmClickListener(sweetAlertDialog -> {
+                    Intent i = new Intent(RekapAbsenPemSekolahActivity.this, DashboardActivity.class);
+                    startActivity(i);
+                    finish();
+                })
                 .show();
     }
 }

@@ -52,19 +52,24 @@ public class RekapAbsenPemSekolahAdapter extends RecyclerView.Adapter<RekapAbsen
     public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tv_perusahaan, tv_alamat, tv_total;
+        LinearLayout linearLayout;
         CardView cardView;
         ItemClickListener itemClickListener;
 
-        public RecyclerViewAdapter(@NonNull View itemView, ItemClickListener itemClickListener) {
+        public RecyclerViewAdapter(@NonNull View itemView, ItemClickListener itemClickListeners) {
             super(itemView);
-
+            linearLayout = itemView.findViewById(R.id.btn_perusahaan);
             tv_perusahaan = itemView.findViewById(R.id.tv_perusahaan);
             tv_alamat = itemView.findViewById(R.id.tv_alamat);
             tv_total = itemView.findViewById(R.id.tv_total);
-            cardView = itemView.findViewById(R.id.card_view);
+            cardView = itemView.findViewById(R.id.crs);
 
-            this.itemClickListener = itemClickListener;
+            itemClickListener = itemClickListeners;
             cardView.setOnClickListener(this);
+            linearLayout.setOnClickListener(this);
+            tv_perusahaan.setOnClickListener(this);
+            tv_total.setOnClickListener(this);
+            tv_alamat.setOnClickListener(this);
 
         }
 

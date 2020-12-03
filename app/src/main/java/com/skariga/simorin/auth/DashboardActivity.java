@@ -63,8 +63,8 @@ public class DashboardActivity extends AppCompatActivity {
     RelativeLayout rl1, rl2, rl3;
     SessionManager sessionManager;
     FusedLocationProviderClient fusedLocationProviderClient;
-    //    String URL_FALIDASI = "https://simorin.malangcreativeteam.biz.id/api/get-jurnal-siswa";
-    String URL_FALIDASI = "http://192.168.1.5/SimorinLaravel/public/api/get-jurnal-siswa";
+    String URL_FALIDASI = "https://simorin.malangcreativeteam.biz.id/api/get-jurnal-siswa";
+    //    String URL_FALIDASI = "http://192.168.10.26/SimorinLaravel/public/api/get-jurnal-siswa";
     SweetAlertDialog sweetAlertDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -187,6 +187,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 rl2.setOnClickListener(v -> {
                     Intent i = new Intent(DashboardActivity.this, RekapJurnalPemSekolahActivity.class);
+                    i.putExtra("id", mId);
                     startActivity(i);
                     finish();
                 });

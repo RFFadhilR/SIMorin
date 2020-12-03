@@ -17,6 +17,15 @@ public class RekapJurnal {
     private String waktu_masuk;
     @SerializedName("waktu_pulang")
     private String waktu_pulang;
+    private boolean isChecked = false;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public String getWaktu_masuk() {
         return waktu_masuk;

@@ -5,6 +5,8 @@ import android.content.PeriodicSync;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,7 +42,7 @@ public class RekapJurnalPemSekolahAdapterp extends RecyclerView.Adapter<RekapJur
         Perusahaan perusahaan = perusahaans.get(position);
         holder.tv_perusahaan.setText(perusahaan.getPerusahan());
         holder.tv_alamat.setText(perusahaan.getAlamat());
-        holder.tv_total.setText("Total Siswa : "+ perusahaan.getTotal_siswa());
+        holder.tv_total.setText("Total Siswa : " + perusahaan.getTotal_siswa());
     }
 
     @Override
@@ -51,6 +53,7 @@ public class RekapJurnalPemSekolahAdapterp extends RecyclerView.Adapter<RekapJur
     public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ItemClickListener itemClickListener;
+        LinearLayout linearLayout;
         TextView tv_perusahaan, tv_alamat, tv_total;
         CardView cardView;
 
@@ -59,10 +62,15 @@ public class RekapJurnalPemSekolahAdapterp extends RecyclerView.Adapter<RekapJur
             tv_alamat = itemView.findViewById(R.id.tv_alamat);
             tv_perusahaan = itemView.findViewById(R.id.tv_perusahaan);
             tv_total = itemView.findViewById(R.id.tv_total);
-            cardView = itemView.findViewById(R.id.card_view);
+            linearLayout = itemView.findViewById(R.id.btn_perusahaan);
+            cardView = itemView.findViewById(R.id.crs);
 
             this.itemClickListener = itemClickListener;
             cardView.setOnClickListener(this);
+            linearLayout.setOnClickListener(this);
+            tv_perusahaan.setOnClickListener(this);
+            tv_total.setOnClickListener(this);
+            tv_alamat.setOnClickListener(this);
         }
 
         @Override

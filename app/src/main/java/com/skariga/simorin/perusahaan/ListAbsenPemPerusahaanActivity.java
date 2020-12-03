@@ -60,14 +60,14 @@ public class ListAbsenPemPerusahaanActivity extends FragmentActivity implements 
     ListAbsenPemPerusahaanAdapter.ItemClickListener itemClickListener;
 
     String mId;
-    String URL_SEJUTU_SEMUA = "http://192.168.1.5/SimorinLaravel/public/api/setujui-semua-absen";
-    String URL_TOLAK_SEMUA = "http://192.168.1.5/SimorinLaravel/public/api/tolak-semua-absen";
-    String URL_SEJUTU_DIPILIH = "http://192.168.1.5/SimorinLaravel/public/api/setujui-dipilih-absen";
-    String URL_TOLAK_DIPILIH = "http://192.168.1.5/SimorinLaravel/public/api/tolak-dipilih-absen";
-//    String URL_SEJUTU_SEMUA = "https://simorin.malangcreativeteam.biz.id/api/setujui-semua-absen";
-//    String URL_TOLAK_SEMUA = "https://simorin.malangcreativeteam.biz.id/api/tolak-semua-absen";
-//    String URL_SEJUTU_DIPILIH = "https://simorin.malangcreativeteam.biz.id/api/setujui-dipilih-absen";
-//    String URL_TOLAK_DIPILIH = "https://simorin.malangcreativeteam.biz.id/api/tolak-dipilih-absen";
+//    String URL_SEJUTU_SEMUA = "http://192.168.1.5/SimorinLaravel/public/api/setujui-semua-absen";
+//    String URL_TOLAK_SEMUA = "http://192.168.1.5/SimorinLaravel/public/api/tolak-semua-absen";
+//    String URL_SEJUTU_DIPILIH = "http://192.168.1.5/SimorinLaravel/public/api/setujui-dipilih-absen";
+//    String URL_TOLAK_DIPILIH = "http://192.168.1.5/SimorinLaravel/public/api/tolak-dipilih-absen";
+    String URL_SEJUTU_SEMUA = "https://simorin.malangcreativeteam.biz.id/api/setujui-semua-absen";
+    String URL_TOLAK_SEMUA = "https://simorin.malangcreativeteam.biz.id/api/tolak-semua-absen";
+    String URL_SEJUTU_DIPILIH = "https://simorin.malangcreativeteam.biz.id/api/setujui-dipilih-absen";
+    String URL_TOLAK_DIPILIH = "https://simorin.malangcreativeteam.biz.id/api/tolak-dipilih-absen";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

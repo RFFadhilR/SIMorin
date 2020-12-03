@@ -14,7 +14,7 @@ public class RekapAbsen {
     @SerializedName("status")
     private int status;
     @SerializedName("total_jam")
-    private String total_jam;
+    private int total_jam;
 
     public int getId_absen() {
         return id_absen;
@@ -56,11 +56,11 @@ public class RekapAbsen {
         this.status = status;
     }
 
-    public String getTotal_jam() {
+    public int getTotal_jam() {
         return total_jam;
     }
 
-    public void setTotal_jam(String total_jam) {
+    public void setTotal_jam(int total_jam) {
         this.total_jam = total_jam;
     }
 }

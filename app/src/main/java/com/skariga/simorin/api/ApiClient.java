@@ -4,8 +4,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-//    public static final String BASE_URL = "https://simorin.malangcreativeteam.biz.id/api/";
-    public static final String BASE_URL = "http://192.168.1.5/SimorinLaravel/public/api/";
+    public static final String BASE_URL = "https://simorin.malangcreativeteam.biz.id/api/";
+//    public static final String BASE_URL = "http://192.168.10.26/SimorinLaravel/public/api/";
     public static Retrofit retrofit;
 
     public static Retrofit getApiClient() {

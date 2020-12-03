@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ public class RekapJurnalPemSekolahAdapters extends RecyclerView.Adapter<RekapJur
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter holder, int position) {
         Siswa siswa = siswas.get(position);
-        holder.tv_nis.setText(siswa.getNis());
+        holder.tv_nis.setText(Integer.toString(siswa.getNis()));
         holder.tv_nama.setText(siswa.getNama());
     }
 
@@ -50,17 +51,21 @@ public class RekapJurnalPemSekolahAdapters extends RecyclerView.Adapter<RekapJur
 
         TextView tv_nama, tv_nis;
         CardView cardView;
+        LinearLayout linearLayout;
         ItemClicklistener itemClicklistener;
 
         public RecyclerViewAdapter(@NonNull View itemView, ItemClicklistener itemClicklistener) {
             super(itemView);
-
-            tv_nama = itemView.findViewById(R.id.tv_nama);
-            tv_nis = itemView.findViewById(R.id.tv_nis);
+            linearLayout = itemView.findViewById(R.id.siswa1);
+            tv_nama = itemView.findViewById(R.id.tv_namas);
+            tv_nis = itemView.findViewById(R.id.tv_niss);
             cardView = itemView.findViewById(R.id.card_view);
 
             this.itemClicklistener = itemClicklistener;
+            linearLayout.setOnClickListener(this);
             cardView.setOnClickListener(this);
+            tv_nis.setOnClickListener(this);
+            tv_nama.setOnClickListener(this);
         }
 
         @Override
